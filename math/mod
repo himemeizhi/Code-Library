@@ -1,0 +1,5 @@
+(a+b)%m = (a%m+b%m)%m
+(a-b)%m = ((a%m-b%m)%m+m)%m (a>b)
+(a*b)%m = (a%m*b%m)%m
+
+(a/b)%m = (a%(b*m))/b //连乘时不可用

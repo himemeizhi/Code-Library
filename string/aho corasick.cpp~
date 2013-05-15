@@ -1,0 +1,109 @@
+#include<queue>
+
+#define MAX 26
+
+struct node
+{
+    node *fal,*nxt[MAX];
+    short idx;
+    node()
+    {
+        memset(this,0,sizeof(node));
+    }
+}*rt(new node());
+std::queue<node*>Q;
+
+void free(node *p)
+{
+    for(short i(0);i<MAX;++i)
+        if(p->nxt[i])
+            free(p->nxt[i]);
+    delete p;
+}
+
+inline void add(const std::vector<short> &s,const short &idx)
+{
+    node *p=rt;
+    for(int i(0);i<s.size();++i)
+    {
+        if(!p->nxt[s[i]])
+            p->nxt[s[i]]=new node();
+        p=p->nxt[s[i]];
+    }
+    p->idx=idx;
+}
+
+inline void make()
+{
+    Q.push(rt);
+    node *p,*q;
+    short i;
+    while(!Q.empty())
+    {
+        p=Q.front();
+        Q.pop();
+        for(i=0;i<MAX;++i)
+            if(p->nxt[i])
+            {
+                q=p->fal;
+                while(q)
+                {
+                    if(q->nxt[i])
+                    {
+                        p->nxt[i]->fal=q->nxt[i];
+                        break;
+                    }
+                    q=q->fal;
+                }
+                if(!q)
+                    p->nxt[i]->fal=rt;
+                Q.push(p->nxt[i]);
+            }
+    }
+}
+
+inline void match(const std::vector<short> &s) // 有问题
+{
+    node *p(rt),*q;
+    for(int i(0);i<s.size();++i)
+    {
+        while(p!=rt && !p->nxt[s[i]])
+            p=p->fal;
+        if(p)
+            p=p->nxt[s[i]];
+        else
+            p=rt;
+        for(q=p;q!=rt;q=q->fal)
+            done[q->idx]=true;
+    }
+}
+
+inline void match(const std::vector<short> &s)
+{
+    node *p(rt),*q;
+    for(int i(0);i<s.size();++i)
+    {
+        while(p!=rt && !p->nxt[s[i]])
+            p=p->fal;
+        p=p->nxt[s[i]];
+        if(!p)
+            p=rt;
+        for(q=p;q!=rt;q=q->fal)
+            done[q->idx]=true;
+    }
+}
+
+inline void match(const std::vector<short> &s)
+{
+    for(int i(0);i<s.size();++i)
+    {
+        while(p && !p->nxt[s[i]])
+            p=p->fal;
+        if(p)
+            p=p->nxt[ns[i]
+        else
+            p=rt;
+        q=p;
+        for(q=p;q!=rt;q=q->fal);
+    }
+}
