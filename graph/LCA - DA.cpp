@@ -1,115 +1,43 @@
-#include<cstdio>
-#include<cstring>
-#include<queue>
+int edge[MAXX],nxt[MAXX<<1],to[MAXX<<1],cnt;
+int pre[MAXX][N],dg[MAXX];
 
-const int NSIZE = 50000;
-const int DEG = 20;
-
-struct trees
+inline void add(int j,int k)
 {
-
-    int fa[DEG];
-    int head,deg;
-} tree[NSIZE];
-
-struct edges
-{
-    int to , next;
-} edge[NSIZE];
-
-struct states
-{
-    int u,fu,deg;
-};
-
-int L;
-
-void add_edge(int x, int y)
-{
-    edge[L].to = y;
-    edge[L].next = tree[x].head;
-    tree[x].head = L++;
+    nxt[++cnt]=edge[j];
+    edge[j]=cnt;
+    to[cnt]=k;
 }
 
-int Root;
-
-inline void BFS(int s)
+void rr(int now,int fa)
 {
-    std::queue<states> que;
-    states st;
-    st.deg=0;
-    st.fu=st.u=s;
-    que.push(st);
-    while(!que.empty())
-    {
-        states st=que.front();
-        que.pop();
-        tree[st.u].deg = st.deg;
-        tree[st.u].fa[0] = st.fu;
-        for (int i=1;i<DEG;i++)
-            tree[st.u].fa[i]=s;
-        for (int tmp=st.fu,num=1;tree[tmp].deg;tmp=tree[st.u].fa[num++])
-            tree[st.u].fa[num]=tree[tmp].fa[num-1];
-        for(int i = tree[st.u].head ; i != -1; i = edge[i].next)
+    dg[now]=dg[fa]+1;
+    for(int i(edge[now]);i;i=nxt[i])
+        if(to[i]!=fa)
         {
-            int v = edge[i].to;
-            if (v == st.fu)
-                continue;
-            states nst;
-            nst.u=v;
-            nst.fu=st.u;
-            nst.deg=st.deg+1;
-            que.push(nst);
+            static int j;
+            j=1;
+            for(pre[to[i]][0]=now;j<N;++j)
+                pre[to[i]][j]=pre[pre[to[i]][j-1]][j-1];
+            rr(to[i],now);
         }
-    }
 }
 
-inline int LCA(int x, int y)
+inline int lca(int a,int b)
 {
-    if(tree[x].deg > tree[y].deg)
-        std::swap(x,y);
-    int hx=tree[x].deg,hy=tree[y].deg;
-    int tx=x,ty=y;
-    for (int det=hy-hx,i=0; det; det>>=1,i++)
-        if (det&1)
-            ty=tree[ty].fa[i];
-    if(tx == ty)
-        return tx;
-    for (int i=DEG-1; i>=0; i--)
-    {
-        if(tree[tx].fa[i] == tree[ty].fa[i])
-            continue;
-        tx = tree[tx].fa[i];
-        ty = tree[ty].fa[i];
-    }
-    return tree[tx].fa[0];
-}
-
-int main()
-{
-    int t;
-    scanf("%d",&t);
-    while(t--)
-    {
-        int n;
-        scanf("%d",&n);
-        L = 0;
-        for(int i = 0 ; i < n ; i++)
-            tree[i].head = -1;
-        for(int i = 0 ; i < n-1 ; i++)
+    static int i,j;
+    j=0;
+    if(dg[a]<dg[b])
+        std::swap(a,b);
+    for(i=dg[a]-dg[b];i;i>>=1,++j)
+        if(i&1)
+            a=pre[a][j];
+    if(a==b)
+        return a;
+    for(i=N-1;i>=0;--i)
+        if(pre[a][i]!=pre[b][i])
         {
-            int a,b;
-            scanf("%d%d",&a ,&b);
-            add_edge(a-1,b-1);
-            add_edge(b-1,a-1);
+            a=pre[a][i];
+            b=pre[b][i];
         }
-        Root=0;
-        BFS(Root);
-        int a,b;
-        scanf("%d%d",&a,&b);
-        int lca=LCA(a-1,b-1)+1;
-        printf("%d\n",lca);
-    }
-    return 0;
+    return pre[a][0];
 }
-

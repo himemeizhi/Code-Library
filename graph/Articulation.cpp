@@ -1,8 +1,8 @@
-void dfs(const short &now,const short &fa)  // now从1开始
+void dfs(int now,int fa)  // now从1开始
 {
-    short p(0);
+    int p(0);
     dfn[now]=low[now]=cnt++;
-    for(std::list<short>::const_iterator it(edge[now].begin());it!=edge[now].end();++it)
+    for(std::list<int>::const_iterator it(edge[now].begin());it!=edge[now].end();++it)
         if(dfn[*it]==-1)
         {
             dfs(*it,now);
