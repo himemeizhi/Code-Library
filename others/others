@@ -1,0 +1,17 @@
+chmod +x [filename]
+
+while true; do
+./gen > input
+./sol < input > output.sol
+./bf < input > output.bf
+
+diff output.sol output.bf
+if[ $? -ne 0];then break fi
+done
+
+
+1、状态状态状态状态状态状态状态状态状态状态
+2、calm_down();calm_down();calm_down();
+3、读完题目读完题目读完题目
+4、禁止盲目跟版
+5、卡题30min以上没头绪就TM给我赶紧转移, 没有例外
