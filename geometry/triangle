@@ -1,0 +1,32 @@
+Area:
+p=(a+b+c)/2
+area=sqrt(p*(p-a)*(p-b)*(p-c));
+area=a*b*sin(C)/2;
+area=sq(a)*sin(B)*sin(C)/2/sin(B+C);
+area=sq(a)/2/(cot(B)+cot(C));
+
+Trigonometric conditions:
+tan(A/2)*tan(B/2)+tan(B/2)*tan(C/2)+tan(A/2)*tan(C/2)==1
+sq(sin(A/2))+sq(sin(B/2))+sq(sin(C/2))+2*sin(A/2)*sin(B/2)*sin(C/2)==1
+
+Circumscribed circle:
+diameter=a*b*c/(2*area);
+diameter=sqrt(2*area/sin(A)/sin(B)/sin(c));
+diameter=a/sin(A)=b/sin(B)=c/sin(C);
+
+Incircle:
+inradius=2*area/(a+b+c);
+coordinates(x,y)=a*{xa,ya}/(a+b+c)+b*{xb,yb}/(a+b+c)+c*{xc,yc}/(a+b+c);
+
+Excircles:
+radius[a]=2*area/(b+c-a);
+radius[b]=2*area/(a+c-b);
+radius[c]=2*area/(a+b-c);
+
+Fermat Point:
+当有一个内角不小于120°时，费马点为此角对应顶点。
+
+当三角形的内角都小于120°时
+
+以三角形的每一边为底边，向外做三个正三角形△ABC'，△BCA'，△CAB'。
+连接CC'、BB'、AA'，则三条线段的交点就是所求的点。

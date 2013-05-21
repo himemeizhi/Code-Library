@@ -20,7 +20,7 @@ inline pv ins(const pv &x,const pv &y)
 }
 
 std::vector<pv>p[2];
-int main()
+inline bool go()
 {
     k=0;
     p[k].resize(0);

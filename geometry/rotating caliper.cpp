@@ -1,17 +1,20 @@
 //最远点对
 
-l=ans=0;
-for(i=0;i<n;++i)
+inline double go()
 {
-    tl=pnt[(i+1)%n]-pnt[i];
-    while(abs(tl.cross(pnt[(l+1)%n]-pnt[i]))>abs(tl.cross(pnt[l]-pnt[i])))
-        l=(l+1)%n;
-    ans=std::max(ans,std::max(dist(pnt[l],pnt[i]),dist(pnt[l],pnt[(i+1)%n])));
+    l=ans=0;
+    for(i=0;i<n;++i)
+    {
+        tl=pnt[(i+1)%n]-pnt[i];
+        while(abs(tl.cross(pnt[(l+1)%n]-pnt[i]))>abs(tl.cross(pnt[l]-pnt[i])))
+            l=(l+1)%n;
+        ans=std::max(ans,std::max(dist(pnt[l],pnt[i]),dist(pnt[l],pnt[(i+1)%n])));
+    }
+    return ans;
 }
-return ans;
 
 //两凸包最近距离
-int main()
+double go()
 {
     sq=sp=0;
     for(i=1;i<ch[1].size();++i)
