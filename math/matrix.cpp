@@ -1,4 +1,4 @@
-structMatrix
+struct Matrix
 {
     const int N(52);
     int a[N][N];

@@ -1,0 +1,20 @@
+Permutation:
+MultiSet S={1 m,4 s,4 i,2 p}
+P(S)=(1+4+4+2)!/1!/4!/4!/2!
+
+Combination:
+MultiSet S={∞ a1,∞ a2,... ∞ ak}
+C(S,r)=(r+k-1)!/r!/(k-1)!=C(r,r+k-1)
+
+if(r>min{count(element[i])})
+    you have to resolve this problem with inclusion-exclusion principle.
+
+MS T={3 a,4 b,5 c}
+MS T*={∞ a,∞ b,∞ c}
+A1={C(T*,10)|count(a)>3} // C(6,8)
+A2={C(T*,10)|count(b)>4} // C(5,7)
+A3={C(T*,10)|count(c)>5} // C(4,6)
+
+C(T,10)=C(T*,10)-(|A1|+|A2|+|A3|)+(|A1 ∩ A2|+|A1 ∩ A3|+|A2 ∩ A3|)-|A1 ∩ A2 ∩ A3|
+        C(10,12)                    C(1,3)    C(0,2)    0          0
+ans=6
