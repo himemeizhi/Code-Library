@@ -102,7 +102,7 @@ inline int ge(int a[N][N],int n)
 /*
  */
 
-inline void ge(int a[N][N],int m,int n) // m*n
+inline void ge(int a[N][N],int m,int n)
 {
     static int i,j,k,l,b,c;
     for(i=j=0;i<m && j<n;++j)

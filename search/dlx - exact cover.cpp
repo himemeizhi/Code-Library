@@ -1,115 +1,118 @@
 #include<cstdio>
 #include<cstring>
+#include<algorithm>
+#include<vector>
 
-const int maxN = 1111, maxM = 1111;
-const int max_size = maxN * maxM;
-const int inf = 0x3f3f3f3f;
+#define N 256
+#define MAXN N*22
+#define MAXM N*5
+#define inf 0x3f3f3f3f
+const int MAXX(MAXN*MAXM);
 
-int L[max_size], R[max_size], U[max_size], D[max_size], CH[max_size], RH[max_size];
-int S[maxM], O[maxM];
-int head, size;
+bool mat[MAXN][MAXM];
 
-int node(int up, int down, int left, int right) {
-    U[size] = up, D[size] = down;
-    L[size] = left, R[size] = right;
-    D[up] = U[down] = R[left] = L[right] = size;
-    return size++;
+int u[MAXX],d[MAXX],l[MAXX],r[MAXX],ch[MAXX],rh[MAXX];
+int sz[MAXM];
+std::vector<int>ans(MAXX);
+int hd,cnt;
+
+inline int node(int up,int down,int left,int right)
+{
+    u[cnt]=up;
+    d[cnt]=down;
+    l[cnt]=left;
+    r[cnt]=right;
+    u[down]=d[up]=l[right]=r[left]=cnt;
+    return cnt++;
 }
-bool mat[maxN][maxM];
 
-void init(int N, int M) {
-    size = 0;
-    head = node(0, 0, 0, 0);
-    for (int j = 1; j <= M; ++j) {
-        CH[j] = node(size, size, L[head], head), S[j] = 0;
+inline void init(int n,int m)
+{
+    cnt=0;
+    hd=node(0,0,0,0);
+    static int i,j,k,r;
+    for(j=1;j<=m;++j)
+    {
+        ch[j]=node(cnt,cnt,l[hd],hd);
+        sz[j]=0;
     }
-    for (int i = 1; i <= N; ++i) {
-        int row = -1, k;
-        for (int j = 1; j <= M; ++j) {
-            if (!mat[i][j]) continue;
-            if (row == -1) {
-                row = node(U[CH[j]], CH[j], size, size);
-                RH[row] = i, CH[row] = CH[j], ++S[j];
-            } else {
-                k = node(U[CH[j]], CH[j], L[row], row);
-                RH[k] = i, CH[k] = CH[j], ++S[j];
+    for(i=1;i<=n;++i)
+    {
+        r=-1;
+        for(j=1;j<=m;++j)
+            if(mat[i][j])
+            {
+                if(r==-1)
+                {
+                    r=node(u[ch[j]],ch[j],cnt,cnt);
+                    rh[r]=i;
+                    ch[r]=ch[j];
+                }
+                else
+                {
+                    k=node(u[ch[j]],ch[j],l[r],r);
+                    rh[k]=i;
+                    ch[k]=ch[j];
+                }
+                ++sz[j];
             }
-        }
     }
 }
-void remove(const int &c) {
-    L[R[c]] = L[c], R[L[c]] = R[c];
-    for (int i = D[c]; i != c; i = D[i]) {
-        for (int j = R[i]; j != i; j = R[j]) {
-            U[D[j]] = U[j], D[U[j]] = D[j];
-            --S[CH[j]];
+
+inline void rm(int c)
+{
+    l[r[c]]=l[c];
+    r[l[c]]=r[c];
+    static int i,j;
+    for(i=d[c];i!=c;i=d[i])
+        for(j=r[i];j!=i;j=r[j])
+        {
+            u[d[j]]=u[j];
+            d[u[j]]=d[j];
+            --sz[ch[j]];
         }
-    }
 }
-void resume(const int &c) {
-    for (int i = U[c]; i != c; i = U[i]) {
-        for (int j = L[i]; j != i; j = L[j]) {
-            ++S[CH[j]];
-            U[D[j]] = D[U[j]] = j;
+
+inline void add(int c)
+{
+    static int i,j;
+    for(i=u[c];i!=c;i=u[i])
+        for(j=l[i];j!=i;j=l[j])
+        {
+            ++sz[ch[j]];
+            u[d[j]]=d[u[j]]=j;
         }
-    }
-    L[R[c]] = R[L[c]] = c;
+    l[r[c]]=r[l[c]]=c;
 }
-int len;
-bool DLX(const int &k) {
-    if (R[head] == head) {
-        len = k - 1;
+
+bool dlx(int k)
+{
+    if(hd==r[hd])
+    {
+        ans.resize(k);
         return true;
     }
-    int s = inf, c;
-    for (int t = R[head]; t != head; t = R[t]) {
-        if (S[t] < s) s = S[t], c = t;
-    }
-    remove(c);
-    for (int i = D[c]; i != c; i = D[i]) {
-        O[k] = RH[i];
-        for (int j = R[i]; j != i; j = R[j]) {
-            remove(CH[j]);
+    int s=inf,c;
+    int i,j;
+    for(i=r[hd];i!=hd;i=r[i])
+        if(sz[i]<s)
+        {
+            s=sz[i];
+            c=i;
         }
-        if (DLX(k + 1)) {
-            return true;
-        }
-        for (int j = L[i]; j != i; j = L[j]) {
-            resume(CH[j]);
-        }
-    }
-    resume(c);
-    return false;
-}
-
-int n,m,i,j,k;
-
-int main()
-{
-    while(scanf("%d %d",&n,&m)!=EOF)
+    rm(c);
+    for(i=d[c];i!=c;i=d[i])
     {
-        memset(mat,0,sizeof(mat));
-        for(i=1;i<=n;++i)
-        {
-            scanf("%d",&j);
-            while(j--)
-            {
-                scanf("%d",&k);
-                mat[i][k]=true;
-            }
-        }
-        init(n,m);
-        if(!DLX(0))
-            puts("NO");
-        else
-        {
-            printf("%d",len+1);
-            for(i=0;i<=len;++i)
-                printf(" %d",O[i]);
-            puts("");
-        }
+        ans[k]=rh[i];
+        for(j=r[i];j!=i;j=r[j])
+            rm(ch[j]);
+        if(dlx(k+1))
+            return true;
+        for(j=l[i];j!=i;j=l[j])
+            add(ch[j]);
     }
-    return 0;
+    add(c);
+    return false;
 }
 
 #include <cstdio>

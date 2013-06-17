@@ -4,7 +4,7 @@ inline bool com(const pv &a,const pv &b)
 {
     if(fabs(t=(a-pnt[0]).cross(b-pnt[0]))>eps)
         return t>0;
-    else (a-pnt[0]).len()<(b-pnt[0]).len();
+    return (a-pnt[0]).len()<(b-pnt[0]).len();
 }
 
 inline void graham(std::vector<pv> &ch,const int n)

@@ -23,7 +23,7 @@ struct pv
     {
         return x*i.y-y*i.x;
     }
-    inline int dot(const pv &i)const
+    inline double dot(const pv &i)const
     {
         return x*i.x+y*i.y;
     }

@@ -1,0 +1,6 @@
+multiple-choice knapsack problem:
+
+for 所有的组k
+    for v=V..0
+        for 所有的i属于组k
+            f[v]=max{f[v],f[v-c[i]]+w[i]}
