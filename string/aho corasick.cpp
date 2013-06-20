@@ -1,3 +1,4 @@
+//trie graph
 #include<cstring>
 #include<queue>
 
@@ -46,5 +47,84 @@ inline void make()
             }
             else
                 nxt[now][i]=nxt[fal[now]][i];
+    }
+}
+
+// normal version
+
+#define N 128
+
+char buf[MAXX];
+int cnt[1111];
+
+struct node
+{
+    node *fal,*nxt[N];
+    int idx;
+    node() { memset(this,0,sizeof node); }
+}*rt;
+std::queue<node*>Q;
+
+void free(node *p)
+{
+    for(int i(0);i<N;++i)
+        if(p->nxt[i])
+            free(p->nxt[i]);
+    delete p;
+}
+
+inline void add(char *s,int idx)
+{
+    static node *p;
+    for(p=rt;*s;++s)
+    {
+        if(!p->nxt[*s])
+            p->nxt[*s]=new node();
+        p=p->nxt[*s];
+    }
+    p->idx=idx;
+}
+
+inline void make()
+{
+    Q.push(rt);
+    static node *p,*q;
+    static int i;
+    while(!Q.empty())
+    {
+        p=Q.front();
+        Q.pop();
+        for(i=0;i<N;++i)
+            if(p->nxt[i])
+            {
+                q=p->fal;
+                while(q)
+                {
+                    if(q->nxt[i])
+                    {
+                        p->nxt[i]->fal=q->nxt[i];
+                        break;
+                    }
+                    q=q->fal;
+                }
+                if(!q)
+                    p->nxt[i]->fal=rt;
+                Q.push(p->nxt[i]);
+            }
+    }
+}
+
+inline void match(const char *s)
+{
+    static node *p,*q;
+    for(p=rt;*s;++s)
+    {
+        while(p!=rt && !p->nxt[*s])
+            p=p->fal;
+        p=p->nxt[*s];
+        if(!p)
+            p=rt;
+        for(q=p;q!=rt && q->idx;q=q->fal) // why q->idx ? looks like not necessary at all, I delete it in an other solution
+            ++cnt[q->idx];
     }
 }

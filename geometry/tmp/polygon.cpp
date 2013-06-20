@@ -199,7 +199,7 @@ struct polygon
         if (dblcmp(sum)>0)return 1;
         return 0;
     }
-    point getbarycentre()
+    point getbarycentre() // centroid
     {
         point ret(0,0);
         double area=0;
@@ -215,7 +215,7 @@ struct polygon
         if (dblcmp(area))ret=ret.div(area);
         return ret;
     }
-    double areaintersection(polygon po)
+    double areaintersection(polygon po) // refer: HPI
     {
     }
     double areaunion(polygon po)

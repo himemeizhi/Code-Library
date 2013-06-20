@@ -1,0 +1,31 @@
+sq(x-h)/sq(q) + sq(y-k)/sq(b) = 1
+
+x=h+a*cos(t);
+y=k+b*sin(t);
+
+area: pi*a*b;
+distance from center to focus: f=sqrt(sq(a)-sq(b));
+eccentricity: e=sqrt(a-sq(b/a))=f/a;
+focal parameter: sq(b)/sqrt(sq(a)-sq(b))=sq(b)/f;
+
+double circumference(double a,double b) // accuracy: pow(0.5,53);
+{
+    double x=a;
+    double y=b;
+    if(x<y)
+        std::swap(x,y);
+    double digits=53,tol=sqrt(pow(0.5,digits));
+    if(digits*y<tol*x)
+        return 4*x;
+    double s=0,m=1;
+    while(x>(tol+1)*y)
+    {
+        double tx=x;
+        double ty=y;
+        x=0.5f*(tx+ty);
+        y=sqrt(tx*ty);
+        m*=2;
+        s+=m*pow(x-y,2);
+    }
+    return pi*(pow(a+b,2)-s)/(x+y);
+}

@@ -5,6 +5,10 @@ area=a*b*sin(C)/2;
 area=sq(a)*sin(B)*sin(C)/2/sin(B+C);
 area=sq(a)/2/(cot(B)+cot(C));
 
+centroid:
+    center of mass
+    intersection of triangle's three triangle medians
+
 Trigonometric conditions:
 tan(A/2)*tan(B/2)+tan(B/2)*tan(C/2)+tan(A/2)*tan(C/2)==1
 sq(sin(A/2))+sq(sin(B/2))+sq(sin(C/2))+2*sin(A/2)*sin(B/2)*sin(C/2)==1
@@ -22,6 +26,14 @@ Excircles:
 radius[a]=2*area/(b+c-a);
 radius[b]=2*area/(a+c-b);
 radius[c]=2*area/(a+b-c);
+
+Steiner circumellipse (least area circumscribed ellipse)
+    area= △area * 4*pi/3/sqrt(3);
+    center is the triangle's centroid.
+
+Steiner inellipse ( maximum area inellipse )
+    area= △area * pi/3/sqrt(3);
+    center is the triangle's centroid.
 
 Fermat Point:
 当有一个内角不小于120°时，费马点为此角对应顶点。
