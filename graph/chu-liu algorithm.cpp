@@ -82,7 +82,6 @@ int zhuliu(int root,int n,int m,Edge e[])
 
 int main()
 {
-    freopen("asdf","r",stdin);
     while (scanf("%d%d",&n,&m) != EOF)
     {
         init(n);

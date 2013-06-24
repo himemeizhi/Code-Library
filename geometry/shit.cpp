@@ -63,6 +63,11 @@ inline int cross(pv *a,pv *b) // 0不相交 1不规范 2规范
             (d4==0 && dblcmp((a[1]-b[0]).dot(a[1]-b[1]))<=0));
 }
 
+inline bool pntonseg(const pv &p,const pv *a)
+{
+    return fabs((p-a[0]).cross(p-a[1]))<eps && (p-a[0]).dot(p-a[1])<eps;
+}
+
 pv rotate(pv v,pv p,double theta,double sc=1) // rotate vector v, theta∈[0,2π]
 {
     static pv re;

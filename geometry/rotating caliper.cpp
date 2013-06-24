@@ -6,7 +6,7 @@ inline double go()
     for(i=0;i<n;++i)
     {
         tl=pnt[(i+1)%n]-pnt[i];
-        while(abs(tl.cross(pnt[(l+1)%n]-pnt[i]))>abs(tl.cross(pnt[l]-pnt[i])))
+        while(abs(tl.cross(pnt[(l+1)%n]-pnt[i]))>=abs(tl.cross(pnt[l]-pnt[i])))
             l=(l+1)%n;
         ans=std::max(ans,std::max(dist(pnt[l],pnt[i]),dist(pnt[l],pnt[(i+1)%n])));
     }

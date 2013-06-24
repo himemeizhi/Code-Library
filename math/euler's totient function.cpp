@@ -3,39 +3,35 @@
 φ(1)=1（唯一和1互质的数就是1本身）。
 若m,n互质，φ(mn)=φ(m)φ(n)。 
 
-inline int Euler(int n)
+inline long long phi(int n)
 {
-    static int i,ans,j;
-    ans=n;
-    j=sqrt(n);
-    for (i=2; i<=j; ++i)
-        if (n%i==0)
+    static int i,j;
+    static int re;
+    re=n;
+    j=sqrt((double)n);
+    for(i=0;prm[i]<=j;++i)
+        if(n%prm[i]==0)
         {
-            ans = ans-ans/i;
-            while (n%i==0) 
-                n /= i;
+            re-=re/prm[i];
+            do
+                n/=prm[i];
+            while(n%prm[i]==0);
         }
-    if (n>1) 
-        ans = ans-ans/n;
-    return ans;
+    if(n!=1)
+        re-=re/n;
+    return re;
 }
 
-//递推
 inline void Euler()
 {
-    memset(euler,0,sizeof(euler));
-    euler[1] = 1;
     static int i,j;
-    for (i = 2; i <= 3000000; ++i)
-    {
-        if (!euler[i])
-        {
-            for (j = i; j <= 3000000; j += i)
+    phi[1]=1;
+    for(i=2;i<MAXX;++i)
+        if(!phi[i])
+            for(j=i;j<MAXX;j+=i)
             {
-                if (!euler[j])
-                    euler[j] = j;
-                euler[j] = euler[j]/i*(i-1);
+                if(!phi[j])
+                    phi[j]=j;
+                phi[j]=phi[j]/i*(i-1);
             }
-        }
-    }
 }
