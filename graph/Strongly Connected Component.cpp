@@ -1,3 +1,4 @@
+//缩点后注意自环
 void dfs(const short &now)
 {
     dfn[now]=low[now]=cnt++;
