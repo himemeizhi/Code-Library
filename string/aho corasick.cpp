@@ -46,7 +46,7 @@ inline void make()
                 ed[p]|=ed[fal[p]];
             }
             else
-                nxt[now][i]=nxt[fal[now]][i];
+                nxt[now][i]=nxt[fal[now]][i]; // 使用本身的trie存串的时候注意nxt已被重载
     }
 }
 
@@ -128,3 +128,6 @@ inline void match(const char *s)
             ++cnt[q->idx];
     }
 }
+
+//可以考虑dfs一下，拉直fal指针来跳过无效的匹配
+//在线调整关键字存在性的时候，可以考虑欧拉序压扁之后使用BIT或者线段树进行区间修改

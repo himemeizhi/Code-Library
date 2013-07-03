@@ -56,3 +56,32 @@ add(); divide(); divideAndRemainder(); remainder(); multiply(); subtract(); gcd(
 
 //BigDecimal
 movePointLeft(); movePointRight(); precision(); stripTrailingZeros(); toBigInteger(); toPlainString();
+
+
+//sort
+class pii implements Comparable
+{
+    public int a,b;
+    public int compareTo(Object i)
+    {
+        pii c=(pii)i;
+        return a==c.a?c.b-b:c.a-a;
+    }
+}
+
+class Main
+{
+    public static void main(String[] args)
+    {
+        pii[] the=new pii[2];
+        the[0]=new pii();
+        the[1]=new pii();
+        the[0].a=1;
+        the[0].b=1;
+        the[1].a=1;
+        the[1].b=2;
+        Arrays.sort(the);
+        for(int i=0;i<2;++i)
+            System.out.printf("%d %d\n",the[i].a,the[i].b);
+    }
+}

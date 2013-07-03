@@ -3,8 +3,9 @@ these is not solution if and only if n is a square number.
 
 solution:
 simply brute-force search the integer y, get (x1,y1). ( O(sqrt(n)) )
+or we can enumerate the continued fraction of sqrt(n), as (x/y), it will be much more faster
 
 other solution pairs' matrix:
 [ x1 n*y1 ]
 [ y1 x1   ]
-k-th solution is pow({matrix1},k)
+k-th solution is pow({matrix},k)
