@@ -1,3 +1,7 @@
+god damn it windows:
+#pragma comment(linker, "/STACK:16777216")
+
+
 chmod +x [filename]
 
 while true; do
