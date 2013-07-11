@@ -40,4 +40,18 @@ inline int lca(int a,int b)
             b=pre[b][i];
         }
     return pre[a][0];
+
+// looks like above is a wrong version
+
+    static int i,log;
+    for(log=0;(1<<(log+1))<=dg[a];++log);
+    for(i=log;i>=0;--i)
+        if(dg[a]-(1<<i)>=dg[b])
+            a=pre[a][i];
+    if(a==b)
+        return a;
+    for(i=log;i>=0;--i)
+        if(pre[a][i]!=-1 && pre[a][i]!=pre[b][i])
+            a=pre[a][i],b=pre[b][i];
+    return pre[a][0];
 }

@@ -68,7 +68,7 @@ inline bool pntonseg(const pv &p,const pv *a)
     return fabs((p-a[0]).cross(p-a[1]))<eps && (p-a[0]).dot(p-a[1])<eps;
 }
 
-pv rotate(pv v,pv p,double theta,double sc=1) // rotate vector v, theta∈[0,2π]
+pv rotate(pv v,pv p,double theta,double sc=1) // rotate vector v, theta ∈ [0,2π]
 {
     static pv re;
     re=p;
@@ -78,4 +78,37 @@ pv rotate(pv v,pv p,double theta,double sc=1) // rotate vector v, theta∈[0,2π
     re.x+=v.x*p.x-v.y*p.y;
     re.y+=v.x*p.y+v.y*p.x;
     return re;
+}
+
+struct line
+{
+    pv pnt[2];
+    line(double a,double b,double c) // a*x + b*y + c = 0
+    {
+#define maxl 1e2 //preciseness should not be too high ( compare with eps )
+        if(fabs(b)>eps)
+        {
+            pnt[0]=pv(maxl,(c+a*maxl)/(-b));
+            pnt[1]=pv(-maxl,(c-a*maxl)/(-b));
+        }
+        else
+        {
+            pnt[0]=pv(-c/a,maxl);
+            pnt[1]=pv(-c/a,-maxl);
+        }
+#undef maxl
+    }
+    pv cross(const line &v)const
+    {
+        double a=(v.pnt[1]-v.pnt[0]).cross(pnt[0]-v.pnt[0]);
+        double b=(v.pnt[1]-v.pnt[0]).cross(pnt[1]-v.pnt[0]);
+        return pv((pnt[0].x*b-pnt[1].x*a)/(b-a),(pnt[0].y*b-pnt[1].y*a)/(b-a));
+    }
+};
+
+inline std::pair<pv,double> getcircle(const pv &a,const pv &b,const pv &c)
+{
+    static pv ct;
+    ct=line(2*(b.x-a.x),2*(b.y-a.y),a.len()-b.len()).cross(line(2*(c.x-b.x),2*(c.y-b.y),b.len()-c.len()));
+    return std::make_pair(ct,sqrt((ct-a).len()));
 }

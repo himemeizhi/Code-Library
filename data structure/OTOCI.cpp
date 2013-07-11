@@ -58,6 +58,28 @@ inline void splay(int id)
     static int rt;
     if(id!=(rt=freshen(id)))
         for(std::swap(fa[id],fa[rt]);pre[id];rot(id,id==nxt[pre[id]][0]));
+    /* another faster methond:
+    if(id!=rt)
+    {
+        std::swap(fa[id],fa[rt]);
+        do
+        {
+            rt=pre[id];
+            if(pre[rt])
+            {
+                k=(nxt[pre[rt]][0]==rt);
+                if(nxt[rt][k]==id)
+                    rot(id,k^1);
+                else
+                    rot(rt,k);
+                rot(id,k);
+            }
+            else
+                rot(id,id==nxt[rt][0]);
+        }
+        while(pre[id]);
+    }
+    */
 }
 
 inline void access(int id)
