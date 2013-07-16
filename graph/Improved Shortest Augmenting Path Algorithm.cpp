@@ -2,122 +2,95 @@
 #include<cstring>
 #include<algorithm>
 
-#define MAXN 20111
-#define MAXM (MAXN*25)
-#define inf 0x3f3f3f3f
+#define MAXX 5111
+#define MAXM (30111*4)
+#define inf 0x3f3f3f3f3f3f3f3fll
 
-int edge[MAXN],nxt[MAXM],to[MAXM],cnt;
-long long flow[MAXM],cap[MAXM];
-
-inline void add(int a,int b,long long k)
-{
-    nxt[cnt]=edge[a];
-    edge[a]=cnt;
-    to[cnt]=b;
-    cap[cnt]=k;
-    ++cnt;
-}
+int edge[MAXX],to[MAXM],nxt[MAXM],cnt;
+#define v to[i]
+long long cap[MAXM];
 
 int n;
-int h[MAXN],vh[MAXN],source,sink;
+int h[MAXX],gap[MAXX],pre[MAXX],w[MAXX];
 
-long long sap(int idx,int maxcap)
+inline void add(int a,int b,long long c)
 {
-    if(idx==sink)
-        return maxcap;
-    long long l=maxcap,d;
-    int minh=n;
-    int i;
-    for(i=edge[idx];i!=-1;i=nxt[i])
+    nxt[++cnt]=edge[a];
+    edge[a]=cnt;
+    to[cnt]=b;
+    cap[cnt]=c;
+}
+
+int source,sink;
+
+inline long long go()
+{
+    static int now,N,i;
+    static long long min,mf;
+    memset(gap,0,sizeof gap);
+    memset(h,0,sizeof h);
+    memcpy(w,edge,sizeof w);
+    gap[0]=N=sink; // caution
+    mf=0;
+
+    pre[now=source]=-1;
+    while(h[source]<N)
     {
-        int nm=i;
-        if(cap[nm]>flow[nm])
+        if(now==sink)
         {
-            if(h[idx]==h[to[nm]]+1)
+            min=inf;
+            for(i=pre[now];i!=-1;i=pre[to[i^1]])
+                min=std::min(min,cap[i]);
+            for(i=pre[now];i!=-1;i=pre[to[i^1]])
             {
-                d=sap(to[nm],std::min(l,cap[nm]-flow[nm]));
-                flow[nm]+=d;
-                flow[i^1]-=d;
-                l-=d;
-                if(h[source]==n || !l)
-                    return maxcap-l;
+                cap[i]-=min;
+                cap[i^1]+=min;
             }
-            minh=std::min(minh,h[to[nm]]+1);
+            now=source;
+            mf+=min;
+            continue;
         }
-    }
-    if(l==maxcap)
-    {
-        --vh[h[idx]];
-        ++vh[minh];
-        if(!vh[h[idx]])
-            h[source]=n;
-        h[idx]=minh;
-    }
-    return maxcap-l;
-}
-
-inline void bfs()
-{
-    static int i;
-    for(i=0;i<n;++i)
-        h[i]=n;
-    static int *qf,*qt;
-    qf=qt=vh;
-
-    h[sink]=0;
-    *qt++=sink;
-    static int u;
-    while(qf!=qt)
-    {
-        u=*qf++;
-        for(i=edge[u];i!=-1;i=nxt[i])
-            if((i&1) && (h[to[i]]==n))
+        for(i=w[now];i!=-1;i=nxt[i])
+            if(cap[i] && h[v]+1==h[now])
             {
-                h[to[i]]=h[u]+1;
-                *qt++=to[i];
+                w[now]=pre[v]=i;
+                break;
             }
+        if(i!=-1)
+        {
+            now=v;
+            continue;
+        }
+        w[now]=edge[now];
+        min=N;
+        for(i=edge[now];i!=-1;i=nxt[i])
+            if(cap[i])
+                min=std::min(min,(long long)h[v]);
+        if(!--gap[h[now]])
+            return mf;
+        ++gap[h[now]=min+1];
+        if(now!=source)
+            now=to[pre[now]^1];
     }
-    memset(vh,0,sizeof vh);
-    for(i=0;i<n;++i)
-        ++vh[h[i]];
+    return mf;
 }
 
-inline long long go(int source,int sink)
-{
-    if(source==sink)
-        return inf;
-    ::source=source;
-    ::sink=sink;
-    bfs();
-    static int i;
-    static long long ans;
-    for(i=0;i<cnt;++i)
-        flow[i]=0ll;
-    ans=0ll;
-    while(h[source]!=n)
-        ans+=sap(source,inf);
-    return ans;
-}
-
-int m,i,j;
-long long k;
+int m,i,j,k;
+long long ans;
 
 int main()
 {
     scanf("%d %d",&n,&m);
-    for(i=1;i<=n;++i)
-        edge[i]=-1;
-    cnt=0;
+    source=1;
+    sink=n;
+    cnt=-1;
+    memset(edge,-1,sizeof edge);
     while(m--)
     {
-        scanf("%d %d %lld",&i,&j,&k);
-        add(i,j,k);
-        add(j,i,0ll);
-
-        add(j,i,k);
-        add(i,j,0ll);
-
+        scanf("%d %d %lld",&i,&j,&ans);
+        add(i,j,ans);
+        add(j,i,ans);
     }
-    printf("%lld\n",go(1,n));
+    printf("%lld\n",go());
     return 0;
 }
