@@ -1,3 +1,5 @@
+// wrong answer at poj 1149
+// wrong answer at uestc 1195
 #include<cstdio>
 #include<algorithm>
 #include<cstring>

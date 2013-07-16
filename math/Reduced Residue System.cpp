@@ -75,7 +75,7 @@ Carmichael function:
 
 λ(n) is defined as the smallest positive integer m such that 
     pow(a,m)%n==1 { for a!=1 && gcd(a,n)==1 }
-也就是简化剩余系中所有x的 lcm{ord(x)}
+也就是简化剩余系(完全剩余系中存在乘法群中无法得到1的数)中所有x的 lcm{ord(x)}
 
 if n=pow(p[0],a[0])*pow(p[1],a[1])*...*pow(p[m-1],a[m-1])
     then λ(n)=lcm(λ(pow(p[0],a[0])),λ(pow(p[1],a[1])),...,λ(pow(p[m-1],a[m-1])));

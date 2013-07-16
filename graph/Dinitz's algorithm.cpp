@@ -38,14 +38,18 @@ int dfs(int now,int maxcap)
 {
     if(now==sink)
         return maxcap;
-    for(int &i(w[now]),flow;i!=-1;i=nxt[i])
-        if(cap[i] && h[to[i]]==h[now]+1 && (flow=dfs(to[i],std::min(maxcap,cap[i]))))
+    int flow(maxcap),d;
+    for(int &i(w[now]);i!=-1;i=nxt[i])
+        if(cap[i] && h[to[i]]==h[now]+1)// && (flow=dfs(to[i],std::min(maxcap,cap[i]))))
         {
-            cap[i]-=flow;
-            cap[i^1]+=flow;
-            return flow;
+            d=dfs(to[i],std::min(flow,cap[i]));
+            cap[i]-=d;
+            cap[i^1]+=d;
+            flow-=d;
+            if(!flow)
+                return maxcap;
         }
-    return 0;
+    return maxcap-flow;
 }
 
 int nc,np,m,i,j,k;
@@ -99,8 +103,11 @@ int main()
         while(bfs())
         {
             memcpy(w,edge,sizeof edge);
+            ans+=dfs(source,inf);
+            /*
             while((k=dfs(source,inf)))
                 ans+=k;
+                */
         }
         printf("%d\n",ans);
     }

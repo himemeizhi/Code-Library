@@ -29,3 +29,18 @@ edge cover vertex
 首先在圖上求得一個 Maximum Matching 之後，對於那些單身的點，都由匹配點連過去。如此便形成了 Minimum Edge Cover 。
 
 edge cover edge 
+
+path cover vertex
+general graph: NP-H
+tree: DP
+DAG: 将每个节点拆分为入点和出点,ans=节点数-匹配数
+
+path cover edge
+minimize the count of euler path ( greedy is ok? )
+
+cycle cover vertex
+general: NP-H
+weighted: do like path cover vertex, with KM algorithm
+
+cycle cover edge
+NP-H
