@@ -48,26 +48,22 @@ inline long long go()
             }
             now=source;
             mf+=min;
-            continue;
         }
         for(i=w[now];i!=-1;i=nxt[i])
             if(cap[i] && h[v]+1==h[now])
             {
                 w[now]=pre[v]=i;
+                now=v;
                 break;
             }
         if(i!=-1)
-        {
-            now=v;
             continue;
-        }
-        w[now]=edge[now];
-        min=N;
-        for(i=edge[now];i!=-1;i=nxt[i])
-            if(cap[i])
-                min=std::min(min,(long long)h[v]);
         if(!--gap[h[now]])
             return mf;
+        min=N;
+        for(i=w[now]=edge[now];i!=-1;i=nxt[i])
+            if(cap[i])
+                min=std::min(min,(long long)h[v]);
         ++gap[h[now]=min+1];
         if(now!=source)
             now=to[pre[now]^1];
