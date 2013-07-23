@@ -37,7 +37,8 @@ refer Feasible flow problem.cpp
 Maximum flow: //好像也可以二分
 将可行流还原至原图后，在残量网络上继续完成最大流
 Minimum flow: //好像也可以二分
-建图时先不连汇点到源点的边，新图中完成最大流之后再连原汇至原源的边，这一步中的增广流量即为最小流
+建图时先不连汇点到源点的边，新图中完成最大流之后再连原汇至原源的边完成第二次最大流，此时t->s这条弧的流量即为最小流
+判断可行流存在还是必须连原汇->原源的边之后查看满流
 tips:
 合并流量、减少边数来加速
 
@@ -65,6 +66,16 @@ ans={maximum flow}={minimum cut}
 Maximum weighted vertex independent set for bipartite graph:
 ans=Sum{点权}-value{Minimum weighted vertex cover edge}
 解应该就是最小覆盖集的补图吧……
+
+
+
+方格取数:
+取方格获得收益
+当取了相邻方格时付出边的代价
+
+必取的方格到源/汇的边的容量inf
+相邻方格之间的边的容量为代价
+ans=sum{方格收益}-{最大流}
 
 
 
