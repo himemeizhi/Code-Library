@@ -1,5 +1,6 @@
 god damn it windows:
 #pragma comment(linker, "/STACK:16777216")
+#pragma comment(linker,"/STACK:102400000,102400000")
 
 
 chmod +x [filename]
