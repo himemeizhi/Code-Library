@@ -79,6 +79,39 @@ ans=sum{方格收益}-{最大流}
 
 
 
+最小割的唯一性:
+从源和汇分别能够到的点集是所有点时，最小割唯一
+也就是每一条增广路径都仅有一条边满流
+注意由汇出发时，能否前进是看cap[i^1]而不是cap[i]
+
+具体来说
+
+void rr(int now)
+{
+    done[now]=true;
+    ++cnt;
+    for(int i(edge[now]);i!=-1;i=nxt[i])
+        if(cap[i] && !done[v])
+            rr(v);
+}
+
+void dfs(int now)
+{
+    done[now]=true;
+    ++cnt;
+    for(int i(edge[now]);i!=-1;i=nxt[i])
+        if(cap[i^1] && !done[v])
+            dfs(v);
+}
+
+memset(done,0,sizeof done);
+cnt=0;
+rr(source);
+dfs(sink);
+puts(cnt==n?"UNIQUE":"AMBIGUOUS");
+
+
+
 Tips:
 两点间可以不止有一种边，也可以不止有一条边，无论有向无向;
 两点间容量inf则可以设法化简为一个点;
