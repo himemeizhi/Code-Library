@@ -1,4 +1,4 @@
-\documentclass[a4paper,5pt,twocolumn,titlepage]{article}
+\documentclass[a4paper,5pt,twoside,twocolumn,titlepage]{article}
 
 \usepackage{CJK,CJKnumb,CJKulem}
 \usepackage{ifthen}         % logic options
@@ -44,11 +44,24 @@ escapeinside={/*@}{@*/}}
 \lstset{breaklines} \columnsep 1 cm \pagestyle{fancy}
 \fancyhead[L]{Perfect Freeze}
 \fancyhead[R]{\thepage} \fancyfoot{}
-\title{Code Library}
-\author{Himemiya Nanao}
+
+
+\newcommand*{\TitleFont}{%
+    \fontsize{50}{80}%
+        \selectfont}
+\usepackage{graphicx}
+\title{\TitleFont{Code Library}
+    \begin{center}
+\includegraphics[scale=2]{./image1.png}
+    \end{center}
+}
+\author{Himemiya Nanao @ Perfect Freeze}
+
 \begin{document}
 \begin{CJK*}{UTF8}{Source Code Pro}
+
 \maketitle \tableofcontents
+
 \newpage
 \pagenumbering{arabic}
 
