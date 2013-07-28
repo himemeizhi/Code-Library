@@ -1,0 +1,278 @@
+\documentclass[a4paper,5pt,twocolumn,titlepage]{article}
+
+\usepackage{CJK,CJKnumb,CJKulem}
+\usepackage{ifthen}         % logic options
+\usepackage{color}          % color image and color definition
+\usepackage{calc}           % do size calculations
+\usepackage{listings}       % format source code
+\usepackage{fancyhdr}
+\lstset{language=C++,showspaces=false,showstringspaces=true,%
+tabsize=2,extendedchars=false,columns=fullflexible,%
+escapeinside={/*@}{@*/}}
+\usepackage{times}
+\usepackage{lastpage}
+\usepackage[a4paper, body={15true cm,25.5true cm},%
+            headheight=4true cm]{geometry}
+\usepackage[CJKbookmarks,bookmarks=true,linkcolor=black,citecolor=black,%
+            pagecolor=black,colorlinks=true]{hyperref}
+    
+\usepackage{mathpazo}
+
+\usepackage{pstricks,pst-node,pst-tree}
+
+% style: list typesetting
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+\definecolor{darkgreen}{rgb}{0,0.3,0}
+\definecolor{darkblue}{rgb}{0,0,0.3}
+\lstset{%
+% indexing
+    numbers=left,
+    numberstyle=\tiny,%
+% character display
+    showstringspaces=false,
+    showspaces=false,%
+    tabsize=2,%
+% style
+    frame=lines,%
+    basicstyle=\tiny\ttfamily,%
+    keywordstyle=\color{darkblue}\bfseries,%
+    identifierstyle=,%
+    commentstyle=\color{darkgreen},%\itshape,%
+    stringstyle=\color{grey}%
+} \lstloadlanguages{C,C++,Java}
+
+\lstset{breaklines} \columnsep 1 cm \pagestyle{fancy}
+\fancyhead[L]{Perfect Freeze}
+\fancyhead[R]{\thepage} \fancyfoot{}
+\title{Code Library}
+\author{Himemiya Nanao}
+\begin{document}
+\begin{CJK*}{UTF8}{Source Code Pro}
+\maketitle \tableofcontents
+\newpage
+\pagenumbering{arabic}
+
+\section{data structure}
+\subsection{atlantis}
+\lstinputlisting[language=C++]{"./data structure/atlantis.cpp"}
+\subsection{Binary Indexed tree}
+\lstinputlisting[language=C++]{"./data structure/binary indexed tree.cpp"}
+\subsection{COT}
+\lstinputlisting[language=C++]{"./data structure/cot.cpp"}
+\subsection{GSS7}
+\lstinputlisting[language=C++]{"./data structure/gss7.cxx"}
+\subsection{Leftist tree}
+\lstinputlisting[language=C++]{"./data structure/leftist tree.cpp"}
+\subsection{Network}
+\lstinputlisting[language=C++]{"./data structure/network.cpp"}
+\subsection{OTOCI}
+\lstinputlisting[language=C++]{"./data structure/otoci.cpp"}
+\subsection{picture}
+\lstinputlisting[language=C++]{"./data structure/picture.cpp"}
+\subsection{Size Blanced Tree}
+\lstinputlisting[language=C++]{"./data structure/size blanced tree.cpp"}
+\subsection{Sparse Table - rectangle}
+\lstinputlisting[language=C++]{"./data structure/sparse table - rectangle.cpp"}
+\subsection{Sparse Table - square}
+\lstinputlisting[language=C++]{"./data structure/sparse table - square.cpp"}
+\subsection{Sparse Table}
+\lstinputlisting[language=C++]{"./data structure/sparse table.cpp"}
+\subsection{Trea}
+\lstinputlisting[language=C++]{"./data structure/treap.cpp"}
+\section{dynamic programming}
+\subsection{knapsack problem}
+\lstinputlisting{"./dynamic programming/knapsack problem"}
+\subsection{LCIS}
+\lstinputlisting[language=C++]{"./dynamic programming/lcis.cpp"}
+\subsection{LCS}
+\lstinputlisting[language=C++]{"./dynamic programming/lcs.cpp"}
+\section{geometry}
+\subsection{3D}
+\lstinputlisting[language=C++]{"./geometry/3d.cpp"}
+\subsection{3DCH}
+\lstinputlisting[language=C++]{"./geometry/3dch.cpp"}
+\subsection{circle ploy's intersection area}
+\lstinputlisting[language=C++]{"./geometry/circle ploy's intersection area.cpp"}
+\subsection{circle's area}
+\lstinputlisting[language=C++]{"./geometry/circle's area.cpp"}
+\subsection{circle}
+\lstinputlisting[language=C++]{"./geometry/circle.cpp"}
+\subsection{closest point pair}
+\lstinputlisting[language=C++]{"./geometry/closest point pair.cpp"}
+\subsection{ellipse}
+\lstinputlisting{"./geometry/ellipse"}
+\subsection{Graham's scan}
+\lstinputlisting[language=C++]{"./geometry/graham's scan.cpp"}
+\subsection{half-plane intersection}
+\lstinputlisting[language=C++]{"./geometry/half-plane intersection.cpp"}
+\subsection{kdtree}
+\lstinputlisting[language=C++]{"./geometry/kdtree.cpp"}
+\subsection{Manhattan minimum spanning tree}
+\lstinputlisting[language=C++]{"./geometry/manhattan minimum spanning tree.cpp"}
+\subsection{others}
+\lstinputlisting{"./geometry/others"}
+\subsection{Pick's theorem}
+\lstinputlisting{"./geometry/pick's theorem"}
+\subsection{PointInPoly}
+\lstinputlisting[language=C++]{"./geometry/pointinpoly.cpp"}
+\subsection{rotating caliper}
+\lstinputlisting[language=C++]{"./geometry/rotating caliper.cpp"}
+\subsection{shit}
+\lstinputlisting[language=C++]{"./geometry/shit.cpp"}
+\subsection{sort - polar angle}
+\lstinputlisting[language=C++]{"./geometry/sort - polar angle.cpp"}
+\subsection{triangle}
+\lstinputlisting{"./geometry/triangle"}
+\section{geometry/tmp}
+\subsection{circle}
+\lstinputlisting[language=C++]{"./geometry/tmp/circle.cpp"}
+\subsection{circles}
+\lstinputlisting[language=C++]{"./geometry/tmp/circles.cpp"}
+\subsection{halfplane}
+\lstinputlisting[language=C++]{"./geometry/tmp/halfplane.cpp"}
+\subsection{line}
+\lstinputlisting[language=C++]{"./geometry/tmp/line.cpp"}
+\subsection{line3d}
+\lstinputlisting[language=C++]{"./geometry/tmp/line3d.cpp"}
+\subsection{plane}
+\lstinputlisting[language=C++]{"./geometry/tmp/plane.cpp"}
+\subsection{point}
+\lstinputlisting[language=C++]{"./geometry/tmp/point.cpp"}
+\subsection{point3d}
+\lstinputlisting[language=C++]{"./geometry/tmp/point3d.cpp"}
+\subsection{polygon}
+\lstinputlisting[language=C++]{"./geometry/tmp/polygon.cpp"}
+\subsection{polygons}
+\lstinputlisting[language=C++]{"./geometry/tmp/polygons.cpp"}
+\section{graph}
+\subsection{2-sat}
+\lstinputlisting[language=C++]{"./graph/2-sat.cpp"}
+\subsection{Articulation}
+\lstinputlisting[language=C++]{"./graph/articulation.cpp"}
+\subsection{Augmenting Path Algorithm for Maximum Cardinality Bipartite Matching}
+\lstinputlisting[language=C++]{"./graph/augmenting path algorithm for maximum cardinality bipartite matching.cpp"}
+\subsection{Biconnected Component - Edge}
+\lstinputlisting[language=C++]{"./graph/biconnected component - edge.cpp"}
+\subsection{Biconnected Component}
+\lstinputlisting[language=C++]{"./graph/biconnected component.cpp"}
+\subsection{Blossom algorithm}
+\lstinputlisting[language=C++]{"./graph/blossom algorithm.cpp"}
+\subsection{Bridge}
+\lstinputlisting[language=C++]{"./graph/bridge.cpp"}
+\subsection{chu-liu algorithm}
+\lstinputlisting[language=C++]{"./graph/chu-liu algorithm.cpp"}
+\subsection{Covering problems}
+\lstinputlisting{"./graph/covering problems"}
+\subsection{Difference constraints}
+\lstinputlisting{"./graph/difference constraints"}
+\subsection{Dinitz's algorithm}
+\lstinputlisting[language=C++]{"./graph/dinitz's algorithm.cpp"}
+\subsection{Feasible flow problem}
+\lstinputlisting[language=C++]{"./graph/feasible flow problem.cpp"}
+\subsection{Flow network}
+\lstinputlisting{"./graph/flow network"}
+\subsection{Hamiltonian circuit}
+\lstinputlisting[language=C++]{"./graph/hamiltonian circuit.cpp"}
+\subsection{Hopcroft-Karp algorithm}
+\lstinputlisting[language=C++]{"./graph/hopcroft-karp algorithm.cpp"}
+\subsection{Improved Shortest Augmenting Path Algorithm}
+\lstinputlisting[language=C++]{"./graph/improved shortest augmenting path algorithm.cpp"}
+\subsection{k Shortest Path}
+\lstinputlisting[language=C++]{"./graph/k shortest path.cpp"}
+\subsection{Kariv-Hakimi Algorithm}
+\lstinputlisting[language=C++]{"./graph/kariv-hakimi algorithm.cpp"}
+\subsection{Kuhn-Munkres algorithm}
+\lstinputlisting[language=C++]{"./graph/kuhn-munkres algorithm.cpp"}
+\subsection{LCA - DA}
+\lstinputlisting[language=C++]{"./graph/lca - da.cpp"}
+\subsection{LCA - tarjan - minmax}
+\lstinputlisting[language=C++]{"./graph/lca - tarjan - minmax.cpp"}
+\subsection{Minimum Ratio Spanning Tree}
+\lstinputlisting[language=C++]{"./graph/minimum ratio spanning tree.cpp"}
+\subsection{Minimum-cost flow problem}
+\lstinputlisting[language=C++]{"./graph/minimum-cost flow problem.cpp"}
+\subsection{Stable Marriage}
+\lstinputlisting[language=C++]{"./graph/stable marriage.cpp"}
+\subsection{Stoer-Wagner Algorithm}
+\lstinputlisting[language=C++]{"./graph/stoer-wagner algorithm.cpp"}
+\subsection{Strongly Connected Component}
+\lstinputlisting[language=C++]{"./graph/strongly connected component.cpp"}
+\subsection{ZKW's Minimum-cost flow}
+\lstinputlisting[language=C++]{"./graph/zkw's minimum-cost flow.cpp"}
+\subsection{ZKW's SAP}
+\lstinputlisting[language=C++]{"./graph/zkw's sap.cpp"}
+\section{math}
+\subsection{cantor}
+\lstinputlisting[language=C++]{"./math/cantor.cpp"}
+\subsection{Continued fraction}
+\lstinputlisting[language=C++]{"./math/continued fraction.cpp"}
+\subsection{Discrete logarithms - BSGS}
+\lstinputlisting[language=C++]{"./math/discrete logarithms - bsgs.cpp"}
+\subsection{Divisor function}
+\lstinputlisting{"./math/divisor function"}
+\subsection{Extended Euclidean Algorithm}
+\lstinputlisting[language=C++]{"./math/extended euclidean algorithm.cpp"}
+\subsection{Gaussian elimination}
+\lstinputlisting[language=C++]{"./math/gaussian elimination.cpp"}
+\subsection{inverse element}
+\lstinputlisting[language=C++]{"./math/inverse element.cpp"}
+\subsection{Linear programming}
+\lstinputlisting[language=C++]{"./math/linear programming.cpp"}
+\subsection{Lucas' theorem(2)}
+\lstinputlisting[language=C++]{"./math/lucas' theorem(2).cpp"}
+\subsection{Lucas' theorem}
+\lstinputlisting[language=C++]{"./math/lucas' theorem.cpp"}
+\subsection{Matrix}
+\lstinputlisting[language=C++]{"./math/matrix.cpp"}
+\subsection{Miller-Rabin Algorithm}
+\lstinputlisting[language=C++]{"./math/miller-rabin algorithm.cpp"}
+\subsection{Multiset}
+\lstinputlisting{"./math/multiset"}
+\subsection{Pell's equation}
+\lstinputlisting{"./math/pell's equation"}
+\subsection{Pollard's rho algorithm}
+\lstinputlisting[language=C++]{"./math/pollard's rho algorithm.cpp"}
+\subsection{Prime}
+\lstinputlisting[language=C++]{"./math/prime.cpp"}
+\subsection{Reduced Residue System}
+\lstinputlisting[language=C++]{"./math/reduced residue system.cpp"}
+\subsection{System of linear congruences}
+\lstinputlisting[language=C++]{"./math/system of linear congruences.cpp"}
+\section{others}
+\subsection{.vimrc}
+\lstinputlisting[language=C++]{"./others/.vimrc"}
+\subsection{bigint}
+\lstinputlisting[language=C++]{"./others/bigint.cpp"}
+\subsection{Binary Search}
+\lstinputlisting[language=C++]{"./others/binary search.cpp"}
+\subsection{java}
+\lstinputlisting[language=java]{"./others/java.java"}
+\subsection{others}
+\lstinputlisting{"./others/others"}
+\section{search}
+\subsection{dlx}
+\lstinputlisting{"./search/dlx"}
+\subsection{dlx - exact cover}
+\lstinputlisting[language=C++]{"./search/dlx - exact cover.cpp"}
+\subsection{dlx - repeat cover}
+\lstinputlisting[language=C++]{"./search/dlx - repeat cover.cpp"}
+\subsection{fibonacci knapsack}
+\lstinputlisting[language=C++]{"./search/fibonacci knapsack.cpp"}
+\section{string}
+\subsection{Aho-Corasick Algorithm}
+\lstinputlisting[language=C++]{"./string/aho-corasick algorithm.cpp"}
+\subsection{Gusfield's Z Algorithm}
+\lstinputlisting[language=C++]{"./string/gusfield's z algorithm.cpp"}
+\subsection{Manacher's Algorithm}
+\lstinputlisting[language=C++]{"./string/manacher's algorithm.cpp"}
+\subsection{Morris-Pratt Algorithm}
+\lstinputlisting[language=C++]{"./string/morris-pratt algorithm.cpp"}
+\subsection{smallest representation}
+\lstinputlisting[language=C++]{"./string/smallest representation.cpp"}
+\subsection{Suffix Array - DC3 Algorithm}
+\lstinputlisting[language=C++]{"./string/suffix array - dc3 algorithm.cpp"}
+\subsection{Suffix Array - Prefix-doubling Algorithm}
+\lstinputlisting[language=C++]{"./string/suffix array - prefix-doubling algorithm.cpp"}
+
+\end{CJK*}
+\end{document}
