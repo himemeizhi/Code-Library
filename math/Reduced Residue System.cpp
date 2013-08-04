@@ -3,6 +3,7 @@ Euler's totient function:
 对正整数n，欧拉函数φ是少于或等于n的数中与n互质的数的数目，也就是对n的简化剩余系的大小。
 φ(1)=1（唯一和1互质的数就是1本身）。
 若m,n互质，φ(mn)=φ(m)φ(n)。 
+对于n来说，所有这样的数的和为n*φ(n)/2。
 
 inline long long phi(int n)
 {

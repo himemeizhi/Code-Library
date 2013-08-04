@@ -23,41 +23,42 @@ inline void add(int a,int b,long long c)
 
 int source,sink;
 
-inline long long go()
+inline long long go(const int N=sink)
 {
     static int now,N,i;
     static long long min,mf;
     memset(gap,0,sizeof gap);
     memset(h,0,sizeof h);
     memcpy(w,edge,sizeof w);
-    gap[0]=N=sink; // caution
+    gap[0]=N;
     mf=0;
 
     pre[now=source]=-1;
     while(h[source]<N)
     {
+rep:
         if(now==sink)
         {
             min=inf;
-            for(i=pre[now];i!=-1;i=pre[to[i^1]])
-                min=std::min(min,cap[i]);
-            for(i=pre[now];i!=-1;i=pre[to[i^1]])
+            for(i=pre[sink];i!=-1;i=pre[to[i^1]])
+                if(min>=cap[i])
+                {
+                    min=cap[i];
+                    now=to[i^1];
+                }
+            for(i=pre[sink];i!=-1;i=pre[to[i^1]])
             {
                 cap[i]-=min;
                 cap[i^1]+=min;
             }
-            now=source;
             mf+=min;
         }
-        for(i=w[now];i!=-1;i=nxt[i])
+        for(int &i(w[now]);i!=-1;i=nxt[i])
             if(cap[i] && h[v]+1==h[now])
             {
-                w[now]=pre[v]=i;
-                now=v;
-                break;
+                pre[now=v]=i;
+                goto rep;
             }
-        if(i!=-1)
-            continue;
         if(!--gap[h[now]])
             return mf;
         min=N;
