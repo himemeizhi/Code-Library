@@ -73,7 +73,7 @@ ans=Sum{点权}-value{Minimum weighted vertex cover edge}
 
 
 
-方格取数:
+方格取数: // refer: hdu 3820 golden eggs
 取方格获得收益
 当取了相邻方格时付出边的代价
 
@@ -122,3 +122,4 @@ Tips:
 点权始终要转化为边权;
 不参与决策的边权设为inf来排除掉;
 贪心一个初始不合法情况，然后通过可行流或者别的方法调整;
+按时间拆点(时间层……？);
