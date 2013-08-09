@@ -1,49 +1,57 @@
-\documentclass[a4paper,5pt,twoside,twocolumn,titlepage]{article}
+\documentclass[a4paper,5pt,titlepage]{article}
 
-\usepackage{CJK,CJKnumb,CJKulem}
-\usepackage{ifthen}         % logic options
-\usepackage{color}          % color image and color definition
-\usepackage{calc}           % do size calculations
-\usepackage{listings}       % format source code
-\usepackage{fancyhdr}
-\lstset{language=C++,showspaces=false,showstringspaces=true,%
-tabsize=2,extendedchars=false,columns=fullflexible,%
-escapeinside={/*@}{@*/}}
-\usepackage{times}
-\usepackage{lastpage}
-\usepackage[a4paper, body={15true cm,25.5true cm},%
-            headheight=4true cm]{geometry}
-\usepackage[CJKbookmarks,bookmarks=true,linkcolor=black,citecolor=black,%
-            pagecolor=black,colorlinks=true]{hyperref}
-    
 \usepackage{mathpazo}
-
+\usepackage{xeCJK}
 \usepackage{pstricks,pst-node,pst-tree}
 
-% style: list typesetting
-\definecolor{grey}{rgb}{0.3,0.3,0.3}
-\definecolor{darkgreen}{rgb}{0,0.3,0}
-\definecolor{darkblue}{rgb}{0,0,0.3}
-\lstset{%
-% indexing
-    numbers=left,
-    numberstyle=\tiny,%
-% character display
-    showstringspaces=false,
-    showspaces=false,%
-    tabsize=2,%
-% style
-    frame=lines,%
-    basicstyle=\tiny\ttfamily,%
-    keywordstyle=\color{darkblue}\bfseries,%
-    identifierstyle=,%
-    commentstyle=\color{darkgreen},%\itshape,%
-    stringstyle=\color{grey}%
-} \lstloadlanguages{C,C++,Java}
+%\setsansfont{Inconsolata}
+%\setsansfont{DejaVu Sans Mono}
+\setsansfont{Source Code Pro}
+%\setsansfont{Monaco}
 
-\lstset{breaklines} \columnsep 1 cm \pagestyle{fancy}
-\fancyhead[L]{Perfect Freeze}
-\fancyhead[R]{\thepage} \fancyfoot{}
+\setCJKmainfont{SimHei}
+\setCJKsansfont{SimHei}
+\setCJKmonofont{SimHei}
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{type1cm}
+\usepackage{booktabs}
+\usepackage{geometry}
+%\usepackage[landscape]{geometry}
+%\geometry{left=3cm,right=1cm,top=1.5cm,bottom=2cm,headsep=0.2cm}
+
+\usepackage{courier}
+%\usepackage{time}
+%\usepackage{charter}
+
+\usepackage{fancyhdr}
+
+\usepackage{listings}
+
+\lstset{
+    breaklines=true,
+    tabsize=2,
+%    basicstyle=\sf\normalsize,
+%    numberstyle=\sf\normalsize,
+%    commentstyle=\sf\normalsize,
+    numbers=left,
+    %keywordstyle=\color{blue!70}, 
+    frame=leftline,
+    %rulesepcolor=\color{red!20!green!20!blue!20},
+    escapeinside=``,
+    extendedchars=false
+}
+\usepackage[CJKbookmarks=true,
+			colorlinks,
+            linkcolor=black,
+            anchorcolor=black,
+            citecolor=black]{hyperref}
+\AtBeginDvi{\special{pdf:tounicode UTF8-UCS2}}
+
+\usepackage{indentfirst}
+\setlength{\parindent}{0em}
 
 
 \newcommand*{\TitleFont}{%
@@ -58,7 +66,7 @@ escapeinside={/*@}{@*/}}
 \author{Himemiya Nanao @ Perfect Freeze}
 
 \begin{document}
-\begin{CJK*}{UTF8}{Source Code Pro}
+%\begin{CJK*}{UTF8}{Source Code Pro}
 
 \maketitle \tableofcontents
 
@@ -94,7 +102,7 @@ escapeinside={/*@}{@*/}}
 \lstinputlisting[language=C++]{"./data structure/treap.cpp"}
 \section{dynamic programming}
 \subsection{knapsack problem}
-\lstinputlisting{"./dynamic programming/knapsack problem"}
+\input{"./dynamic programming/knapsack problem"}
 \subsection{LCIS}
 \lstinputlisting[language=C++]{"./dynamic programming/lcis.cpp"}
 \subsection{LCS}
@@ -113,7 +121,7 @@ escapeinside={/*@}{@*/}}
 \subsection{closest point pair}
 \lstinputlisting[language=C++]{"./geometry/closest point pair.cpp"}
 \subsection{ellipse}
-\lstinputlisting{"./geometry/ellipse"}
+\input{"./geometry/ellipse"}
 \subsection{Graham's scan}
 \lstinputlisting[language=C++]{"./geometry/graham's scan.cpp"}
 \subsection{half-plane intersection}
@@ -123,9 +131,9 @@ escapeinside={/*@}{@*/}}
 \subsection{Manhattan minimum spanning tree}
 \lstinputlisting[language=C++]{"./geometry/manhattan minimum spanning tree.cpp"}
 \subsection{others}
-\lstinputlisting{"./geometry/others"}
+\input{"./geometry/others"}
 \subsection{Pick's theorem}
-\lstinputlisting{"./geometry/pick's theorem"}
+\input{"./geometry/pick's theorem"}
 \subsection{PointInPoly}
 \lstinputlisting[language=C++]{"./geometry/pointinpoly.cpp"}
 \subsection{rotating caliper}
@@ -135,7 +143,7 @@ escapeinside={/*@}{@*/}}
 \subsection{sort - polar angle}
 \lstinputlisting[language=C++]{"./geometry/sort - polar angle.cpp"}
 \subsection{triangle}
-\lstinputlisting{"./geometry/triangle"}
+\input{"./geometry/triangle"}
 \section{geometry/tmp}
 \subsection{circle}
 \lstinputlisting[language=C++]{"./geometry/tmp/circle.cpp"}
@@ -175,15 +183,19 @@ escapeinside={/*@}{@*/}}
 \subsection{chu-liu algorithm}
 \lstinputlisting[language=C++]{"./graph/chu-liu algorithm.cpp"}
 \subsection{Covering problems}
-\lstinputlisting{"./graph/covering problems"}
+\input{"./graph/covering problems"}
 \subsection{Difference constraints}
-\lstinputlisting{"./graph/difference constraints"}
+\input{"./graph/difference constraints"}
 \subsection{Dinitz's algorithm}
 \lstinputlisting[language=C++]{"./graph/dinitz's algorithm.cpp"}
 \subsection{Feasible flow problem}
 \lstinputlisting[language=C++]{"./graph/feasible flow problem.cpp"}
 \subsection{Flow network}
-\lstinputlisting{"./graph/flow network"}
+
+\begin{verbatim}
+\input{"./graph/flow network"}
+\end{verbatim}
+
 \subsection{Hamiltonian circuit}
 \lstinputlisting[language=C++]{"./graph/hamiltonian circuit.cpp"}
 \subsection{Hopcroft-Karp algorithm}
@@ -222,7 +234,7 @@ escapeinside={/*@}{@*/}}
 \subsection{Discrete logarithms - BSGS}
 \lstinputlisting[language=C++]{"./math/discrete logarithms - bsgs.cpp"}
 \subsection{Divisor function}
-\lstinputlisting{"./math/divisor function"}
+\input{"./math/divisor function"}
 \subsection{Extended Euclidean Algorithm}
 \lstinputlisting[language=C++]{"./math/extended euclidean algorithm.cpp"}
 \subsection{Gaussian elimination}
@@ -239,10 +251,15 @@ escapeinside={/*@}{@*/}}
 \lstinputlisting[language=C++]{"./math/matrix.cpp"}
 \subsection{Miller-Rabin Algorithm}
 \lstinputlisting[language=C++]{"./math/miller-rabin algorithm.cpp"}
+
+
+\begin{verbatim}
 \subsection{Multiset}
-\lstinputlisting{"./math/multiset"}
+\input{"./math/multiset"}
 \subsection{Pell's equation}
-\lstinputlisting{"./math/pell's equation"}
+\input{"./math/pell's equation"}
+\end{verbatim}
+
 \subsection{Pollard's rho algorithm}
 \lstinputlisting[language=C++]{"./math/pollard's rho algorithm.cpp"}
 \subsection{Prime}
@@ -260,11 +277,15 @@ escapeinside={/*@}{@*/}}
 \lstinputlisting[language=C++]{"./others/binary search.cpp"}
 \subsection{java}
 \lstinputlisting[language=java]{"./others/java.java"}
+
+\begin{verbatim}
 \subsection{others}
-\lstinputlisting{"./others/others"}
+\input{"./others/others"}
 \section{search}
 \subsection{dlx}
-\lstinputlisting{"./search/dlx"}
+\input{"./search/dlx"}
+\end{verbatim}
+
 \subsection{dlx - exact cover}
 \lstinputlisting[language=C++]{"./search/dlx - exact cover.cpp"}
 \subsection{dlx - repeat cover}
@@ -287,5 +308,5 @@ escapeinside={/*@}{@*/}}
 \subsection{Suffix Array - Prefix-doubling Algorithm}
 \lstinputlisting[language=C++]{"./string/suffix array - prefix-doubling algorithm.cpp"}
 
-\end{CJK*}
+%\end{CJK*}
 \end{document}

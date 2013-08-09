@@ -1,0 +1,27 @@
+x & y == true:
+~x -> x
+~y -> y
+
+x & y == false:
+x -> ~y
+y -> ~x
+
+x | y == true:
+~x -> y
+~y -> x
+
+x | y == false:
+x -> ~x
+y -> ~y
+
+x ^ y == true:
+~x -> y
+y -> ~x
+x -> ~y
+~y -> x
+
+x ^ y == false:
+x -> y
+y -> x
+~x -> ~y
+~y -> ~x
