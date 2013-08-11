@@ -7,14 +7,6 @@ const int inf = 0x5fffffff;
 int n,m,u,v,cost,dis[1001][1001],L;
 int pre[1001],id[1001],visit[1001],in[1001];
 
-void init(int n)
-{
-    L = 0;
-    for (int i = 0; i < n; i++)
-        for (int j = 0; j < n; j++)
-            dis[i][j] = inf;
-}
-
 struct Edge
 {
     int u,v,cost;
@@ -84,7 +76,10 @@ int main()
 {
     while (scanf("%d%d",&n,&m) != EOF)
     {
-        init(n);
+        L = 0;
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++)
+                dis[i][j] = inf;
         for (int i = 0; i < m; i++)
         {
             scanf("%d%d%d",&u,&v,&cost);

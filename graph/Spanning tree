@@ -1,12 +1,29 @@
-Minimum Bottleneck Spanning Tree && All-pairs vertexes' Minimum Bottleneck Path
-Minimum Diameter Spanning Tree : Kariv-Hakimi Algorithm
-Directed Minimum Spanning Tree : Chu–Liu/Edmonds' algorithm
-Second-best MST
-Degree-constrained MST
-Minimum Ratio Spanning Tree
-Manhattan MST
+Minimum Bottleneck Spanning Tree:
+Kruscal's Algorithm
 
-Enumerate All MST
-Count Spanning Trees
-Minimum Steiner Tree
-k-MST
+All-pairs vertexes' Minimum Bottleneck Path:
+DP in the Kruscal's MST
+O(n^2)*O(1)
+
+Minimum Diameter Spanning Tree:
+Kariv-Hakimi Algorithm
+
+Directed MST:
+Chu–Liu/Edmonds' Algorithm
+
+Second-best MST:
+Kruscal, then enumerate all no-tree-edges
+
+Degree-constrained MST:
+TODO
+
+Minimum Ratio Spanning Tree:
+Binary search
+
+Manhattan MST:
+TODO
+
+Enumerate All MST:
+Count Spanning Trees:
+Minimum Steiner Tree:
+k-MST:

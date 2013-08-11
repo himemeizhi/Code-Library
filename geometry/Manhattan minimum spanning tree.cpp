@@ -1,209 +1,200 @@
-#include <cstdio>
-#include <algorithm>
-#include <cstring>
-#include <iostream>
-
-using namespace std;
-
-const int maxn = 60000;
-
-struct node {int x, y, k[2];} b[maxn];
-struct bian {int a, b, c;} g[maxn * 8];
-struct point{int k[2];} d[maxn * 8];
-long long s[maxn], ans;
-int i, n, m, a[maxn], lim, h, mid, bh[maxn * 2], f[maxn], num, e[maxn * 2], next[maxn * 2], first[maxn], tot;
-int comx(int p, int q) {return b[p].x < b[q].x;}
-int comy(int p, int q) {return b[p].y < b[q].y;}
-int comc(const bian &p, const bian &q) {return p.c < q.c;}
-int dist(int p, int q) {return abs(b[p].x - b[q].x) + abs(b[p].y - b[q].y);}
-int maxbh(int p, int q, int k) {return b[p].k[k] > b[q].k[k] ? p : q;}
-int minbh(int p, int q, int k) {return b[p].k[k] < b[q].k[k] ? p : q;}
-int getfa(int x) {if (f[x] != x) f[x] = getfa(f[x]); return f[x];}
-long long gcd(long long p, long long q) {return (!p || !q) ? p + q : gcd(q, p % q);}
-void link(int u, int v)
-{
-    e[++num] = v, next[num] = first[u], first[u] = num;
-    e[++num] = u, next[num] = first[v], first[v] = num;
-}
-void add(int x, int k)
-{
-    int y = h + b[x].k[1]; d[y].k[0] = minbh(d[y].k[0], x, 0);
-    for (y >>= 1; y; y >>= 1) d[y].k[0] = minbh(d[y << 1].k[0], d[y << 1 ^ 1].k[0], 0);
-    y = h + b[x].k[0];
-    d[y].k[1] = k ? maxbh(x, d[y].k[1], 1) : minbh(d[y].k[1], x, 1);
-    for (y >>= 1; y; y >>= 1)
-        d[y].k[1] = k ? maxbh(x, d[y << 1].k[1], 1) : minbh(d[y << 1 ^ 1].k[1], x, 1);
-}
-int ask(int l, int r, int k, int boss)
-{
-    for (mid = 0, l += h - 1, r += h + 1; (l ^ r) != 1; l >>= 1, r >>= 1)
-    {
-        if (!(l & 1)) mid = boss ? maxbh(mid, d[l + 1].k[k], k) : minbh(mid, d[r - 1].k[k], k);
-        if (r & 1) mid = boss ? maxbh(mid, d[r - 1].k[k], k) : minbh(mid, d[r - 1].k[k], k);
-    } return mid;
-}
-void manhattan()
-{
-    sort(bh + 1, bh + m + 1, comx);
-    b[0].k[0] = maxn * 3, b[0].k[1] = -1;
-    for (add(bh[m], 1), i = m - 1; i; add(bh[i], 1), --i)
-    {
-        g[++tot].a = bh[i], g[tot].b = ask(b[bh[i]].k[1], lim, 0, 0);
-        g[tot].c = dist(g[tot].a, g[tot].b);
-        if (g[tot].b == 0) --tot;
-        g[++tot].a = bh[i], g[tot].b = ask(1, b[bh[i]].k[0], 1, 1);
-        g[tot].c = dist(g[tot].a, g[tot].b);
-        if (g[tot].b == 0) --tot;
-    }
-    b[0].k[1] = b[0].k[0];
-    memset(d, 0, sizeof(d));
-    sort(bh + 1, bh + m + 1, comy);
-    for (add(bh[m], 0), i = m - 1; i; add(bh[i], 0), --i)
-    {
-        g[++tot].a = bh[i], g[tot].b = ask(1, b[bh[i]].k[1], 0, 0);
-        g[tot].c = dist(g[tot].a, g[tot].b);
-        if (g[tot].b == 0) --tot;
-        g[++tot].a = bh[i], g[tot].b = ask(1, b[bh[i]].k[0], 1, 0);
-        g[tot].c = dist(g[tot].a, g[tot].b);
-        if (g[tot].b == 0) --tot;
-    }
-}
-void kruskal()
-{
-    sort(g + 1, g + tot + 1, comc);
-    for (i = 1; i <= tot; ++i)
-    {
-        int f1 = getfa(g[i].a), f2 = getfa(g[i].b);
-        if (f1 != f2) link(g[i].a, g[i].b), f[f1] = f2;
-    } tot = 0; memset(f, 0, sizeof(f));
-}
-void dfs(int x, int fa)
-{
-    bh[++tot] = x;
-    for (int p = first[x]; p; p = next[p])
-        if (e[p] != fa) dfs(e[p], x), bh[++tot] = x;    
-}
-void del(int l, int r)
-{
-    if (l > r) return ;
-    for (int j = l; j <= r; ++j)
-        ans -= 1LL * f[a[j]] * f[a[j]], ans += 1LL * (--f[a[j]]) * f[a[j]];
-}
-void ins(int l, int r)
-{
-    if (l > r) return ;
-    for (int j = l; j <= r; ++j)
-        ans -= 1LL * f[a[j]] * f[a[j]], ans += 1LL * (++f[a[j]]) * f[a[j]];
-}
-int main()
-{
-    freopen("hose.in", "r", stdin);
-    freopen("hose.out", "w", stdout);
-    scanf("%d%d", &n, &m);
-    for (i = 1; i <= n; ++i)
-        scanf("%d", a+i);
-    for (i = 1; i <= m; ++i) 
-    {
-        scanf("%d%d", &b[bh[i] = f[i] = i].x, &b[i].y);
-        b[i].k[0] = b[i].x + b[i].y;
-        b[i].k[1] = b[i].y - b[i].x + maxn;
-        lim = max(lim, max(b[i].k[0], b[i].k[1]));
-    }
-    for (h = 1; h <= lim; h <<= 1);
-    manhattan();
-    kruskal();
-    dfs(1, 0);
-    ins(b[bh[1]].x, b[bh[1]].y);
-    for (s[1] = ans, i = 2; i <= tot; s[bh[i]] = ans, ++i)
-    {
-        ins(b[bh[i]].x, b[bh[i - 1]].x - 1);
-        ins(b[bh[i - 1]].y + 1, b[bh[i]].y);
-        del(b[bh[i - 1]].x, b[bh[i]].x - 1);
-        del(b[bh[i]].y + 1, b[bh[i - 1]].y);
-    }
-    for (i = 1; i <= m; ++i)
-    {
-        long long fz = s[i] - b[i].k[1] - 1 + maxn, fm = 1LL * (b[i].k[1] + 1 - maxn) * (b[i].k[1] - maxn);
-        long long gys = gcd(fz, fm);
-        printf("%lld/%lld\n", fz/gys, fm/gys);
-    }
-    return 0;
-}
-
-
-
-
-
-
-
 #include<iostream>
 #include<cstdio>
-#include<algorithm>
-#include<cmath>
 #include<cstring>
-#define maxn 55000
-#define inf 2147483647
+#include<queue>
+#include<cmath>
 using namespace std;
-struct query
-{
-    int l,r,s,w;
-}a[maxn];
-int c[maxn];
-long long col[maxn],size[maxn],ans[maxn];
-int n,m,cnt,len;
+const int srange = 10000000;      //坐标范围
+const int ra = 131072;     //线段树常量
+int c[ ra * 2 ], d[ ra * 2 ];     //线段树
+int a[ 100000 ], b[ 100000 ];   //排序临时变量
+int order[ 400000 ], torder[ 100000 ]; //排序结果
+int Index[ 100000 ];     //排序结果取反（为了在常数时间内取得某数的位置）
+int road[ 100000 ][ 8 ];    //每个点连接出去的8条边
+int y[ 100000 ], x[ 100000 ];     //点坐标
+int n;         //点个数
 
-long long gcd(long long x,long long  y)
+int swap( int &a, int &b )    //交换两个数
 {
-    return (!x)?y:gcd(y%x,x);
+    int t = a; a = b; b = t;
 }
 
-bool cmp(query a,query b)
+int insert( int a, int b, int i ) //向线段树中插入一个数
 {
-    return (a.w==b.w)?a.r<b.r:a.w<b.w;
+    a += ra;
+    while ( a != 0 )
+    {
+        if ( c[ a ] > b )
+        {
+            c[ a ] = b;
+            d[ a ] = i;
+        }
+        else break;
+        a >>= 1;
+    }
 }
+
+int find( int a )      //从c[0..a]中找最小的数，线段树查询
+{
+    a += ra;
+    int ret = d[ a ], max = c[ a ];
+    while ( a > 1 )
+    {
+        if ( ( a & 1 ) == 1 )
+            if ( c[ --a ] < max )
+            {
+                max = c[ a ];
+                ret = d[ a ];
+            }
+        a >>= 1;
+    }
+    return ret;
+}
+
+int ta[ 65536 ], tb[ 100000 ];    //基数排序临时变量
+
+int radixsort( int *p )     //基数排序，以p为基准
+{
+    memset( ta, 0, sizeof( ta ) );
+    for (int i = 0; i < n; i++ ) ta[ p[ i ] & 0xffff ]++;
+    for (int i = 0; i < 65535; i++ ) ta[ i + 1 ] += ta[ i ];
+    for (int i = n - 1; i >= 0; i-- ) tb[ --ta[ p[ order[ i ] ] & 0xffff ] ] = order[ i ];
+    memmove( order, tb, n * sizeof( int ) );
+    memset( ta, 0, sizeof( ta ) );
+    for (int i = 0; i < n; i++ ) ta[ p[ i ] >> 16 ]++;
+    for (int i = 0; i < 65535; i++ ) ta[ i + 1 ] += ta[ i ];
+    for (int i = n - 1; i >= 0; i-- ) tb[ --ta[ p[ order[ i ] ] >> 16 ] ] = order[ i ];
+    memmove( order, tb, n * sizeof( int ) );
+}
+
+int work( int ii )                //求每个点在一个方向上最近的点
+{
+    for (int i = 0; i < n; i++ ) //排序前的准备工作
+    {
+        a[ i ] = y[ i ] - x[ i ] + srange;
+        b[ i ] = srange - y[ i ];
+        order[ i ] = i;
+    }
+    radixsort( b );      //排序
+    radixsort( a );
+    for (int i = 0; i < n; i++ )
+    {
+        torder[ i ] = order[ i ];
+        order[ i ] = i;
+    }
+    radixsort( a );      //为线段树而做的排序
+    radixsort( b );
+    for (int i = 0; i < n; i++ )
+    {
+        Index[ order[ i ] ] = i; //order取反，求Index
+    }
+    for (int i = 1; i < ra + n; i++ ) c[ i ] = 0x7fffffff; //线段树初始化
+    memset( d, 0xff, sizeof( d ) );
+    for (int i = 0; i < n; i++ ) //线段树插入删除调用
+    {
+        int tt = torder[ i ];
+        road[ tt ][ ii ] = find( Index[ tt ] );
+        insert( Index[ tt ], y[ tt ] + x[ tt ], tt );
+    }
+}
+
+int distanc( int a, int b )       //求两点的距离，之所以少一个e是因为编译器不让使用distance作为函数名
+{
+    return abs( x[ a ] - x[ b ] ) + abs( y[ a ] - y[ b ] );
+}
+
+int ttb[ 400000 ];      //边排序的临时变量
+int rx[ 400000 ], ry[ 400000 ], rd[ 400000 ]; //边的存储
+int rr = 0;
+
+int radixsort_2( int *p )    //还是基数排序，copy+paste的产物
+{
+    memset( ta, 0, sizeof( ta ) );
+    for (int i = 0; i < rr; i++ ) ta[ p[ i ] & 0xffff ]++;
+    for (int i = 0; i < 65535; i++ ) ta[ i + 1 ] += ta[ i ];
+    for (int i = rr - 1; i >= 0; i-- ) ttb[ --ta[ p[ order[ i ] ] & 0xffff ] ] = order[ i ];
+    memmove( order, ttb, rr * sizeof( int ) );
+    memset( ta, 0, sizeof( ta ) );
+    for (int i = 0; i < rr; i++ ) ta[ p[ i ] >> 16 ]++;
+    for (int i = 0; i < 65535; i++ ) ta[ i + 1 ] += ta[ i ];
+    for (int i = rr - 1; i >= 0; i-- ) ttb[ --ta[ p[ order[ i ] ] >> 16 ] ] = order[ i ];
+    memmove( order, ttb, rr * sizeof( int ) );
+}
+
+int father[ 100000 ], rank[ 100000 ];    //并查集
+int findfather( int x )                  //并查集寻找代表元
+{
+    if ( father[ x ] != -1 )
+        return ( father[ x ] = findfather( father[ x ] ) );
+    else return x;
+}
+
+long long kruskal()                      //最小生成树
+{
+    rr = 0;
+    int tot = 0;
+    long long ans = 0;
+    for (int i = 0; i < n; i++ )         //得到边表
+    {
+        for (int j = 0; j < 4; j++ )
+        {
+            if ( road[ i ][ j ] != -1 )
+            {
+                rx[ rr ] = i;
+                ry[ rr ] = road[ i ][ j ];
+                rd[ rr++ ] = distanc( i, road[ i ][ j ] );
+            }
+        }
+    }
+    for (int i = 0; i < rr; i++ ) order[ i ] = i; //排序
+    radixsort_2( rd );
+    memset( father, 0xff, sizeof( father ) ); //并查集初始化
+    memset( rank, 0, sizeof( rank ) );
+    for (int i = 0; i < rr; i++ )     //kruskal最小生成树标准算法
+    {
+        if ( tot == n - 1 ) break;
+        int t = order[ i ];
+        int x = findfather( rx[ t ] ), y = findfather( ry[ t ] );
+        if ( x != y )
+        {
+            ans += rd[ t ];
+            tot++;
+            int &rkx = rank[ x ], &rky = rank[ y ];
+            if ( rkx > rky ) father[ y ] = x;
+            else
+            {
+                father[ x ] = y;
+                if ( rkx == rky ) rky++;
+            }
+        }
+    }
+    return ans;
+}
+
+int casenum = 0;
 
 int main()
 {
-    //freopen("hose.in","r",stdin);
-    scanf("%d%d",&n,&m);
-    for (int i=1;i<=n;i++) scanf("%d",&c[i]);
-    len=(int)sqrt(m);
-    cnt=(len*len==m)?len:len+1;
-    for (int i=1;i<=m;i++) 
+    while ( cin >> n )
     {
-        scanf("%d%d",&a[i].l,&a[i].r);
-        if (a[i].l>a[i].r) swap(a[i].l,a[i].r);
-        size[i]=a[i].r-a[i].l+1;
-        a[i].w=a[i].l/len+1;
-        a[i].s=i;
-    }
-    sort(a+1,a+m+1,cmp);
-    int i=1;
-    while (i<=m)
-    {
-        int now=a[i].w;
-        memset(col,0,sizeof(col));
-        for (int j=a[i].l;j<=a[i].r;j++) ans[a[i].s]+=2*(col[c[j]]++);
-        i++;
-        for (;a[i].w==now;i++)
-        {
-            ans[a[i].s]=ans[a[i-1].s];
-            for (int j=a[i-1].r+1;j<=a[i].r;j++)
-                ans[a[i].s]+=2*(col[c[j]]++);
-            if (a[i-1].l<a[i].l)
-                for (int j=a[i-1].l;j<a[i].l;j++) 
-                    ans[a[i].s]-=2*(--col[c[j]]);
-            else
-                for (int j=a[i].l;j<a[i-1].l;j++)
-                    ans[a[i].s]+=2*(col[c[j]]++);
+        if ( n == 0 ) break;
+        for (int i = 0; i < n; i++ )
+            scanf( "%d %d", &x[ i ], &y[ i ] );
+        memset( road, 0xff, sizeof( road ) );
+        for (int i = 0; i < 4; i++ )             //为了减少编程复杂度，work()函数只写了一种，其他情况用转换坐标的方式类似处理
+        {           //为了降低算法复杂度，只求出4个方向的边
+            if ( i == 2 )
+            {
+                for (int j = 0; j < n; j++ ) swap( x[ j ], y[ j ] );
+            }
+            if ( ( i & 1 ) == 1 )
+            {
+                for (int j = 0; j < n; j++ ) x[ j ] = srange - x[ j ];
+            }
+            work( i );
         }
-    }
-    long long all,num;
-    for (int i=1;i<=m;i++)
-    {
-        if (size[i]==1) all=1; else all=size[i]*(size[i]-1);
-        num=gcd(ans[i],all);
-        printf("%lld/%lld\n",ans[i]/num,all/num);
+        printf( "Case %d: Total Weight = ", ++casenum );
+        cout << kruskal() << endl;
     }
     return 0;
-}    
+}
