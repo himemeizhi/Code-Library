@@ -1,212 +1,75 @@
-#include <cstdio>
-#include <algorithm>
-#include <cstring>
-#include <iostream>
-
-using namespace std;
-
-const int maxn = 60000;
-
-struct node {int x, y, k[2];} b[maxn];
-struct bian {int a, b, c;} g[maxn * 8];
-struct point{int k[2];} d[maxn * 8];
-long long s[maxn], ans;
-int i, n, m, a[maxn], lim, h, mid, bh[maxn * 2], f[maxn], num, e[maxn * 2], next[maxn * 2], first[maxn], tot;
-int comx(int p, int q) {return b[p].x < b[q].x;}
-int comy(int p, int q) {return b[p].y < b[q].y;}
-int comc(const bian &p, const bian &q) {return p.c < q.c;}
-int dist(int p, int q) {return abs(b[p].x - b[q].x) + abs(b[p].y - b[q].y);}
-int maxbh(int p, int q, int k) {return b[p].k[k] > b[q].k[k] ? p : q;}
-int minbh(int p, int q, int k) {return b[p].k[k] < b[q].k[k] ? p : q;}
-int getfa(int x) {if (f[x] != x) f[x] = getfa(f[x]); return f[x];}
-long long gcd(long long p, long long q) {return (!p || !q) ? p + q : gcd(q, p % q);}
-void link(int u, int v)
-{
-    e[++num] = v, next[num] = first[u], first[u] = num;
-    e[++num] = u, next[num] = first[v], first[v] = num;
-}
-void add(int x, int k)
-{
-    int y = h + b[x].k[1]; d[y].k[0] = minbh(d[y].k[0], x, 0);
-    for (y >>= 1; y; y >>= 1) d[y].k[0] = minbh(d[y << 1].k[0], d[y << 1 ^ 1].k[0], 0);
-    y = h + b[x].k[0];
-    d[y].k[1] = k ? maxbh(x, d[y].k[1], 1) : minbh(d[y].k[1], x, 1);
-    for (y >>= 1; y; y >>= 1)
-        d[y].k[1] = k ? maxbh(x, d[y << 1].k[1], 1) : minbh(d[y << 1 ^ 1].k[1], x, 1);
-}
-int ask(int l, int r, int k, int boss)
-{
-    for (mid = 0, l += h - 1, r += h + 1; (l ^ r) != 1; l >>= 1, r >>= 1)
-    {
-        if (!(l & 1)) mid = boss ? maxbh(mid, d[l + 1].k[k], k) : minbh(mid, d[r - 1].k[k], k);
-        if (r & 1) mid = boss ? maxbh(mid, d[r - 1].k[k], k) : minbh(mid, d[r - 1].k[k], k);
-    } return mid;
-}
-void manhattan()
-{
-    sort(bh + 1, bh + m + 1, comx);
-    b[0].k[0] = maxn * 3, b[0].k[1] = -1;
-    for (add(bh[m], 1), i = m - 1; i; add(bh[i], 1), --i)
-    {
-        g[++tot].a = bh[i], g[tot].b = ask(b[bh[i]].k[1], lim, 0, 0);
-        g[tot].c = dist(g[tot].a, g[tot].b);
-        if (g[tot].b == 0) --tot;
-        g[++tot].a = bh[i], g[tot].b = ask(1, b[bh[i]].k[0], 1, 1);
-        g[tot].c = dist(g[tot].a, g[tot].b);
-        if (g[tot].b == 0) --tot;
-    }
-    b[0].k[1] = b[0].k[0];
-    memset(d, 0, sizeof(d));
-    sort(bh + 1, bh + m + 1, comy);
-    for (add(bh[m], 0), i = m - 1; i; add(bh[i], 0), --i)
-    {
-        g[++tot].a = bh[i], g[tot].b = ask(1, b[bh[i]].k[1], 0, 0);
-        g[tot].c = dist(g[tot].a, g[tot].b);
-        if (g[tot].b == 0) --tot;
-        g[++tot].a = bh[i], g[tot].b = ask(1, b[bh[i]].k[0], 1, 0);
-        g[tot].c = dist(g[tot].a, g[tot].b);
-        if (g[tot].b == 0) --tot;
-    }
-}
-void kruskal()
-{
-    sort(g + 1, g + tot + 1, comc);
-    for (i = 1; i <= tot; ++i)
-    {
-        int f1 = getfa(g[i].a), f2 = getfa(g[i].b);
-        if (f1 != f2) link(g[i].a, g[i].b), f[f1] = f2;
-    } tot = 0; memset(f, 0, sizeof(f));
-}
-void dfs(int x, int fa)
-{
-    bh[++tot] = x;
-    for (int p = first[x]; p; p = next[p])
-        if (e[p] != fa) dfs(e[p], x), bh[++tot] = x;    
-}
-void del(int l, int r)
-{
-    if (l > r) return ;
-    for (int j = l; j <= r; ++j)
-        ans -= 1LL * f[a[j]] * f[a[j]], ans += 1LL * (--f[a[j]]) * f[a[j]];
-}
-void ins(int l, int r)
-{
-    if (l > r) return ;
-    for (int j = l; j <= r; ++j)
-        ans -= 1LL * f[a[j]] * f[a[j]], ans += 1LL * (++f[a[j]]) * f[a[j]];
-}
-int main()
-{
-    freopen("hose.in", "r", stdin);
-    freopen("hose.out", "w", stdout);
-    scanf("%d%d", &n, &m);
-    for (i = 1; i <= n; ++i)
-        scanf("%d", a+i);
-    for (i = 1; i <= m; ++i) 
-    {
-        scanf("%d%d", &b[bh[i] = f[i] = i].x, &b[i].y);
-        b[i].k[0] = b[i].x + b[i].y;
-        b[i].k[1] = b[i].y - b[i].x + maxn;
-        lim = max(lim, max(b[i].k[0], b[i].k[1]));
-    }
-    for (h = 1; h <= lim; h <<= 1);
-    manhattan();
-    kruskal();
-    dfs(1, 0);
-    ins(b[bh[1]].x, b[bh[1]].y);
-    for (s[1] = ans, i = 2; i <= tot; s[bh[i]] = ans, ++i)
-    {
-        ins(b[bh[i]].x, b[bh[i - 1]].x - 1);
-        ins(b[bh[i - 1]].y + 1, b[bh[i]].y);
-        del(b[bh[i - 1]].x, b[bh[i]].x - 1);
-        del(b[bh[i]].y + 1, b[bh[i - 1]].y);
-    }
-    for (i = 1; i <= m; ++i)
-    {
-        long long fz = s[i] - b[i].k[1] - 1 + maxn, fm = 1LL * (b[i].k[1] + 1 - maxn) * (b[i].k[1] - maxn);
-        long long gys = gcd(fz, fm);
-        printf("%lld/%lld\n", fz/gys, fm/gys);
-    }
-    return 0;
-}
-
-
-
-
-
-
-
-#include<iostream>
 #include<cstdio>
+#include<cstring>
 #include<algorithm>
 #include<cmath>
-#include<cstring>
-#define maxn 55000
-#define inf 2147483647
-using namespace std;
-struct query
+
+#define MAXX 50111
+
+struct Q
 {
     int l,r,s,w;
-}a[maxn];
-int c[maxn];
-long long col[maxn],size[maxn],ans[maxn];
+    bool operator<(const Q &i)const
+    {
+        return w==i.w?r<i.r:w<i.w;
+    }
+}a[MAXX];
+
+int c[MAXX];
+long long col[MAXX],sz[MAXX],ans[MAXX];
 int n,m,cnt,len;
 
-long long gcd(long long x,long long  y)
+long long gcd(long long a,long long b)
 {
-    return (!x)?y:gcd(y%x,x);
+    return a?gcd(b%a,a):b;
 }
 
-bool cmp(query a,query b)
-{
-    return (a.w==b.w)?a.r<b.r:a.w<b.w;
-}
+int i,j,k,now;
+long long all,num;
 
 int main()
 {
-    //freopen("hose.in","r",stdin);
-    scanf("%d%d",&n,&m);
-    for (int i=1;i<=n;i++) scanf("%d",&c[i]);
-    len=(int)sqrt(m);
-    cnt=(len*len==m)?len:len+1;
-    for (int i=1;i<=m;i++) 
+    scanf("%d %d",&n,&m);
+    for(i=1;i<=n;++i)
+        scanf("%d",c+i);
+    len=sqrt(m);
+    for(i=1;i<=m;++i)
     {
-        scanf("%d%d",&a[i].l,&a[i].r);
-        if (a[i].l>a[i].r) swap(a[i].l,a[i].r);
-        size[i]=a[i].r-a[i].l+1;
+        scanf("%d %d",&a[i].l,&a[i].r);
+        if(a[i].l>a[i].r)
+            std::swap(a[i].l,a[i].r);
+        sz[i]=a[i].r-a[i].l+1;
         a[i].w=a[i].l/len+1;
         a[i].s=i;
     }
-    sort(a+1,a+m+1,cmp);
-    int i=1;
-    while (i<=m)
+    std::sort(a+1,a+m+1);
+    i=1;
+    while(i<=m)
     {
-        int now=a[i].w;
-        memset(col,0,sizeof(col));
-        for (int j=a[i].l;j<=a[i].r;j++)
+        now=a[i].w;
+        memset(col,0,sizeof col);
+        for(j=a[i].l;j<=a[i].r;++j)
             ans[a[i].s]+=2*(col[c[j]]++);
-        for (++i;a[i].w==now;++i)
+        for(++i;a[i].w==now;++i)
         {
             ans[a[i].s]=ans[a[i-1].s];
-            for (int j=a[i-1].r+1;j<=a[i].r;j++)
+            for(j=a[i-1].r+1;j<=a[i].r;++j)
                 ans[a[i].s]+=2*(col[c[j]]++);
-            if (a[i-1].l<a[i].l)
-                for (int j=a[i-1].l;j<a[i].l;j++) 
+            if(a[i-1].l<a[i].l)
+                for(j=a[i-1].l;j<a[i].l;++j)
                     ans[a[i].s]-=2*(--col[c[j]]);
             else
-                for (int j=a[i].l;j<a[i-1].l;j++)
+                for(j=a[i].l;j<a[i-1].l;++j)
                     ans[a[i].s]+=2*(col[c[j]]++);
         }
     }
-    long long all,num;
-    for (int i=1;i<=m;i++)
+    for(i=1;i<=m;++i)
     {
-        if (size[i]==1)
-            all=1; 
+        if(sz[i]==1)
+            all=1ll;
         else
-            all=size[i]*(size[i]-1);
+            all=sz[i]*(sz[i]-1);
         num=gcd(ans[i],all);
         printf("%lld/%lld\n",ans[i]/num,all/num);
     }
     return 0;
-}    
+}

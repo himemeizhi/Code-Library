@@ -15,21 +15,24 @@ Second-best MST:
 get All-pairs vertexes' Minimum Bottleneck Path, then enumerate all no-tree-edges to replace the longest edge between two vertexes to get a worse MST
 
 Degree-constrained MST:
-TODO
-remove the vertex from the whole graph,then add edges to increase degress
-need All-pairs vertexes' Minimum Bottleneck Path, too
+remove the vertex from the whole graph,then add edges to increase degrees and connect different connected components together ( O(mlogm + n) with kruscal )
+if we can't connect all connected components together, there exists no any spanning tree
+next step is add edges to root vertex greedily, increase degrees, and decrease our answer ( O(k*n) )
+need all vertexes' minimum bottleneck path to root vertex
 
 Minimum Ratio Spanning Tree:
 Binary search
 
 Manhattan MST:
-TODO
+combining line sweep with divide-and-conquer algorithm
 
 Minimum Steiner Tree:
 TODO
+bit-mask with dijkstra/SPFA
 
 Count Spanning Trees:
 TODO
+Matrix multiplication
 
-Enumerate All MST:
-k-MST:
+k-best MST:
+do like second-best MST for k times
