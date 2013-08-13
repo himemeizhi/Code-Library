@@ -1,5 +1,5 @@
 Minimum Bottleneck Spanning Tree:
-Kruscal's Algorithm
+Kruscal
 
 All-pairs vertexes' Minimum Bottleneck Path:
 DP in the Kruscal's MST
@@ -12,10 +12,12 @@ Directed MST:
 Chu–Liu/Edmonds' Algorithm
 
 Second-best MST:
-Kruscal, then enumerate all no-tree-edges
+get All-pairs vertexes' Minimum Bottleneck Path, then enumerate all no-tree-edges to replace the longest edge between two vertexes to get a worse MST
 
 Degree-constrained MST:
 TODO
+remove the vertex from the whole graph,then add edges to increase degress
+need All-pairs vertexes' Minimum Bottleneck Path, too
 
 Minimum Ratio Spanning Tree:
 Binary search
@@ -23,7 +25,11 @@ Binary search
 Manhattan MST:
 TODO
 
-Enumerate All MST:
-Count Spanning Trees:
 Minimum Steiner Tree:
+TODO
+
+Count Spanning Trees:
+TODO
+
+Enumerate All MST:
 k-MST:

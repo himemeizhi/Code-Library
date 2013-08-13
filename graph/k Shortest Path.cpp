@@ -132,4 +132,5 @@ int main()
         ++K;
     dijkstra(t-1);
     printf("%d\n",a_star(s-1,t-1));
+    return 0;
 }
