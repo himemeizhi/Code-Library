@@ -27,8 +27,9 @@ Manhattan MST:
 combining line sweep with divide-and-conquer algorithm
 
 Minimum Steiner Tree:
-TODO
-bit-mask with dijkstra/SPFA
+the MST contain all k vertexes
+bit-mask with dijkstra O( (1<<k)*( {dijkstra} ) )
+then run a bit-mask DP( O( n*(1<<k) ) )
 
 Count Spanning Trees:
 TODO
