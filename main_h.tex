@@ -1,13 +1,14 @@
-\documentclass[a4paper,5pt,titlepage]{article}
+\documentclass[a4paper,5pt,twocolumn,titlepage]{article}
 
+    
 \usepackage{mathpazo}
 \usepackage{xeCJK}
 \usepackage{pstricks,pst-node,pst-tree}
-
+    
 %\setsansfont{Inconsolata}
 %\setsansfont{DejaVu Sans Mono}
-\setsansfont{Source Code Pro}
-%\setsansfont{Monaco}
+%\setsansfont{Source Code Pro}
+\setsansfont{Monaco}
 
 \setCJKmainfont{SimHei}
 \setCJKsansfont{SimHei}
@@ -20,7 +21,7 @@
 \usepackage{booktabs}
 \usepackage{geometry}
 %\usepackage[landscape]{geometry}
-%\geometry{left=3cm,right=1cm,top=1.5cm,bottom=2cm,headsep=0.2cm}
+\geometry{left=1cm,right=1cm,top=1.5cm,bottom=1cm,headsep=0.2cm}
 
 \usepackage{courier}
 %\usepackage{time}
@@ -31,23 +32,19 @@
 \usepackage{listings}
 
 \lstset{
-    breaklines=true,
-    tabsize=2,
-%    basicstyle=\sf\normalsize,
-%    numberstyle=\sf\normalsize,
-%    commentstyle=\sf\normalsize,
-    numbers=left,
-    %keywordstyle=\color{blue!70}, 
-    frame=leftline,
-    %rulesepcolor=\color{red!20!green!20!blue!20},
-    escapeinside=``,
-    extendedchars=false
+breaklines=true,
+tabsize=2,
+numbers=left,
+basicstyle=\tiny\ttfamily,
+frame=leftline,
+escapeinside=``,
+extendedchars=false
 }
 \usepackage[CJKbookmarks=true,
-			colorlinks,
-            linkcolor=black,
-            anchorcolor=black,
-            citecolor=black]{hyperref}
+colorlinks,
+linkcolor=black,
+anchorcolor=black,
+citecolor=black]{hyperref}
 \AtBeginDvi{\special{pdf:tounicode UTF8-UCS2}}
 
 \usepackage{indentfirst}
@@ -55,21 +52,18 @@
 
 
 \newcommand*{\TitleFont}{%
-    \fontsize{50}{80}%
-        \selectfont}
+\fontsize{50}{80}%
+\selectfont}
 \usepackage{graphicx}
 \title{\TitleFont{Code Library}
-    \begin{center}
+\begin{center}
 \includegraphics[scale=2]{./image1.png}
-    \end{center}
+\end{center}
 }
 \author{Himemiya Nanao @ Perfect Freeze}
 
 \begin{document}
-%\begin{CJK*}{UTF8}{Source Code Pro}
-
 \maketitle \tableofcontents
-
 \newpage
 \pagenumbering{arabic}
 
@@ -80,8 +74,8 @@
 \lstinputlisting[language=C++]{"./data structure/binary indexed tree.cpp"}
 \subsection{COT}
 \lstinputlisting[language=C++]{"./data structure/cot.cpp"}
-\subsection{GSS7}
-\lstinputlisting[language=C++]{"./data structure/gss7.cxx"}
+\subsection{hose}
+\lstinputlisting[language=C++]{"./data structure/hose.cpp"}
 \subsection{Leftist tree}
 \lstinputlisting[language=C++]{"./data structure/leftist tree.cpp"}
 \subsection{Network}
@@ -98,22 +92,15 @@
 \lstinputlisting[language=C++]{"./data structure/sparse table - square.cpp"}
 \subsection{Sparse Table}
 \lstinputlisting[language=C++]{"./data structure/sparse table.cpp"}
-\subsection{Trea}
+\subsection{Treap}
 \lstinputlisting[language=C++]{"./data structure/treap.cpp"}
-\section{dynamic programming}
-\subsection{knapsack problem}
-\input{"./dynamic programming/knapsack problem"}
-\subsection{LCIS}
-\lstinputlisting[language=C++]{"./dynamic programming/lcis.cpp"}
-\subsection{LCS}
-\lstinputlisting[language=C++]{"./dynamic programming/lcs.cpp"}
 \section{geometry}
 \subsection{3D}
 \lstinputlisting[language=C++]{"./geometry/3d.cpp"}
 \subsection{3DCH}
 \lstinputlisting[language=C++]{"./geometry/3dch.cpp"}
-\subsection{circle ploy's intersection area}
-\lstinputlisting[language=C++]{"./geometry/circle ploy's intersection area.cpp"}
+\subsection{circle\&ploy's area}
+\lstinputlisting[language=C++]{"./geometry/circle&ploy's area.cpp"}
 \subsection{circle's area}
 \lstinputlisting[language=C++]{"./geometry/circle's area.cpp"}
 \subsection{circle}
@@ -121,19 +108,19 @@
 \subsection{closest point pair}
 \lstinputlisting[language=C++]{"./geometry/closest point pair.cpp"}
 \subsection{ellipse}
-\input{"./geometry/ellipse"}
+\lstinputlisting{"./geometry/ellipse"}
 \subsection{Graham's scan}
 \lstinputlisting[language=C++]{"./geometry/graham's scan.cpp"}
 \subsection{half-plane intersection}
 \lstinputlisting[language=C++]{"./geometry/half-plane intersection.cpp"}
 \subsection{kdtree}
 \lstinputlisting[language=C++]{"./geometry/kdtree.cpp"}
-\subsection{Manhattan minimum spanning tree}
-\lstinputlisting[language=C++]{"./geometry/manhattan minimum spanning tree.cpp"}
+\subsection{Manhattan MST}
+\lstinputlisting[language=C++]{"./geometry/manhattan mst.cpp"}
 \subsection{others}
-\input{"./geometry/others"}
+\lstinputlisting{"./geometry/others"}
 \subsection{Pick's theorem}
-\input{"./geometry/pick's theorem"}
+\lstinputlisting{"./geometry/pick's theorem"}
 \subsection{PointInPoly}
 \lstinputlisting[language=C++]{"./geometry/pointinpoly.cpp"}
 \subsection{rotating caliper}
@@ -143,7 +130,7 @@
 \subsection{sort - polar angle}
 \lstinputlisting[language=C++]{"./geometry/sort - polar angle.cpp"}
 \subsection{triangle}
-\input{"./geometry/triangle"}
+\lstinputlisting{"./geometry/triangle"}
 \section{geometry/tmp}
 \subsection{circle}
 \lstinputlisting[language=C++]{"./geometry/tmp/circle.cpp"}
@@ -166,8 +153,8 @@
 \subsection{polygons}
 \lstinputlisting[language=C++]{"./geometry/tmp/polygons.cpp"}
 \section{graph}
-\subsection{2-sat}
-\lstinputlisting[language=C++]{"./graph/2-sat.cpp"}
+\subsection{2SAT}
+\lstinputlisting[language=C++]{"./graph/2sat.cpp"}
 \subsection{Articulation}
 \lstinputlisting[language=C++]{"./graph/articulation.cpp"}
 \subsection{Augmenting Path Algorithm for Maximum Cardinality Bipartite Matching}
@@ -180,22 +167,16 @@
 \lstinputlisting[language=C++]{"./graph/blossom algorithm.cpp"}
 \subsection{Bridge}
 \lstinputlisting[language=C++]{"./graph/bridge.cpp"}
-\subsection{chu-liu algorithm}
-\lstinputlisting[language=C++]{"./graph/chu-liu algorithm.cpp"}
+\subsection{Chu–Liu:Edmonds' Algorithm}
+\lstinputlisting[language=C++]{"./graph/chu–liu:edmonds' algorithm.cpp"}
 \subsection{Covering problems}
-\input{"./graph/covering problems"}
+\lstinputlisting{"./graph/covering problems"}
 \subsection{Difference constraints}
-\input{"./graph/difference constraints"}
+\lstinputlisting{"./graph/difference constraints"}
 \subsection{Dinitz's algorithm}
 \lstinputlisting[language=C++]{"./graph/dinitz's algorithm.cpp"}
-\subsection{Feasible flow problem}
-\lstinputlisting[language=C++]{"./graph/feasible flow problem.cpp"}
 \subsection{Flow network}
-
-\begin{verbatim}
-\input{"./graph/flow network"}
-\end{verbatim}
-
+\lstinputlisting{"./graph/flow network"}
 \subsection{Hamiltonian circuit}
 \lstinputlisting[language=C++]{"./graph/hamiltonian circuit.cpp"}
 \subsection{Hopcroft-Karp algorithm}
@@ -214,8 +195,14 @@
 \lstinputlisting[language=C++]{"./graph/lca - tarjan - minmax.cpp"}
 \subsection{Minimum Ratio Spanning Tree}
 \lstinputlisting[language=C++]{"./graph/minimum ratio spanning tree.cpp"}
+\subsection{Minimum Steiner Tree}
+\lstinputlisting[language=C++]{"./graph/minimum steiner tree.cpp"}
 \subsection{Minimum-cost flow problem}
 \lstinputlisting[language=C++]{"./graph/minimum-cost flow problem.cpp"}
+\subsection{Second-best MST}
+\lstinputlisting[language=C++]{"./graph/second-best mst.cpp"}
+\subsection{Spanning tree}
+\lstinputlisting{"./graph/spanning tree"}
 \subsection{Stable Marriage}
 \lstinputlisting[language=C++]{"./graph/stable marriage.cpp"}
 \subsection{Stoer-Wagner Algorithm}
@@ -224,19 +211,17 @@
 \lstinputlisting[language=C++]{"./graph/strongly connected component.cpp"}
 \subsection{ZKW's Minimum-cost flow}
 \lstinputlisting[language=C++]{"./graph/zkw's minimum-cost flow.cpp"}
-\subsection{ZKW's SAP}
-\lstinputlisting[language=C++]{"./graph/zkw's sap.cpp"}
 \section{math}
 \subsection{cantor}
 \lstinputlisting[language=C++]{"./math/cantor.cpp"}
-\subsection{Continued fraction}
-\lstinputlisting[language=C++]{"./math/continued fraction.cpp"}
 \subsection{Discrete logarithms - BSGS}
 \lstinputlisting[language=C++]{"./math/discrete logarithms - bsgs.cpp"}
 \subsection{Divisor function}
-\input{"./math/divisor function"}
+\lstinputlisting{"./math/divisor function"}
 \subsection{Extended Euclidean Algorithm}
 \lstinputlisting[language=C++]{"./math/extended euclidean algorithm.cpp"}
+\subsection{Fast Fourier Transform}
+\lstinputlisting[language=C++]{"./math/fast fourier transform.cpp"}
 \subsection{Gaussian elimination}
 \lstinputlisting[language=C++]{"./math/gaussian elimination.cpp"}
 \subsection{inverse element}
@@ -251,47 +236,20 @@
 \lstinputlisting[language=C++]{"./math/matrix.cpp"}
 \subsection{Miller-Rabin Algorithm}
 \lstinputlisting[language=C++]{"./math/miller-rabin algorithm.cpp"}
-
-
-\begin{verbatim}
 \subsection{Multiset}
-\input{"./math/multiset"}
+\lstinputlisting{"./math/multiset"}
 \subsection{Pell's equation}
-\input{"./math/pell's equation"}
-\end{verbatim}
-
+\lstinputlisting[language=Java]{"./math/pell's equation.java"}
 \subsection{Pollard's rho algorithm}
 \lstinputlisting[language=C++]{"./math/pollard's rho algorithm.cpp"}
 \subsection{Prime}
 \lstinputlisting[language=C++]{"./math/prime.cpp"}
 \subsection{Reduced Residue System}
 \lstinputlisting[language=C++]{"./math/reduced residue system.cpp"}
+\subsection{Simpson's rule}
+\lstinputlisting[language=C++]{"./math/simpson's rule.cpp"}
 \subsection{System of linear congruences}
 \lstinputlisting[language=C++]{"./math/system of linear congruences.cpp"}
-\section{others}
-\subsection{.vimrc}
-\lstinputlisting[language=C++]{"./others/.vimrc"}
-\subsection{bigint}
-\lstinputlisting[language=C++]{"./others/bigint.cpp"}
-\subsection{Binary Search}
-\lstinputlisting[language=C++]{"./others/binary search.cpp"}
-\subsection{java}
-\lstinputlisting[language=java]{"./others/java.java"}
-
-\begin{verbatim}
-\subsection{others}
-\input{"./others/others"}
-\section{search}
-\subsection{dlx}
-\input{"./search/dlx"}
-\end{verbatim}
-
-\subsection{dlx - exact cover}
-\lstinputlisting[language=C++]{"./search/dlx - exact cover.cpp"}
-\subsection{dlx - repeat cover}
-\lstinputlisting[language=C++]{"./search/dlx - repeat cover.cpp"}
-\subsection{fibonacci knapsack}
-\lstinputlisting[language=C++]{"./search/fibonacci knapsack.cpp"}
 \section{string}
 \subsection{Aho-Corasick Algorithm}
 \lstinputlisting[language=C++]{"./string/aho-corasick algorithm.cpp"}
@@ -307,6 +265,32 @@
 \lstinputlisting[language=C++]{"./string/suffix array - dc3 algorithm.cpp"}
 \subsection{Suffix Array - Prefix-doubling Algorithm}
 \lstinputlisting[language=C++]{"./string/suffix array - prefix-doubling algorithm.cpp"}
+\subsection{Suffix Automaton}
+\lstinputlisting[language=C++]{"./string/suffix automaton.cpp"}
+\section{dynamic programming}
+\subsection{knapsack problem}
+\lstinputlisting{"./dynamic programming/knapsack problem"}
+\subsection{LCIS}
+\lstinputlisting[language=C++]{"./dynamic programming/lcis.cpp"}
+\section{search}
+\subsection{dlx}
+\lstinputlisting{"./search/dlx"}
+\subsection{dlx - exact cover}
+\lstinputlisting[language=C++]{"./search/dlx - exact cover.cpp"}
+\subsection{dlx - repeat cover}
+\lstinputlisting[language=C++]{"./search/dlx - repeat cover.cpp"}
+\subsection{fibonacci knapsack}
+\lstinputlisting[language=C++]{"./search/fibonacci knapsack.cpp"}
+\section{others}
+\subsection{.vimrc}
+\lstinputlisting[language=C++]{"./others/.vimrc"}
+\subsection{bigint}
+\lstinputlisting[language=C++]{"./others/bigint.cpp"}
+\subsection{Binary Search}
+\lstinputlisting[language=C++]{"./others/binary search.cpp"}
+\subsection{java}
+\lstinputlisting[language=Java]{"./others/java.java"}
+\subsection{others}
+\lstinputlisting{"./others/others"}
 
-%\end{CJK*}
 \end{document}
