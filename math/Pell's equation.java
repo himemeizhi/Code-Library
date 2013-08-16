@@ -1,15 +1,17 @@
 /*
-find the (x,y)pair that x^2-n*y^2=1
+`find the (x,y)pair that $x^2-n \times y^2=1$`
 these is not solution if and only if n is a square number.
 
 solution:
 simply brute-force search the integer y, get (x1,y1). ( toooo slow in some situation )
-or we can enumerate the continued fraction of sqrt(n), as (x/y), it will be much more faster
+`or we can enumerate the continued fraction of $\sqrt{n}$, as $\frac{x}{y}$, it will be much more faster`
 
 other solution pairs' matrix:
-[ x1 n*y1 ]
-[ y1 x1   ]
-k-th solution is pow({matrix},k)
+`$\begin{matrix}
+x1 & n \times y1 \\
+y1 & x1
+\end{matrix}$`
+`k-th solution is $\{matrix\}^k$`
 */
 
 import java.util.*;

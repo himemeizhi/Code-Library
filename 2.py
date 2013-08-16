@@ -22,7 +22,7 @@ f.write("""\documentclass[a4paper,5pt,twocolumn,titlepage]{article}
 \usepackage{booktabs}
 \usepackage{geometry}
 %\usepackage[landscape]{geometry}
-\geometry{left=1cm,right=1cm,top=1.5cm,bottom=1cm,headsep=0.2cm}
+\geometry{left=1cm,right=1cm,top=1.5cm,bottom=1.5cm,headsep=0.2cm}
 
 \usepackage{courier}
 %\usepackage{time}

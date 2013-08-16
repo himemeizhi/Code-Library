@@ -1,5 +1,5 @@
 /*
-`length(s) \in [ min(s), max(s) ] = [ max[fal[s]]+1, val[s] ]`
+`length(s) \in [ min(s), max(s) ] = [ val[fal[s]]+1, val[s] ]`
  */
 #define MAXX 90111
 #define MAXN (MAXX<<1)
