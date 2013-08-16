@@ -1,25 +1,19 @@
 f = open('main_h.tex','w')
 f.write("""\documentclass[a4paper,5pt,twocolumn,titlepage]{article}
 
-\usepackage{CJK}
-\usepackage{ifthen}         % logic options
-\usepackage{color}          % color image and color definition
-\usepackage{calc}           % do size calculations
-\usepackage{listings}       % format source code
-\usepackage{fancyhdr}
-\lstset{language=C++,showspaces=false,showstringspaces=true,%
-tabsize=2,extendedchars=false,columns=fullflexible,%
-escapeinside={/*@}{@*/}}
-\usepackage{times}
-\usepackage{lastpage}
-\usepackage[a4paper, body={15true cm,25.5true cm},%
-            headheight=4true cm]{geometry}
-\usepackage[CJKbookmarks,bookmarks=true,linkcolor=black,citecolor=black,%
-            pagecolor=black,colorlinks=true]{hyperref}
     
 \usepackage{mathpazo}
-
+\usepackage{xeCJK}
 \usepackage{pstricks,pst-node,pst-tree}
+    
+%\setsansfont{Inconsolata}
+%\setsansfont{DejaVu Sans Mono}
+%\setsansfont{Source Code Pro}
+\setsansfont{Monaco}
+
+\setCJKmainfont{SimHei}
+\setCJKsansfont{SimHei}
+\setCJKmonofont{SimHei}
 
 \usepackage{graphicx}
 \usepackage{amsmath}
@@ -28,7 +22,7 @@ escapeinside={/*@}{@*/}}
 \usepackage{booktabs}
 \usepackage{geometry}
 %\usepackage[landscape]{geometry}
-\geometry{left=2cm,right=1cm,top=1.5cm,bottom=2cm,headsep=0.2cm}
+\geometry{left=1cm,right=1cm,top=1.5cm,bottom=1cm,headsep=0.2cm}
 
 \usepackage{courier}
 %\usepackage{time}
@@ -36,39 +30,40 @@ escapeinside={/*@}{@*/}}
 
 \usepackage{fancyhdr}
 
-%\usepackage{listings}
+\usepackage{listings}
+
+\lstset{
+breaklines=true,
+tabsize=2,
+numbers=left,
+basicstyle=\\tiny\\ttfamily,
+frame=leftline,
+escapeinside=``,
+extendedchars=false
+}
+\usepackage[CJKbookmarks=true,
+colorlinks,
+linkcolor=black,
+anchorcolor=black,
+citecolor=black]{hyperref}
 \AtBeginDvi{\special{pdf:tounicode UTF8-UCS2}}
 
 \usepackage{indentfirst}
+\setlength{\parindent}{0em}
 
-% style: list typesetting
-\definecolor{grey}{rgb}{0.3,0.3,0.3}
-\definecolor{darkgreen}{rgb}{0,0.3,0}
-\definecolor{darkblue}{rgb}{0,0,0.3}
-\lstset{%
-% indexing
-    numbers=left,
-    numberstyle=\\tiny,%
-% character display
-    showstringspaces=false,
-    showspaces=false,%
-    tabsize=2,%
-% style
-    frame=lines,%
-    basicstyle=\\tiny\\ttfamily,%
-    keywordstyle=\color{darkblue}\\bfseries,%
-    identifierstyle=,%
-    commentstyle=\color{darkgreen},%\itshape,%
-    stringstyle=\color{grey}%
-} \lstloadlanguages{C,C++,Java}
 
-\lstset{breaklines} \columnsep 1 cm \pagestyle{fancy}
-\\fancyhead[L]{Perfect Freeze}
-\\fancyhead[R]{\\thepage} \\fancyfoot{}
-\\title{Code Library}
-\\author{Himemiya Nanao}
+\\newcommand*{\TitleFont}{%
+\\fontsize{50}{80}%
+\\selectfont}
+\\usepackage{graphicx}
+\\title{\TitleFont{Code Library}
+\\begin{center}
+\includegraphics[scale=2]{./image1.png}
+\end{center}
+}
+\\author{Himemiya Nanao @ Perfect Freeze}
+
 \\begin{document}
-\\begin{CJK*}{UTF8}{Source Code Pro}
 \maketitle \\tableofcontents
 \\newpage
 \pagenumbering{arabic}
@@ -79,7 +74,7 @@ import os
 for x,y,z in os.walk('.'):
 	if x == '.':
 		continue
-	f.write('\section{'+x[2:]+'}\n')
+	f.write('\n\section{'+x[2:]+'}\n')
 	for files in z:
 		if ((files == '.ds_store') or (files == '.DS_Store') or (files.endswith('~')) or files.endswith('.pdf')):
 			continue
@@ -89,7 +84,7 @@ for x,y,z in os.walk('.'):
 		elif ot.endswith(""".cxx"""):
 		    ot=ot.rstrip(""".cxx""")
 		elif ot.endswith("""java"""):
-		    ot="java"
+		    ot=ot.rstrip(""".java""")
 		f.write('\subsection{'+ot+'}\n')
 		fname = x+'/'+files
 		fname = fname.lower()
@@ -105,7 +100,6 @@ for x,y,z in os.walk('.'):
 			f.write('\\lstinputlisting{\"'+fname+'\"}\n')
 f.write(
 """
-\end{CJK*}
 \end{document}
 """)
 f.close()

@@ -1,3 +1,6 @@
+/*
+`length(s) \in [ min(s), max(s) ] = [ max[fal[s]]+1, val[s] ]`
+ */
 #define MAXX 90111
 #define MAXN (MAXX<<1)
 
@@ -68,3 +71,12 @@ inline void make(char *str)
         // topsort already
     }
 }
+/*
+sizeof right(s):
+    init:
+        for all np:
+            count[np]=1;
+    process:
+        for all status s:
+            count[fal[s]]+=count[s];
+*/
