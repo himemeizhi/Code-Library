@@ -1,12 +1,12 @@
-sq(x-h)/sq(q) + sq(y-k)/sq(b) = 1
+`$\frac{(x-h)^2}{a^2} + \frac{(y-k)^2}{b^2} = 1$`
 
-x=h+a*cos(t);
-y=k+b*sin(t);
+`$x=h+a \times \cos$(t)`
+`$y=k+b \times \sin$(t)`
 
-area: pi*a*b;
-distance from center to focus: f=sqrt(sq(a)-sq(b));
-eccentricity: e=sqrt(a-sq(b/a))=f/a;
-focal parameter: sq(b)/sqrt(sq(a)-sq(b))=sq(b)/f;
+area=`$\pi \times a \times b$`
+distance from center to focus: `$f=\sqrt{a^2-b^2}$`
+eccentricity: `$e=\sqrt{a-\frac{b}{a}^2}=\frac{f}{a}$`
+focal parameter: `$\frac{b^2}{\sqrt{a^2-b^2}}=\frac{b^2}{f}$`
 
 double circumference(double a,double b) // accuracy: pow(0.5,53);
 {

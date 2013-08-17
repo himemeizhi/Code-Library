@@ -1,5 +1,5 @@
-//记得随手down啊……亲……
-//debug时记得优先检查up/down/select
+//`记得随手down啊……亲……`
+//`debug时记得优先检查up/down/select`
 #include<cstdio>
 #include<algorithm>
 
@@ -33,7 +33,7 @@ inline void rot(int id,int tp)
     up(id);
 }
 
-inline void down(int id) //记得随手down啊……亲……
+inline void down(int id) //`记得随手down啊……亲……`
 {
     static int i;
     if(rev[id])
@@ -55,7 +55,7 @@ int freshen(int id)
     return re;
 }
 
-inline void splay(int id)//记得随手down啊……亲……
+inline void splay(int id)//`记得随手down啊……亲……`
 {
     static int rt;
     if(id!=(rt=freshen(id)))

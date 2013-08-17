@@ -1,4 +1,4 @@
-void dfs(int now,int fa)  // now从1开始
+void dfs(int now,int fa)  //` now从1开始`
 {
     int p(0);
     dfn[now]=low[now]=cnt++;

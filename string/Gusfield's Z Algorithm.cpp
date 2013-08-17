@@ -21,4 +21,4 @@ inline void make(int *z,char *buf)
             z[i]=z[i-l];
 }
 
-for(i=1;i<len && i+z[i]<len;++i); //i=可能最小循环节长度
+for(i=1;i<len && i+z[i]<len;++i); //`i=可能最小循环节长度`

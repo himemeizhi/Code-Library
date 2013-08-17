@@ -6,7 +6,7 @@ void dfs(const short &now,const short &fa)
         {
             dfs(edge[now][i],now);
             low[now]=std::min(low[now],low[edge[now][i]]);
-            if(low[edge[now][i]]>dfn[now]) //如果子节点不能够走到父节点之前去,那么该边为桥
+            if(low[edge[now][i]]>dfn[now]) //`如果子节点不能够走到父节点之前去,那么该边为桥`
             {
                 if(edge[now][i]<now)
                 {

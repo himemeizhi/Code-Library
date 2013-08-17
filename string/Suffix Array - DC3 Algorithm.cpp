@@ -81,11 +81,11 @@ int main()
     }
     num[n]=0;
 
-    dc3(num,sa,n+1,191); //191: str中取值范围，桶排序
+    dc3(num,sa,n+1,191); //`191: str中取值范围，桶排序`
 
-    for(i=1;i<=n;++i) // rank数组
+    for(i=1;i<=n;++i) // `rank数组`
         rk[sa[i]]=i;
-    for(i=k=0;i<n;++i) // lcp数组
+    for(i=k=0;i<n;++i) // `lcp数组`
         if(!rk[i])
             lcpa[0]=0;
         else
@@ -122,7 +122,7 @@ inline int ask(int l,int r)
     return lcpa[l]<lcpa[r]?l:r;
 }
 
-inline int lcp(int l,int r) // 字符串上[l,r]区间的rmq
+inline int lcp(int l,int r) // `字符串上[l,r]区间的rmq`
 {
     l=rk[l];
     r=rk[r];

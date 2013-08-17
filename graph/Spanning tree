@@ -33,7 +33,7 @@ then run a bit-mask DP( O( n*(1<<k) ) )
 
 Count Spanning Trees:
 TODO
-Matrix multiplication
+Kirchhoff's theorem
 
 k-best MST:
 do like second-best MST for k times
