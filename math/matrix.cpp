@@ -36,5 +36,7 @@ struct Matrix
 };
 
 Fibonacci Matrix
-[1 1]
-[1 0]
+`$\begin{matrix}
+1 & 1\\
+1 & 0
+\end{matrix}$`

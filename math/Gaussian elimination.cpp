@@ -3,7 +3,7 @@
 inline int ge(int a[N][N],int n) // 返回系数矩阵的秩
 {
     static int i,j,k,l;
-    for(j=i=0;j<n;++j) //第i行,第j列
+    for(j=i=0;j<n;++j) //`第i行,第j列`
     {
         for(k=i;k<n;++k)
             if(a[k][j])

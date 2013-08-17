@@ -14,7 +14,7 @@ long long power(long long x,long long y,int mod)
     return ret;
 }
 
-inline int getInv(int x,int mod)//mod为素数
+inline int getInv(int x,int mod)//`mod为素数`
 {
     return power(x,mod-2);
 }

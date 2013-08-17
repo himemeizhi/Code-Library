@@ -1,15 +1,15 @@
-//The running time of BSGS and the space complexity is O(\sqrt{n})
-//Pollard's rho algorithm for logarithms' running time is approximately O(\sqrt{p}) where p is n's largest prime factor.
+//`The running time of BSGS and the space complexity is O($\sqrt{n})$`
+//`Pollard's rho algorithm for logarithms' running time is approximately O($\sqrt{p}$) where p is n's largest prime factor.`
 #include<cstdio>
 #include<cmath>
 #include<cstring>
 
-struct Hash // std::map is bad. clear()时会付出巨大的代价
+struct Hash // `std::map is bad. clear()时会付出巨大的代价`
 {
     static const int mod=100003; // prime is good
-    static const int MAXX=47111; // bigger than sqrt(c)
+    static const int MAXX=47111; // `bigger than $\sqrt{c}$`
     int hd[mod],nxt[MAXX],cnt;
-    long long v[MAXX],k[MAXX]; // a^k ≡ v (mod c)
+    long long v[MAXX],k[MAXX]; // `$a^k \equiv v \pmod c$`
     inline void init()
     {
         memset(hd,0,sizeof hd);
@@ -53,7 +53,7 @@ long long exgcd(long long a,long long b,long long &x,long long &y)
     return a;
 }
 
-inline long long bsgs(long long a,long long b,long long c) // a^x ≡ b (mod c)
+inline long long bsgs(long long a,long long b,long long c) // `$a^x \equiv b \pmod c$`
 {
     static long long x,y,d,g,m,am,k;
     static int i,cnt;

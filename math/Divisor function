@@ -1,2 +1,5 @@
-sum of positive divisors function
-σ(n)=(pow(p[0],a[0]+1)-1)/(p[0]-1)* (pow(p[1],a[1]+1)-1)/(p[1]-1)* ... (pow(p[n-1],a[n-1]+1)-1);
+`$n=p_1^{a_1}\times p_2^{a_2}\times ... \times p_s^{a_s}$`
+`sum of positive divisors function`
+`$\sigma(n)=\prod\limits_{j=1}^s\frac{p_j^{a_j+1}-1}{p_j-1}$`
+`number of postive diversors function`
+`$\tau(n)=\prod\limits_{j=1}^s(a_j+1)$`
