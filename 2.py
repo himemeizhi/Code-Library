@@ -6,11 +6,20 @@ f.write("""\documentclass[a4paper,5pt,twocolumn,titlepage]{article}
 \usepackage{xeCJK}
 \usepackage{pstricks,pst-node,pst-tree}
     
+\usepackage{titlesec}
+\\titleformat*{\section}{\sf}
+\\titleformat*{\subsection}{\sf}
+    
 %\setsansfont{Inconsolata}
 %\setsansfont{DejaVu Sans Mono}
-%\setsansfont{Source Code Pro}
-\setsansfont{Monaco}
+\setsansfont{Source Code Pro}
+%\setsansfont{Monaco}
 
+\usepackage{tocloft}
+\renewcommand\cftsecfont{\sf}
+%\renewcommand\cftsubsecfont{\sf}
+
+    
 \setCJKmainfont{SimHei}
 \setCJKsansfont{SimHei}
 \setCJKmonofont{SimHei}
@@ -22,7 +31,7 @@ f.write("""\documentclass[a4paper,5pt,twocolumn,titlepage]{article}
 \usepackage{booktabs}
 \usepackage{geometry}
 %\usepackage[landscape]{geometry}
-\geometry{left=1cm,right=1cm,top=1.5cm,bottom=1.5cm,headsep=0.2cm}
+\geometry{left=1cm,right=1cm,top=1cm,bottom=1.5cm,headsep=0.2cm}
 
 \usepackage{courier}
 %\usepackage{time}
@@ -36,7 +45,9 @@ f.write("""\documentclass[a4paper,5pt,twocolumn,titlepage]{article}
 breaklines=true,
 tabsize=2,
 numbers=left,
-basicstyle=\\tiny\\ttfamily,
+numberstyle=\sf\scriptsize,
+numbersep=4pt,
+basicstyle=\sf\scriptsize,
 frame=leftline,
 escapeinside=``,
 extendedchars=false
@@ -71,20 +82,21 @@ citecolor=black]{hyperref}
 """)
 
 import os
+import string
 for x,y,z in os.walk('.'):
 	if x == '.':
 		continue
-	f.write('\n\section{'+x[2:]+'}\n')
+	f.write('\n\section{'+string.capwords(x[2:])+'}\n')
 	for files in z:
 		if ((files == '.ds_store') or (files == '.DS_Store') or (files.endswith('~')) or files.endswith('.pdf')):
 			continue
 		ot=files
 		if ot.endswith(""".cpp"""):
-		    ot=ot.rstrip(""".cpp""")
+		    ot=ot[:-4];
 		elif ot.endswith(""".cxx"""):
-		    ot=ot.rstrip(""".cxx""")
+		    ot=ot[:-4];
 		elif ot.endswith("""java"""):
-		    ot=ot.rstrip(""".java""")
+		    ot=ot[:-5]
 		f.write('\subsection{'+ot+'}\n')
 		fname = x+'/'+files
 		fname = fname.lower()

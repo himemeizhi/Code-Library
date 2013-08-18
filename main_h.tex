@@ -5,10 +5,18 @@
 \usepackage{xeCJK}
 \usepackage{pstricks,pst-node,pst-tree}
     
+\usepackage{titlesec}
+\titleformat*{\section}{\sf}
+\titleformat*{\subsection}{\sf}
+    
 %\setsansfont{Inconsolata}
-%\setsansfont{DejaVu LGC Sans Mono}
+%\setsansfont{DejaVu Sans Mono}
 \setsansfont{Source Code Pro}
 %\setsansfont{Monaco}
+
+\usepackage{tocloft}
+\renewcommand\cftsecfont{\sf}
+%\renewcommand\cftsubsecfont{\sf}
 
 \setCJKmainfont{SimHei}
 \setCJKsansfont{SimHei}
@@ -35,7 +43,9 @@
 breaklines=true,
 tabsize=2,
 numbers=left,
-basicstyle=\scriptsize,
+numberstyle=\sf\scriptsize,
+numbersep=4pt,
+basicstyle=\sf\scriptsize,
 frame=leftline,
 escapeinside=``,
 extendedchars=false
@@ -68,7 +78,7 @@ citecolor=black]{hyperref}
 \pagenumbering{arabic}
 
 
-\section{data structure}
+\section{Data Structure}
 \subsection{atlantis}
 \lstinputlisting[language=C++]{"./data structure/atlantis.cpp"}
 \subsection{Binary Indexed tree}
@@ -96,7 +106,7 @@ citecolor=black]{hyperref}
 \subsection{Treap}
 \lstinputlisting[language=C++]{"./data structure/treap.cpp"}
 
-\section{geometry}
+\section{Geometry}
 \subsection{3D}
 \lstinputlisting[language=C++]{"./geometry/3d.cpp"}
 \subsection{3DCH}
@@ -134,7 +144,7 @@ citecolor=black]{hyperref}
 \subsection{triangle}
 \lstinputlisting{"./geometry/triangle"}
 
-\section{geometry/tmp}
+\section{Geometry/tmp}
 \subsection{circle}
 \lstinputlisting[language=C++]{"./geometry/tmp/circle.cpp"}
 \subsection{circles}
@@ -156,7 +166,7 @@ citecolor=black]{hyperref}
 \subsection{polygons}
 \lstinputlisting[language=C++]{"./geometry/tmp/polygons.cpp"}
 
-\section{graph}
+\section{Graph}
 \subsection{2SAT}
 \lstinputlisting[language=C++]{"./graph/2sat.cpp"}
 \subsection{Articulation}
@@ -216,7 +226,7 @@ citecolor=black]{hyperref}
 \subsection{ZKW's Minimum-cost flow}
 \lstinputlisting[language=C++]{"./graph/zkw's minimum-cost flow.cpp"}
 
-\section{math}
+\section{Math}
 \subsection{cantor}
 \lstinputlisting[language=C++]{"./math/cantor.cpp"}
 \subsection{Discrete logarithms - BSGS}
@@ -256,7 +266,7 @@ citecolor=black]{hyperref}
 \subsection{System of linear congruences}
 \lstinputlisting[language=C++]{"./math/system of linear congruences.cpp"}
 
-\section{string}
+\section{String}
 \subsection{Aho-Corasick Algorithm}
 \lstinputlisting[language=C++]{"./string/aho-corasick algorithm.cpp"}
 \subsection{Gusfield's Z Algorithm}
@@ -274,7 +284,13 @@ citecolor=black]{hyperref}
 \subsection{Suffix Automaton}
 \lstinputlisting[language=C++]{"./string/suffix automaton.cpp"}
 
-\section{search}
+\section{Dynamic Programming}
+\subsection{knapsack problem}
+\lstinputlisting{"./dynamic programming/knapsack problem"}
+\subsection{LCIS}
+\lstinputlisting[language=C++]{"./dynamic programming/lcis.cpp"}
+
+\section{Search}
 \subsection{dlx}
 \lstinputlisting{"./search/dlx"}
 \subsection{dlx - exact cover}
@@ -284,20 +300,14 @@ citecolor=black]{hyperref}
 \subsection{fibonacci knapsack}
 \lstinputlisting[language=C++]{"./search/fibonacci knapsack.cpp"}
 
-\section{dynamic programming}
-\subsection{knapsack problem}
-\lstinputlisting{"./dynamic programming/knapsack problem"}
-\subsection{LCIS}
-\lstinputlisting[language=C++]{"./dynamic programming/lcis.cpp"}
-
-\section{others}
+\section{Others}
 \subsection{.vimrc}
 \lstinputlisting[language=C++]{"./others/.vimrc"}
 \subsection{bigint}
 \lstinputlisting[language=C++]{"./others/bigint.cpp"}
 \subsection{Binary Search}
 \lstinputlisting[language=C++]{"./others/binary search.cpp"}
-\subsection{Java}
+\subsection{java}
 \lstinputlisting[language=Java]{"./others/java.java"}
 \subsection{others}
 \lstinputlisting{"./others/others"}
