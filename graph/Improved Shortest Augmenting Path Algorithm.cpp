@@ -25,7 +25,7 @@ int source,sink;
 
 inline long long go(const int N=sink)
 {
-    static int now,N,i;
+    static int now,i;
     static long long min,mf;
     memset(gap,0,sizeof gap);
     memset(h,0,sizeof h);
