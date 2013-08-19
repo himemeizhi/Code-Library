@@ -73,8 +73,8 @@ Maximum weighted vertex independent set for bipartite graph:
 
 
 `方格取数: // refer: hdu 3820 golden eggs`
-取方格获得收益
-当取了相邻方格时付出边的代价
+`取方格获得收益`
+`当取了相邻方格时付出边的代价`
 
 `必取的方格到源/汇的边的容量inf`
 `相邻方格之间的边的容量为\{代价\}*2`
