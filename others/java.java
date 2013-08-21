@@ -85,3 +85,43 @@ class Main
             System.out.printf("%d %d\n",the[i].a,the[i].b);
     }
 }
+
+//fraction
+class frac
+{
+    public BigInteger a,b;
+    public frac(long aa,long bb)
+    {
+        a=BigInteger.valueOf(aa);
+        b=BigInteger.valueOf(bb);
+        BigInteger c=a.gcd(b);
+        a=a.divide(c);
+        b=b.divide(c);
+    }
+    public frac(BigInteger aa,BigInteger bb)
+    {
+        BigInteger c=aa.gcd(bb);
+        a=aa.divide(c);
+        b=bb.divide(c);
+    }
+    public frac mul(frac i)
+    {
+        return new frac(a.multiply(i.a),b.multiply(i.b));
+    }
+    public frac mul(long i)
+    {
+        return new frac(a.multiply(BigInteger.valueOf(i)),b);
+    }
+    public frac div(long i)
+    {
+        return new frac(a,b.multiply(BigInteger.valueOf(i)));
+    }
+    public frac add(frac i)
+    {
+        return new frac((a.multiply(i.b)).add(i.a.multiply(b)),b.multiply(i.b));
+    }
+    public void print()
+    {
+        System.out.println(a+"/"+b); //`printf会PE啊尼玛死……`
+    }
+}

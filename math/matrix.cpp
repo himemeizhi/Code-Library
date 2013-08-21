@@ -2,8 +2,9 @@ struct Matrix
 {
     const int N(52);
     int a[N][N];
-    inline Matrix operator*(const Matrix &b)const //`比照着公式来会快一点常数…… qnmlgb的zoj3289……`
+    inline Matrix operator*(const Matrix &b)const //`比照着公式来会快一点常数…… nmlgb的zoj3289……`
     {
+        //`别忘了矩阵乘法虽然满足结合律但是不满足交换律……`
         static Matrix re;
         static int i,j,k;
         for(i=0;i<n;++i)

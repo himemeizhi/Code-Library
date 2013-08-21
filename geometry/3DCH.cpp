@@ -16,9 +16,24 @@ struct pv
     {
         return pv(x-i.x,y-i.y,z-i.z);
     }
+    inline pv operator+(const pv &i)const
+    {
+        return pv(x+i.x,y+i.y,z+i.z);
+    }
+    inline pv operator+=(const pv &i)
+    {
+        x+=i.x;
+        y+=i.y;
+        z+=i.z;
+        return *this;
+    }
     inline pv operator*(const pv &i)const //叉积
     {
         return pv(y*i.z-z*i.y,z*i.x-x*i.z,x*i.y-y*i.x);
+    }
+    inline pv operator*(const double a)const
+    {
+        return pv(x*a,y*a,z*a);
     }
     inline double operator^(const pv &i)const //点积
     {
@@ -45,7 +60,7 @@ struct pla
 
 pv pnt[MAXX];
 std::vector<pla>fac;
-short to[MAXX][MAXX];
+int to[MAXX][MAXX];
 
 inline void pla::set()
 {
@@ -90,8 +105,9 @@ void dfs(const short &p,const short &now)
     deal(p,fac[now].a,fac[now].c);
 }
 
-inline void make()
+inline void make(int n)
 {
+    static int i,j;
     fac.resize(0);
     if(n<4)
         return;
@@ -150,10 +166,10 @@ inline pv gc() //重心
 {
     pv re(0,0,0),o(0,0,0);
     double all(0),v;
-    for(i=0;i<fac.size();++i)
+    for(int i=0;i<fac.size();++i)
     {
         v=vol(o,pnt[fac[i].a],pnt[fac[i].b],pnt[fac[i].c]);
-        re+=(pnt[fac[i].a]+pnt[fac[i].b]+pnt[fac[i].c])*0.25*v;
+        re+=(pnt[fac[i].a]+pnt[fac[i].b]+pnt[fac[i].c])*0.25f*v;
         all+=v;
     }
     return re*(1/all);
@@ -166,10 +182,11 @@ inline bool same(const short &s,const short &t) //两面是否相等
 }
 
 //表面多边形数目
-inline short facetcnt()
+inline int facetcnt()
 {
-    short ans=0;
-    for(short i=0;i<fac.size();++i)
+    int ans=0;
+    static int i,j;
+    for(i=0;i<fac.size();++i)
     {
         for(j=0;j<i;++j)
             if(same(i,j))
@@ -189,13 +206,14 @@ inline short trianglecnt()
 //三点构成的三角形面积*2
 inline double area(const pv &a,const pv &b,const pv &c)
 {
-        return (b-a)*(c-a).len();
+        return ((b-a)*(c-a)).len();
 }
 
 //表面积
 inline double area()
 {
     double ret(0);
+    static int i;
     for(i=0;i<fac.size();++i)
         ret+=area(pnt[fac[i].a],pnt[fac[i].b],pnt[fac[i].c]);
     return ret/2;
