@@ -32,7 +32,7 @@ Maximum weighted closure of a graph:
 `由超级源点出发的边全部满流则有解`
 `有源汇时，由汇点向源点连边，下界0上界inf即可转化为无源无汇上下界流`
 
-`对于每条边<a->b cap{u,d}>，建边<ss->b cap(u)>、<a->st cap(u)>、<a->b cap(d-u)>`
+`对于每条边<a->b cap\{u,d\}>，建边<ss->b cap(u)>、<a->st cap(u)>、<a->b cap(d-u)>`
 
 `Maximum flow: //好像也可以二分`
 `//将流量还原至原图后，在残量网络上继续完成最大流`

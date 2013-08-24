@@ -1,11 +1,12 @@
 `Euler's totient function:`
 
-`对正整数n，欧拉函数$\varphi$是少于或等于n的数中与n互质的数的数目，也就是对n的简化剩余系的大小。`
+`对正整数n，欧拉函数$\varphi$是小于或等于n的数中与n互质的数的数目，也就是对n的简化剩余系的大小。`
 ` $\varphi$(2)=1（唯一和1互质的数就是1本身）。`
 `若m,n互质，$\varphi (m\times n ) = \varphi (m ) \times \varphi (n )$。`
 `对于n来说，所有这样的数的和为 $\frac{n\times\varphi (n )}{2}$ 。`
+`$gcd(k,n)=d, k\in [1,n]$，这样的k有$\varphi(\frac{n}{d})个$`
 
-inline long long phi(int n)
+inline int phi(int n)
 {
     static int i;
     static int re;

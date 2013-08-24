@@ -16,8 +16,8 @@ f.write("""\documentclass[a4paper,5pt,twocolumn,titlepage]{article}
 %\setsansfont{Monaco}
 
 \usepackage{tocloft}
-\renewcommand\cftsecfont{\sf}
-%\renewcommand\cftsubsecfont{\sf}
+\\renewcommand\cftsecfont{\sf}
+%\\renewcommand\cftsubsecfont{\sf}
 
     
 \setCJKmainfont{SimHei}

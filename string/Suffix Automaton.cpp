@@ -18,7 +18,7 @@ inline void add(int w)
 {
     static int p,np,q,nq;
     p=last;
-    np=neww(val[p]+1);
+    last=np=neww(val[p]+1);
     while(p && !nxt[p][w])
     {
         nxt[p][w]=np;
@@ -45,7 +45,6 @@ inline void add(int w)
             }
         }
     }
-    last=np;
 }
 
 int v[MAXN],the[MAXN];
