@@ -5,7 +5,7 @@ inline void getInv2(int x,int mod)
         inv[i]=(mod-(mod/i)*inv[mod%i]%mod)%mod;
 }
 
-long long power(long long x,long long y,int mod)
+inline long long power(long long x,long long y,int mod)
 {
     long long ret=1;
     for (long long a=x%mod; y; y>>=1,a=a*a%mod)

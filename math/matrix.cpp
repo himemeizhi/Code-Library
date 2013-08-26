@@ -39,7 +39,7 @@ template<int n>class Matrix
     {
         static int i,j,k;
         static long long ret,t;
-        ret=0ll;
+        ret=1ll;
         for(i=0;i<n;++i)
             for(j=0;j<n;++j)
                 a[i][j]%=mod;

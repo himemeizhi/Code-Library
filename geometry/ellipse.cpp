@@ -1,20 +1,23 @@
+/*
 `$\frac{(x-h)^2}{a^2} + \frac{(y-k)^2}{b^2} = 1$`
 
-`$x=h+a \times \cos$(t)`
-`$y=k+b \times \sin$(t)`
+`$x=h+a \times \cos(t)$`
+`$y=k+b \times \sin(t)$`
 
 area=`$\pi \times a \times b$`
 distance from center to focus: `$f=\sqrt{a^2-b^2}$`
 eccentricity: `$e=\sqrt{a-\frac{b}{a}^2}=\frac{f}{a}$`
 focal parameter: `$\frac{b^2}{\sqrt{a^2-b^2}}=\frac{b^2}{f}$`
+*/
 
-double circumference(double a,double b) // accuracy: pow(0.5,53);
+inline double circumference(double a,double b) // accuracy: pow(0.5,53);
 {
+    static double digits=53;
+    static double tol=sqrt(pow(0.5,digits));
     double x=a;
     double y=b;
     if(x<y)
         std::swap(x,y);
-    double digits=53,tol=sqrt(pow(0.5,digits));
     if(digits*y<tol*x)
         return 4*x;
     double s=0,m=1;

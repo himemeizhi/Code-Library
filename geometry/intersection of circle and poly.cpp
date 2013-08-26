@@ -1,62 +1,41 @@
-bool InCircle(Point a,double r)
+pv c;
+double r;
+
+inline double cal(const pv &a,const pv &b)
 {
-	return cmp(a.x*a.x+a.y*a.y,r*r) <= 0;
-	//`这里判断的时候EPS一定不要太小！！`
+    static double A,B,C,x,y,ts;
+    A=(b-c).len();
+    B=(a-c).len();
+    C=(a-b).len();
+    if(A<r && B<r)
+        return (a-c).cross(b-c)/2;
+    x=((a-b).dot(c-b)+sqrt(r*r*C*C-sqr((a-b).cross(c-b))))/C;
+    y=((b-a).dot(c-a)+sqrt(r*r*C*C-sqr((b-a).cross(c-a))))/C;
+    ts=(a-c).cross(b-c)/2;
+
+    if(A<r && B>=r)
+        return asin(ts*(1-x/C)*2/r/B*(1-eps))*r*r/2+ts*x/C;
+    if(A>=r && B<r)
+        return asin(ts*(1-y/C)*2/r/A*(1-eps))*r*r/2+ts*y/C;
+
+    if(fabs((a-c).cross(b-c))>=r*C || (b-a).dot(c-a)<=0 || (a-b).dot(c-b)<=0)
+    {
+        if((a-c).dot(b-c)<0)
+        {
+            if((a-c).cross(b-c)<0)
+                return (-pi-asin((a-c).cross(b-c)/A/B*(1-eps)))*r*r/2;
+            return (pi-asin((a-c).cross(b-c)/A/B*(1-eps)))*r*r/2;
+        }
+        return asin((a-c).cross(b-c)/A/B*(1-eps))*r*r/2;
+    }
+
+    return (asin(ts*(1-x/C)*2/r/B*(1-eps))+asin(ts*(1-y/C)*2/r/A*(1-eps)))*r*r/2+ts*((y+x)/C-1);
 }
 
-double CalcArea(Point a,Point b,double r)
+inline double get(pv *the,int n)
 {
-	Point p[4];
-	int tot = 0;
-	p[tot++] = a;
-    
-	Point tv = Point(a,b);
-	Line tmp = Line(Point(0,0),Point(tv.y,-tv.x));
-	Point near = LineToLine(Line(a,b),tmp);
-	if (cmp(near.x*near.x+near.y*near.y,r*r) <= 0)
-	{
-		double A,B,C;
-		A = near.x*near.x+near.y*near.y;
-		C = r;
-		B = C*C-A;
-		double tvl = tv.x*tv.x+tv.y*tv.y;
-		double tmp = sqrt(B/tvl); //这样做只用一次开根
-		p[tot] = Point(near.x+tmp*tv.x,near.y+tmp*tv.y);
-		if (OnSeg(Line(a,b),p[tot]) == true)	tot++;
-		p[tot] = Point(near.x-tmp*tv.x,near.y-tmp*tv.y);
-		if (OnSeg(Line(a,b),p[tot]) == true)	tot++;
-	}
-	if (tot == 3)
-	{
-		if (cmp(Point(p[0],p[1]).Length(),Point(p[0],p[2]).Length()) > 0)
-			swap(p[1],p[2]);
-	}
-	p[tot++] = b;
-    
-	double res = 0.0,theta,a0,a1,sgn;
-	for (int i = 0;i < tot-1;i++)
-	{
-		if (InCircle(p[i],r) == true && InCircle(p[i+1],r) == true)
-		{
-			res += 0.5*xmult(p[i],p[i+1]);
-		}
-		else
-		{
-			a0 = atan2(p[i+1].y,p[i+1].x);
-			a1 = atan2(p[i].y,p[i].x);
-			if (a0 < a1)	a0 += 2*pi;
-			theta = a0-a1;
-			if (cmp(theta,pi) >= 0) theta = 2*pi-theta;
-			sgn = xmult(p[i],p[i+1])/2.0;
-			if (cmp(sgn,0) < 0) theta = -theta;
-			res += 0.5*r*r*theta;
-		}
-	}
-	return res;
+    double ans=0;
+    for(int i=0;i<n;++i)
+        ans+=cal(the[i],the[(i+1)%n]);
+    return ans;
 }
-
-//调用
-
-area2 = 0.0;
-for (int i = 0;i < resn;i++) //遍历每条边，按照逆时针
-    area2 += CalcArea(p[i],p[(i+1)%resn],r);

@@ -32,8 +32,8 @@ bit-mask with dijkstra O( (1<<k)*( {dijkstra} ) )
 then run a bit-mask DP( O( n*(1<<k) ) )
 
 Count Spanning Trees:
-TODO
 Kirchhoff's theorem
+simply calculate the minor of (degree Matrix - edge Matrix)
 
 k-best MST:
 do like second-best MST for k times
