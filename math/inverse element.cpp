@@ -5,6 +5,11 @@ inline void getInv2(int x,int mod)
         inv[i]=(mod-(mod/i)*inv[mod%i]%mod)%mod;
 }
 
+long long inv(long long x)// `likes above one`
+{    
+    return x <= 1ll ? x : (mod - mod / x) * inv(mod % x) % mod;    
+}   
+
 inline long long power(long long x,long long y,int mod)
 {
     long long ret=1;
