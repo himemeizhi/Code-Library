@@ -63,8 +63,14 @@ template<int n>class Matrix
     }
 };
 
+/*
 Fibonacci Matrix
 `$\begin{matrix}
 1 & 1\\
       1 & 0
       \end{matrix}$`
+
+org[0][j], trans[i][j]
+ means
+transform(org,1 times) -> org[0][j]=`$\sum\limits_{i=0}^n org[0][i]\times trans[i][j]$`
+      */

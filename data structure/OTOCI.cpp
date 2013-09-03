@@ -4,6 +4,8 @@
 #include<algorithm>
 
 #define MAXX 30111
+#define lson nxt[id][0]
+#define rson nxt[id][1]
 
 int nxt[MAXX][2],fa[MAXX],pre[MAXX],val[MAXX],sum[MAXX];
 bool rev[MAXX];
@@ -39,63 +41,60 @@ inline void down(int id) //`记得随手down啊……亲……`
     if(rev[id])
     {
         rev[id]=false;
-        std::swap(nxt[id][0],nxt[id][1]);
         for(i=0;i<2;++i)
             if(nxt[id][i])
+            {
                 rev[nxt[id][i]]^=true;
+                std::swap(nxt[nxt[id][i]][0],nxt[nxt[id][i]][1]);
+            }
     }
-}
-
-int freshen(int id)
-{
-    int re(id);
-    if(pre[id])
-        re=freshen(pre[id]);
-    down(id);
-    return re;
 }
 
 inline void splay(int id)//`记得随手down啊……亲……`
 {
-    static int rt;
-    if(id!=(rt=freshen(id)))
-        for(std::swap(fa[id],fa[rt]);pre[id];rot(id,id==nxt[pre[id]][0]));
+    down(id);
+    if(!pre[id])
+        return;
+    static int rt,k,st[MAXX];
+    for(rt=id,k=0;rt;rt=pre[rt])
+        st[k++]=rt;
+    rt=st[k-1];
+    while(k)
+        down(st[--k]);
+    for(std::swap(fa[id],fa[rt]);pre[id];rot(id,id==nxt[pre[id]][0]));
     /* another faster methond:
-    if(id!=rt)
+    std::swap(fa[id],fa[rt]);
+    do
     {
-        std::swap(fa[id],fa[rt]);
-        do
+        rt=pre[id];
+        if(pre[rt])
         {
-            rt=pre[id];
-            if(pre[rt])
-            {
-                k=(nxt[pre[rt]][0]==rt);
-                if(nxt[rt][k]==id)
-                    rot(id,k^1);
-                else
-                    rot(rt,k);
-                rot(id,k);
-            }
+            k=(nxt[pre[rt]][0]==rt);
+            if(nxt[rt][k]==id)
+                rot(id,k^1);
             else
-                rot(id,id==nxt[rt][0]);
+                rot(rt,k);
+            rot(id,k);
         }
-        while(pre[id]);
+        else
+            rot(id,id==nxt[rt][0]);
     }
+    while(pre[id]);
     */
 }
 
-inline void access(int id)
+inline int access(int id)
 {
     static int to;
     for(to=0;id;id=fa[id])
     {
         splay(id);
-        if(nxt[id][1])
+        if(rson)
         {
-            pre[nxt[id][1]]=0;
-            fa[nxt[id][1]]=id;
+            pre[rson]=0;
+            fa[rson]=id;
         }
-        nxt[id][1]=to;
+        rson=to;
         if(to)
         {
             pre[to]=id;
@@ -103,6 +102,7 @@ inline void access(int id)
         }
         up(to=id);
     }
+    return to;
 }
 
 inline int getrt(int id)
@@ -122,7 +122,10 @@ inline void makert(int id)
     access(id);
     splay(id);
     if(nxt[id][0])
+    {
         rev[id]^=true;
+        std::swap(lson,rson);
+    }
 }
 
 int n,i,j,k,q;

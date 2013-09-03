@@ -15,7 +15,7 @@ if[ $? -ne 0];then break; fi
 done
 
 
-`1、状态状态状态状态状态状态状态状态状态状态`
+`1、nothing to be afraid of, 'cause you love it. isn't it?`
 `2、calm\_down();calm\_down();calm\_down();`
 `3、读完题目读完题目读完题目`
 `3.1、认真读题、认真读题、认真读题、认真读题、`
@@ -25,3 +25,6 @@ done
 `6.1、对数调整精度 or 将乘法转换成加法`
 `6.2、点化区间，区间化点`
 `7、数组大小……`
+`8、写解释器/编译器的时候别忘了负数`
+`8.1、还有istringstream in <sstream>`
+`8.2、指令/函数名也可能是变量名`
