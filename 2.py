@@ -97,6 +97,9 @@ for x,y,z in os.walk('.'):
 		    ot=ot[:-4];
 		elif ot.endswith("""java"""):
 		    ot=ot[:-5]
+		elif ot.endswith('tex'):
+			f.write('\\input{\"'+x+'/'+files+'\"}\n')
+			continue
 		f.write('\subsection{'+ot+'}\n')
 		fname = x+'/'+files
 		fname = fname.lower()

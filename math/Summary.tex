@@ -1,0 +1,308 @@
+\lstset
+{
+breaklines=true,
+tabsize=2,
+numbers=left,
+numberstyle=\sf\scriptsize,
+numbersep=4pt,
+basicstyle=\sf\scriptsize,
+frame=leftline,
+escapeinside=``,
+extendedchars=false
+}
+
+\subsection{Combinatorics}
+
+\subsubsection{Subfactorial}
+$!n=$number of permutations of n elements with no fixed points\\
+    \\
+from !0:\\
+1, 0, 1, 2, 9, 44, 265, 1854, 14833, 133496, 1334961, 14684570\\
+$!n=(n-1)(!(n-1)+!(n-2))$\\
+PS:$n!=(n-1)((n-1)!+(n-2)!)$\\
+$!n=n\times n!+(-1)^n$\\
+\\
+Rencontres numbers:\\
+$D_{n,k}$ is the number of permutations of \{ 1, ..., n \} that have exactly k fixed points.\\
+$D_{n,0}=!n$\\
+$D_{n,k}=\binom{n}{k}\times !(n-k)$\\
+
+\subsubsection{M\'{e}nage numbers}
+M\'{e}nage numbers:\\
+number of permutations s of [0, ..., n-1] such that.\\
+$ \forall i, s(i) \neq i$ and $s(i) \not\equiv i+1 \pmod n$.\\
+\\
+from A(0):\\
+1, 0, 0, 1, 2, 13, 80, 579, 4738, 43387, 439792, 4890741\\
+
+$A_n=\sum\limits_{k=0}^n (-1)^k \frac{2n}{2n-k} {2n-k\choose k} (n-k)!$\\
+$A_n = n A_{n-1} + \frac{n}{n-2} A_{n-2} + \frac{4(-1)^{n-1}}{n-2}$\\
+$A_n = n A_{n-1} + 2 A_{n-2} - (n-4)A_{n-3} - A_{n-4}$
+
+\subsubsection{Multiset}
+Permutation:\\
+MultiSet S=\{1 m,4 s,4 i,2 p\}\\
+$P(S)=\frac{(1+4+4+2)!}{1!4!4!2!}$\\
+\\
+Combination:\\
+MultiSet S=$\{\infty a1,\infty a2,... \infty ak\}$\\
+$\binom{S}{r}=\frac{(r+k-1)!}{r!(k-1)!}=\binom{r+k-1}{r}$\\
+\\
+if(r>min\{count(element[i])\})\\
+    you have to resolve this problem with inclusion-exclusion principle.\\
+\\
+MS T=\{3 a,4 b,5 c\}\\
+MS $T_*=\{\infty a,\infty b,\infty c\}$\\
+$A1=\{\binom{T_*}{10}|count(a)>3\} // \binom{8}{6}$\\
+$A2=\{\binom{T_*}{10}|count(b)>4\} // \binom{7}{5}$\\
+$A3=\{\binom{T_*}{10}|count(c)>5\} // \binom{6}{4}$\\
+\\
+$\binom{T}{10}=\binom{T_*}{10}-(|A_1|+|A_2|+|A_3|)+(|A_1 \cap A_2|+|A_1 \cap A_3|+|A_2 \cap A_3|)-|A_1 \cap A_2 \cap A_3|$\\
+ans=C(10,12)-(C(6,8)+C(5,7)+C(4,6))+(C(1,3)+C(0,2)+0)-0=6\\
+
+\subsubsection{Distributing Balls into Boxes}
+Distributing m Balls into n Boxes.\\
+\begin{tabular}{|l|l|l|l|}
+\hline
+balls & boxes & boxes empty & counts\\
+\hline
+diff & diff & empty & $n^m$\\
+\hline
+diff & diff & full & $n!\times S(m,n)=\sum\limits_{i=0}^{n}{(-1)^n\binom{n}{i}(n-i)^m}$(inclusion-exclusion principle)\\
+\hline
+diff & same & empty & $\sum\limits_{k=1}^{min\{n,m\}}S(m,k)=\frac{1}{n!}\sum\limits_{k=1}^{min\{n,m\}}\sum\limits_{i=0}^k{(-1)^i\binom{k}{i}(k-i)^m}$\\
+\hline
+diff & same & full & S(m,n) (Stirling numbers of the second kind)\\
+\hline
+same & diff & empty & $\binom{n+m-1}{n-1}$\\
+\hline
+same & diff & full & $\binom{m-1}{n-1}$\\
+\hline
+same & same & empty & 
+\begin{tabular}{l}
+dp[0][0..n]=dp[1..m][1]=1;\\
+if(m$\geq$n)\\ dp[m][n]=dp[m][n-1]+dp[m-n][n];\\
+                                              else\\dp[m][n]=dp[m][n-1];\\
+\end{tabular}\\
+\hline
+same & same & full & g[m][n]=dp[m-n][n];\\
+\hline
+\end{tabular}
+
+\subsubsection{Combinatorial Game Theory}
+Wythoff's game:
+        \begin{itemize}
+\item There are two piles of counters.
+\item Players take turns removing counters (at least 1 counter) from one or both piles; in the latter case, the numbers of counters removed from each pile must be equal.\\
+\item The player who removes the last counter wins. 
+    \end{itemize}
+consider the counters of status as pair (a,b) ($a\leq b$)\\
+\{first player loses\} $\iff a=\lfloor (b-a)\times \phi \rfloor, \phi=\frac{\sqrt{5}+1}{2}$\\
+    \\
+Fibonacci Nim:
+        \begin{itemize}
+\item There is one pile of n counters.
+\item The first player may remove any positive number of counters, but not the whole pile.
+\item Thereafter, each player may remove at most twice the number of counters his opponent took on the previous move.
+\item The player who removes the last counter wins.
+    \end{itemize}
+\{first player wins\}$\iff n \not\in$\{Fibonacci number\}\\
+        \\
+poj 1740:
+    \begin{itemize}
+\item There are n piles of stones.
+\item At each step of the game,the player choose a pile,remove at least one stones,then freely move stones from this pile to any other pile that still has stones. 
+\item The player who removes the last counter wins.
+    \end{itemize}
+    \{first player lose\}$\iff$n is even \&\& $(a_1,a_2,...,a_k)(a_1\leq a_2\leq ...\leq a_{2k})$ satisfy $a_{2i-1}=a_{2i}\{\forall i \in [1,k]\}$\\
+\\
+
+Staircase Nim:
+    \begin{itemize}
+    \item A staircase of n steps contains coins on some of the steps.
+    \item A move of staircase nim consists of moving any positive number of coins from any step j , to the next lower step, j − 1.
+    \item Coins reaching the ground (step 0) are removed from play.
+    \item The player who removes the last counter wins.
+    \end{itemize}
+    Even steps are unusefull.\\
+    $SG=x_1\oplus x_3\oplus x_5...$\\
+\\
+Anti-SG:
+\begin{itemize}
+\item Everything is likes SG.
+\item The player who removes the last counter loses.
+\end{itemize}
+\{first player wins\}$\iff$\\
+        SGsum=0,\&\& \{all piles is 1\}\\
+     SGsum$\neq$0,\&\& \{some piles ars larger than 1\}\\
+     \\
+Every-SG:
+\begin{itemize}
+\item Everything is likes SG.
+\item For each turns, player have to move all of sub-games if the sub-game was not ended yet.
+\end{itemize}
+\{first player wins\}$\iff$ max(steps of all sub-games) is odd.\\
+\\
+Coin Game:
+\begin{itemize}
+\item Given a horizontal line of N coins with some coins showing heads and some tails.
+\item Each turn, a player have to follow some rules, flip some coins. But the most right coin he fliped has to be fliped from head to tail.
+\item The player who can not flip coin loses.
+\end{itemize}
+game\{THHTTH\} = game\{TH\}$\oplus$game\{TTH\}$\oplus$game\{TTTTTH\}\\
+        \\
+Tree Game:
+\begin{itemize}
+\item There is a rooted tree.
+\item Each turn, a player has to remove a edge from the tree. The parts can not connect with root with also are removed.
+\item The player who removes the last edge wins.
+\end{itemize}
+$\forall node(x),\\
+        SG(x)=(SG(i_1)+1)\oplus (SG(i_2)+1)\oplus ... (\forall$ i are childnodes of x)\\
+        \\
+Undirectional Graph Game:
+\begin{itemize}
+\item There is a rooted undirectional graph.
+\item Other rules are likes Tree Game.
+\end{itemize}
+Odd Circle's SG value is 1.\\
+Even Circel's SG value is 0.\\
+turn the graph to a tree.\\
+
+\subsection{Number theory}
+\subsubsection{Divisor Fuction}
+$n=p_1^{a_1}\times p_2^{a_2}\times ... \times p_s^{a_s}$\\
+sum of positive divisors function\\
+$\sigma(n)=\prod\limits_{j=1}^s\frac{p_j^{a_j+1}-1}{p_j-1}$\\
+number of postive diversors function\\
+$\tau(n)=\prod\limits_{j=1}^s(a_j+1)$
+
+\subsubsection{Reduced Residue System}
+Euler's totient function:\\
+\\
+对正整数n，欧拉函数$\varphi$是小于或等于n的数中与n互质的数的数目，也就是对n的简化剩余系的大小。\\
+ $\varphi$(2)=1（唯一和1互质的数就是1本身）。\\
+若m,n互质，$\varphi (m\times n ) = \varphi (m ) \times \varphi (n )$。\\
+对于n来说，所有这样的数的和为 $\frac{n\times\varphi (n )}{2}$ 。\\
+$gcd(k,n)=d, k\in [1,n]$，这样的k有$\varphi(\frac{n}{d})个$\\\
+
+\begin{lstlisting}[language=C++]
+inline int phi(int n)
+{
+    static int i;
+    static int re;
+    re=n;
+    for(i=0;prm[i]*prm[i]<=n;++i)
+        if(n%prm[i]==0)
+        {
+            re-=re/prm[i];
+            do
+                n/=prm[i];
+            while(n%prm[i]==0);
+        }
+    if(n!=1)
+        re-=re/n;
+    return re;
+}
+
+inline void Euler()
+{
+    static int i,j;
+    phi[1]=1;
+    for(i=2;i<MAXX;++i)
+        if(!phi[i])
+            for(j=i;j<MAXX;j+=i)
+            {
+                if(!phi[j])
+                    phi[j]=j;
+                phi[j]=phi[j]/i*(i-1);
+            }
+}
+\end{lstlisting}
+Multiplicative order:\\
+\\
+the multiplicative order of a modulo n is the smallest positive integer k with\\
+     $a^k \equiv 1 \pmod n$ \\
+\\
+对m的简化剩余系中的所有x,ord(x)都一定是$\varphi$(m)的一个约数 (aka. Euler's totient theorem)\\
+\\
+求:\\
+method 1、根据定义，对$\varphi$(m)分解素因子之后暴力寻找最小的一个$d\{d|\varphi(m)\}$，满足 $x^d \equiv 1 \pmod m$;\\
+method 2、\\
+\begin{lstlisting}[language=C++]
+inline long long ord(long long x,long long m)
+{
+    static long long ans;
+    static int i,j;
+    ans=phi(m);
+    for(i=0;i<fac.size();++i)
+        for(j=0;j<fac[i].second && pow(x,ans/fac[i].first,m)==1ll;++j)
+            ans/=fac[i].first;
+    return ans;
+}
+\end{lstlisting}
+Primitive root:\\
+\\
+若ord(x)==$\varphi$(m)，则x为m的一个原根\\
+因此只需检查所有 $x^d$ \{$d|\varphi(m)$\} 找到使 $x^d \equiv 1 \pmod m$ 的所有d，当且仅当这样的d只有一个，并且为$\varphi$(m)的时候，x是m的一个原根\\
+\\
+当且仅当m= 1,2,4,$p^n$,$2\times p^n$ \{p为奇质数,n为正整数\} 时，m存在原根 // 应该是指存在对于完全剩余系的原根……？\\
+\\
+当m存在原根时，原根数目为$\varphi$($\varphi$(m))\\
+\\
+求：\\
+枚举每一个简化剩余系中的数i，若对于i的每一个质因子p[j],$i^{\frac{\varphi (m)}{p[j]}} \not\equiv 1 \pmod m$，那么i为m的一个原根。也就是说，ord(i)==$\varphi$(m)。\\
+最小原根通常极小。\\
+\\
+Carmichael function:\\
+\\
+$\lambda$(n) is defined as the smallest positive integer m such that \\
+    $a^m \equiv 1 \pmod n\{ \forall a!=1 \&\& gcd(a,n)==1 \}$\\
+也就是简化剩余系(完全剩余系中存在乘法群中无法得到1的数)中所有x的 lcm\{ord(x)\}\\
+\\
+if n=$p[0]^{a[0]} \times p[1]^{a[1]} \times ... \times p[m-1]^{a[m-1]}$\\
+    then $\lambda$(n)=lcm($\lambda$($p[0]^{a[0]}$),$\lambda$($p[1]^{a[1]}$),...,$\lambda$($p[m-1]^{a[m-1]}$));\\
+\\
+if n=$2^c \times p[0]^{a[0]} \times p[1]^{a[1]} \times ... \times p[m-1]^{a[m-1]}$\\
+    then $\lambda$(n)=lcm($2^c$,$\varphi$($p[0]^{a[0]}$),$\varphi$($p[1]^{a[1]}$),...,$\varphi$($p[m-1]^{a[m-1]}$));\\
+    { c=0 if a<2; c=1 if a==2; c=a-2 if a>3; }\\
+\\
+\\
+Carmichael's theorem:\\
+if gcd(a,n)==1\\
+    then $\a^{\lambda (n)} \equiv 1 \pmod n$
+
+\subsubsection{Prime}
+Prime number theorem:\\
+Let $\pi$(x) be the prime-counting function that gives the number of primes less than or equal to x, for any real number x.\\
+$\lim\limits_{x\to\infty}\frac{\pi(x)}{x/\ln(x)}=1$\\
+known as the asymptotic law of distribution of prime numbers.\\
+$\pi(x)\sim\frac{x}{\ln x}.\!$\\
+
+\begin{lstlisting}[language=C++]
+#include<vector>
+
+std::vector<int>prm;
+bool flag[MAXX];
+
+int main()
+{
+    prm.reserve(MAXX); // pi(x)=x/ln(x);
+    for(i=2;i<MAXX;++i)
+    {
+        if(!flag[i])
+            prm.push_back(i);
+        for(j=0;j<prm.size() && i*prm[j]<MAXX;++j)
+        {
+            flag[i*prm[j]]=true;
+            if(i%pmr[j]==0)
+                break;
+        }
+    }
+    return 0;
+}
+\end{lstlisting}
+
+\subsubsection{Euler–Mascheroni constant}
+$\gamma = \lim\limits_{n \rightarrow \infty } \left( \sum\limits_{k=1}^n \frac{1}{k} - \ln(n) \right)=\int\limits_1^\infty\left({1\over\lfloor x\rfloor}-{1\over x}\right)\,dx$\\
+0.57721566490153286060651209008240243104215933593992...\\

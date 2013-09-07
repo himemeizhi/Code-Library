@@ -49,6 +49,7 @@ int main()
             a[0]+=m[0]*x;
             m[0]*=y;
         }
+        //`标程用的步长可能是最终的m[0]而不是lcm。枚举一下标程`
         printf("Case %d: %d\n",t,i<n?-1:(a[0]?a[0]:lcm));
     }
     return 0;
