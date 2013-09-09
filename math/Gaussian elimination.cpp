@@ -101,52 +101,36 @@ inline int ge(int a[N][N],int n)
 
 /*
  */
-
-inline void ge(int a[N][N],int m,int n) // m*n
+inline int ge(int n,int m)
 {
-    static int i,j,k,l,b,c;
-    for(i=j=0;i<m && j<n;++j)
+    static int i,j,r,c;
+    static double mv;
+    for(r=c=0;r<n && c<m;++r,++c)
     {
-        for(k=i;k<m;++k)
-            if(a[k][j])
-                break;
-        if(k==m)
-            continue;
-        for(l=0;l<=n;++l)
-            std::swap(a[i][l],a[k][l]);
-        for(k=0;k<m;++k)
-            if(k!=i && a[k][j])
-            {
-                b=a[k][j];
-                c=a[i][j];
-                for(l=0;l<=n;++l)
-                    a[k][l]=((a[k][l]*c-a[i][l]*b)%7+7)%7;
-            }
-        ++i;
-    }
-    for(j=i;j<m;++j)
-        if(a[j][n])
-            break;
-    if(j<m)
-    {
-        puts("Inconsistent data.");
-        return;
-    }
-    if(i<n)
-        puts("Multiple solutions.");
-    else
-    {
-        memset(ans,0,sizeof(ans));
-        for(i=n-1;i>=0;--i)
+        for(mv=0,i=r;i<n;++i)
+            if(fabs(mv)<fabs(a[i][c]))
+                mv=a[j=i][c];
+        if(fabs(mv)<eps) // important
         {
-            k=a[i][n];
-            for(j=i+1;j<n;++j)
-                k=((k-a[i][j]*ans[j])%7+7)%7;
-            while(k%a[i][i])
-                k+=7;
-            ans[i]=(k/a[i][i])%7;
+            --r;
+            continue;
         }
-        for(i=0;i<n;++i)
-            printf("%d%c",ans[i],i+1==n?'\n':' ');
+        for(i=0;i<=m;++i)
+            std::swap(a[r][i],a[j][i]);
+        for(j=c+1;j<=m;++j)
+        {
+            a[r][j]/=mv;
+            for(i=r+1;i<n;++i)
+                a[i][j]-=a[i][c]*a[r][j];
+        }
     }
+    for(i=r;i<n;++i)
+        if(fabs(a[i][m])>eps)
+            return -1;
+    if(r<m) // rank
+        return m-r;
+    for(i=m-1;i>=0;--i)
+        for(j=i+1;j<m;++j)
+            a[i][m]-=a[i][j]*a[j][m];  // answer will be a[i][m]
+    return 0;
 }

@@ -1,16 +1,3 @@
-\lstset
-{
-breaklines=true,
-tabsize=2,
-numbers=left,
-numberstyle=\sf\scriptsize,
-numbersep=4pt,
-basicstyle=\sf\scriptsize,
-frame=leftline,
-escapeinside=``,
-extendedchars=false
-}
-
 \subsection{Combinatorics}
 
 \subsubsection{Subfactorial}
@@ -64,13 +51,13 @@ ans=C(10,12)-(C(6,8)+C(5,7)+C(4,6))+(C(1,3)+C(0,2)+0)-0=6\\
 Distributing m Balls into n Boxes.\\
 \begin{tabular}{|l|l|l|l|}
 \hline
-balls & boxes & boxes empty & counts\\
+balls & boxes & empty & counts\\
 \hline
 diff & diff & empty & $n^m$\\
 \hline
 diff & diff & full & $n!\times S(m,n)=\sum\limits_{i=0}^{n}{(-1)^n\binom{n}{i}(n-i)^m}$(inclusion-exclusion principle)\\
 \hline
-diff & same & empty & $\sum\limits_{k=1}^{min\{n,m\}}S(m,k)=\frac{1}{n!}\sum\limits_{k=1}^{min\{n,m\}}\sum\limits_{i=0}^k{(-1)^i\binom{k}{i}(k-i)^m}$\\
+diff & same & empty & $\sum\limits_{k=1}^{min\{n,m\}}s(m,k)=\frac{1}{n!}\sum\limits_{k=1}^{min\{n,m\}}\sum\limits_{i=0}^k{(-1)^i\binom{k}{i}(k-i)^m}$\\
 \hline
 diff & same & full & S(m,n) (Stirling numbers of the second kind)\\
 \hline
@@ -168,6 +155,124 @@ Undirectional Graph Game:
 Odd Circle's SG value is 1.\\
 Even Circel's SG value is 0.\\
 turn the graph to a tree.\\
+
+\subsubsection{Catalan number}
+from $C_0$\\
+1, 1, 2, 5, 14, 42, 132, 429, 1430, 4862, 16796, 58786, 208012, 742900, 2674440, 9694845, 35357670, 129644790, 477638700, 1767263190, 6564120420\\
+$C_0=1$\\
+$C_{n+1}=\sum\limits_{i=0}^nC_iC_{n-i}$\\
+$C_{n+1}=\frac{2(2n+1)}{n+1}C_n$\\
+\\
+$C_n=\binom{2n}{n}-\binom{2n}{n+1}=\frac{1}{n+1}\binom{2n}{n}=\frac{(2n)!}{(n+1)!n!}$\\
+$C_n \sim \frac{4^n}{n^{3/2}\sqrt{\pi}}$\\
+Applications:\\
+\begin{enumerate}
+\item $C_n$ counts the number of expressions containing n pairs of parentheses which are correctly matched.
+\item $C_n$ is the number of full binary trees with n + 1 leaves.
+\item $C_n$ is the number of non-isomorphic ordered trees with n+1 vertices. (An ordered tree is a rooted tree in which the children of each vertex are given a fixed left-to-right order.)
+\item $C_n$ is the number of monotonic paths along the edges of a grid with n × n square cells, which do not pass above the diagonal.($x\leq y$ for $C_n$, $x<y$ for $C_n-1$)
+\begin{enumerate}
+\item for the rectangle (p,q),($x<y$), $ans=\binom{p+q-1}{p}-\binom{p+q-1}{p-1}=\frac{q-p}{q+p}\binom{p+q}{q}$
+\item for the rectangle (p,q),($x\leq y$),$ans=\binom{p+q}{p}-\binom{p+q}{p-1}=\frac{q-p+1}{q+1}\binom{p+q}{q}$
+\end{enumerate}
+\item $C_n$ is the number of different ways a convex polygon with n + 2 sides can be cut into triangles by connecting vertices with straight lines.
+\item $C_n$ is the number of permutations of \{1, ..., n\} that avoid the pattern 123.
+\item $C_n$ is the number of ways to tile a stairstep shape of height n with n rectangles.
+\end{enumerate}
+
+\subsubsection{Stirling number}
+First kind:\\
+Stirling numbers of the first kind is signed.\\
+The unsigned Stirling numbers of the first kind are denoted by s(n,k).\\
+s(4,2)=11\\
+s(n,k) count the number of permutations of n elements with k disjoint cycles.\\
+s(n,0)=s(1,1)=1\\
+s(n+1,k)=s(n,k-1)+n s(n,k)\\
+\\
+Second kind:\\
+S(n,k) count the number of ways to partition a set of n labelled objects into k nonempty unlabelled subsets.\\
+S(4,2)=7\\
+S(n,n)=S(n,1)=1\\
+S(n,k)=S(n-1,k-1)+k S(n-1,k)\\
+$S(n,n-1)=\binom{n}{2}=\frac{n(n-1)}{2}$\\
+$S(n,2)=2^{n-1}-1$\\
+
+\subsubsection{Delannoy number}
+Delannoy number D describes the number of paths from (0, 0) to (m, n), using only single steps north, northeast, or east.\\
+D(0,0)=1\\
+D(m,n)=D(m-1,n)+D(m-1,n-1)+D(m,n-1)\\
+\\
+central Delannoy numbers D(n) = D(n,n)\\
+D(n) from 0:\\
+1, 3, 13, 63, 321, 1683, 8989, 48639, 265729\\
+$nD(n)=3(2n-1)D(n-1)-(n-1)D(n-2)$\\
+
+\subsubsection{Schr\"{o}der number}
+Large:\\
+Describes the number of paths from (0, 0) to (m, n), using only single steps north, northeast, or east, for all (x,y), ($x\leq y$).\\
+for(n==m),from 0:\\
+1, 2, 6, 22, 90, 394, 1806, 8558, 41586, 206098\\
+$S(n)=S(n-1)+\sum\limits_{k=0}^{n-1}S(k)S(n-1-k)$\\
+\\
+
+Little: (aka. super-Catalan numbers, Hipparchus numbers)\\
+\begin{enumerate}
+\item the number of different trees with n leaves and with all internal vertices having two or more children.
+\item the number of ways of inserting brackets into a sequence.
+\item the number of ways of dissecting a convex polygon into smaller polygons by inserting diagonals.
+\end{enumerate}
+from 0:\\
+1, 1, 3, 11, 45, 197, 903, 4279, 20793, 103049\\
+s(n)=S(n)/2\\
+s(0)=s(1)=1\\
+ns(n)=(6n-9)s(n-1)-(n-3)s(n-2)\\
+$a(n+1)=-a(n)+2\sum\limits_{k=1}^na(k)\times a(n+1-k)$\\
+$a(n+1)=\sum\limits_{k=0}^{(n-1)/2} 2^k\times 3^{n-1-2k}\binom{n-1}{2k}$\\
+
+\subsubsection{Bell number}
+Number of partitions of a set of n labeled elements.\\
+from 0:\\
+1, 1, 2, 5, 15, 52, 203, 877, 4140, 21147, 115975\\
+$B_{n+1}=\sum\limits_{k=0}^{n}{{n \choose k}B_k}$\\
+$B_{p+n}\equiv B_n+B_{n+1}\pmod p$ (p for prime)\\
+$B_{p^m+n}\equiv mB_n+B_{n+1}\pmod p$ (p for prime)\\
+$B_n=\sum\limits_{k=1}^{n}S(n,k)$(S for Stirling second kind)\\
+
+\subsubsection{Eulerian number}
+First kind:\\
+the number of permutations of the numbers 1 to n in which exactly m elements are greater than the previous element\\
+A(n,0)=1\\
+A(n,m)=(n-m)A(n-1,m-1)+(m+1)A(n-1,m)\\
+A(n,m)=(n-m+1)A(n-1,m-1)+mA(n-1,m)\\
+A(n,m)=A(n,n-1-m)\\
+\\
+Second kind:\\
+count the permutations of the multiset \{1,1,2,2,...,n,n\} with k ascents with the restriction that for all m\\
+T(n,0)=1\\
+T(n,m)=(2n-m-1)T(n-1,m-1)+(m+1)T(n-1,m)\\
+\\
+
+\subsubsection{Motzkin number}
+\begin{enumerate}
+\item  the number of different ways of drawing non-intersecting chords on a circle between n points
+\item Number of sequences of length n-1 consisting of positive integers such that the opening and ending elements are 1 or 2 and the absolute difference between any 2 consecutive elements is 0 or 1
+\item paths from (0,0) to (n,0) in an n X n grid using only steps U = (1,1), F = (1,0) and D = (1,-1)
+\end{enumerate}
+from 0:\\
+1, 1, 2, 4, 9, 21, 51, 127, 323, 835, 2188, 5798, 15511, 41835, 113634, 310572, 853467\\
+$M_{n+1}=M_n+\sum\limits_{i=0}^{n-1}M_iM_{n-1-i}=\frac{2n+3}{n+3}M_n+\frac{3n}{n+3}M_{n-1}$\\
+$M_n=\sum\limits_{k=0}^{\lfloor n/2\rfloor}\binom{n}{2k}C_k$(C for catalan)\\
+
+\subsubsection{Narayana number}
+\begin{enumerate}
+\item the number of expressions containing n pairs of brackets which are correctly matched and which contain k pairs of ().
+\item the number of paths from (0, 0) to (2n, 0), with steps only northeast and southeast, not straying below the x-axis, with k peaks.
+\end{enumerate}
+N(n,0)=0\\
+$N(n,k)=\frac{1}{n}\binom{n}{k}\binom{n}{k-1}$\\
+$N(n,k)=\frac{1}{k}\binom{n-1}{k-1}\binom{n}{k-1}$\\
+$\sum\limits_{k=1}^nN(n,k)=C_n$(C for catalan)\\
+
 
 \subsection{Number theory}
 \subsubsection{Divisor Fuction}
@@ -306,3 +411,5 @@ int main()
 \subsubsection{Euler–Mascheroni constant}
 $\gamma = \lim\limits_{n \rightarrow \infty } \left( \sum\limits_{k=1}^n \frac{1}{k} - \ln(n) \right)=\int\limits_1^\infty\left({1\over\lfloor x\rfloor}-{1\over x}\right)\,dx$\\
 0.57721566490153286060651209008240243104215933593992...\\
+\subsubsection{Fibonacci}
+gcd(fib[i],fib[j])=fib[gcd(i,j)]\\

@@ -26,10 +26,14 @@ cos/sin/tan 输入弧度
 
 other
 
-log 自然对数(ln)
-log10 你猜……
-ceil 向上
-floor 向下
+log          `自然对数(ln)`
+exp          pow(e,x)
+log10        `你猜……`
+ceil         smallest interger >= x (watch out x<0
+floor        greatest interger <= x (watch out x<0
+trunc        向零 (if x>0, trunc is likes floor. else trunc is likes ceil)
+nearbyint    Rounds x to an integral value, using the rounding direction specified by fegetround.
+round        Returns the integral value that is nearest to x, with halfway cases rounded away from zero.
 
 round
 

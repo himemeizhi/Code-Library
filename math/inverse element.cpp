@@ -21,5 +21,29 @@ inline long long power(long long x,long long y,int mod)
 
 inline int getInv(int x,int mod)//`mod为素数`
 {
-    return power(x,mod-2);
+    return power(x,mod-2,mod);
+}
+
+//`谨慎来说，用exgcd更靠谱`
+void gcd(int n,int k,int &x,int &y)
+{
+    if(k)
+    {
+        gcd(k,n%k,x,y);
+        int t=x;
+        x=y;
+        y=t-(n/k)*y;
+        return;
+    }
+    x=1;
+    y=0;
+}
+
+inline int inv(int b,int mod)
+{
+    static int x,y;
+    gcd(b,mod,x,y);
+    if(x<0)
+        x+=mod;
+    return x;
 }
