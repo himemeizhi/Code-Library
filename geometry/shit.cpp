@@ -1,8 +1,7 @@
 struct pv
 {
     double x,y;
-    pv():x(0),y(0){}
-    pv(double xx,double yy):x(xx),y(yy){}
+    pv(double a=0,double b=0):x(a),y(b){}
     inline pv operator+(const pv &i)const
     {
         return pv(x+i.x,y+i.y);
@@ -29,7 +28,7 @@ struct pv
     }
     inline double len()
     {
-        return sqrt(x*x+y*y);
+        return hypot(x,y);
     }
     inline pv rotate(pv p,double theta)
     {
@@ -41,11 +40,6 @@ struct pv
         return pv(p.x+v.x*c-v.y*s,p.y+v.x*s+v.y*c);
     }
 };
-
-inline bool pntonseg(const pv &p,const pv *a)
-{
-    return fabs((p-a[0]).cross(p-a[1]))<eps && (p-a[0]).dot(p-a[1])<eps;
-}
 
 pv rotate(pv v,pv p,double theta,double sc=1) // rotate vector v, `$\theta\in  [0,2\pi]$`
 {

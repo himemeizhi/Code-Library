@@ -1,5 +1,4 @@
 \documentclass[a4paper,5pt,twocolumn,titlepage]{article}
-
     
 \usepackage{mathpazo}
 \usepackage{xeCJK}
@@ -30,7 +29,7 @@
 \usepackage{booktabs}
 \usepackage{geometry}
 %\usepackage[landscape]{geometry}
-\geometry{left=1cm,right=1cm,top=1cm,bottom=1.5cm,headsep=0.2cm}
+\geometry{left=3cm,right=1cm,top=1.5cm,bottom=2cm,headsep=0.2cm}
 
 \usepackage{courier}
 %\usepackage{time}
@@ -44,8 +43,9 @@
 breaklines=true,
 tabsize=2,
 numbers=left,
-numberstyle=\sf\scriptsize,
 numbersep=4pt,
+numberstyle=\sf\scriptsize,
+commentstyle=\sf\scriptsize,
 basicstyle=\sf\scriptsize,
 frame=leftline,
 escapeinside=``,
@@ -73,7 +73,12 @@ citecolor=black]{hyperref}
 }
 \author{Himemiya Nanao @ Perfect Freeze}
 
-\setmainfont{Helvetica Neue}
+\setmainfont{Linux Libertine O}
+
+\usepackage{tocloft}
+\cftsetindents{section}{0.1in}{0.2in}
+\cftsetindents{subsection}{.2in}{0.3in}
+\cftsetindents{subsubsection}{.3in}{0.45in}
 
 \begin{document}
 \maketitle \tableofcontents
@@ -229,9 +234,9 @@ citecolor=black]{hyperref}
 \lstinputlisting[language=Java]{"./math/pell's equation.java"}
 \subsection{Pollard's rho algorithm}
 \lstinputlisting[language=C++]{"./math/pollard's rho algorithm.cpp"}
-\input{"./math/Summary.tex"}
 \subsection{System of linear congruences}
 \lstinputlisting[language=C++]{"./math/system of linear congruences.cpp"}
+\input{"./math/Summary.tex"}
 
 \section{String}
 \subsection{Aho-Corasick Algorithm}

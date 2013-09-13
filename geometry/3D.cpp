@@ -47,17 +47,16 @@ pv Trans(pv pa,pv V,double theta)
 `$y=r\times\sin(\theta)\times\sin(\alpha)$`
 `$z=r\times\cos(\theta)$`
 
-`$r=\sqrt{x^2+y^2+z^2}$`
-
+`$r=\sqrt{x\times 2+y\times 2+z\times 2}$`
 `$\alpha$`=atan(y/x);
 `$\theta$`=acos(z/r);
 
-`$r\in [0,\infty]$`
+`$r\in [0,\infty)$`
 `$\alpha \in [0,2\pi]$`
 `$\theta \in [0,\pi]$`
 
-`$lat1\in [-\frac{\pi}{2},\frac{\pi}{2}]$`
-`$lng1\in [-\pi,\pi]$`
+`$lat\in [-\frac{\pi}{2},\frac{\pi}{2}]$`
+`$lng\in [-\pi,\pi]$`
 
 pv getpv(double lat,double lng,double r)
 {

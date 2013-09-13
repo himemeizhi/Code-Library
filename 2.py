@@ -1,6 +1,5 @@
 f = open('main_h.tex','w')
 f.write("""\documentclass[a4paper,5pt,twocolumn,titlepage]{article}
-
     
 \usepackage{mathpazo}
 \usepackage{xeCJK}
@@ -45,8 +44,9 @@ f.write("""\documentclass[a4paper,5pt,twocolumn,titlepage]{article}
 breaklines=true,
 tabsize=2,
 numbers=left,
-numberstyle=\sf\scriptsize,
 numbersep=4pt,
+numberstyle=\sf\scriptsize,
+commentstyle=\sf\scriptsize,
 basicstyle=\sf\scriptsize,
 frame=leftline,
 escapeinside=``,
@@ -74,7 +74,12 @@ citecolor=black]{hyperref}
 }
 \\author{Himemiya Nanao @ Perfect Freeze}
 
-\setmainfont{Helvetica Neue}
+\setmainfont{Linux Libertine O}
+
+\usepackage{tocloft}
+\cftsetindents{section}{0.1in}{0.2in}
+\cftsetindents{subsection}{.2in}{0.3in}
+\cftsetindents{subsubsection}{.3in}{0.45in}
 
 \\begin{document}
 \maketitle \\tableofcontents
