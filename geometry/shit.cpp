@@ -42,33 +42,12 @@ struct pv
     }
 };
 
-inline int dblcmp(double d)
-{
-    if(fabs(d)<eps)
-        return 0;
-    return d>eps?1:-1;
-}
-
-inline int cross(pv *a,pv *b) // 0不相交 1不规范 2规范
-{
-    int d1=dblcmp((a[1]-a[0]).cross(b[0]-a[0]));
-    int d2=dblcmp((a[1]-a[0]).cross(b[1]-a[0]));
-    int d3=dblcmp((b[1]-b[0]).cross(a[0]-b[0]));
-    int d4=dblcmp((b[1]-b[0]).cross(a[1]-b[0]));
-    if((d1^d2)==-2 && (d3^d4)==-2)
-        return 2;
-    return ((d1==0 && dblcmp((b[0]-a[0]).dot(b[0]-a[1]))<=0 )||
-            (d2==0 && dblcmp((b[1]-a[0]).dot(b[1]-a[1]))<=0 )||
-            (d3==0 && dblcmp((a[0]-b[0]).dot(a[0]-b[1]))<=0 )||
-            (d4==0 && dblcmp((a[1]-b[0]).dot(a[1]-b[1]))<=0));
-}
-
 inline bool pntonseg(const pv &p,const pv *a)
 {
     return fabs((p-a[0]).cross(p-a[1]))<eps && (p-a[0]).dot(p-a[1])<eps;
 }
 
-pv rotate(pv v,pv p,double theta,double sc=1) // rotate vector v, theta ∈ [0,2π]
+pv rotate(pv v,pv p,double theta,double sc=1) // rotate vector v, `$\theta\in  [0,2\pi]$`
 {
     static pv re;
     re=p;
@@ -111,4 +90,49 @@ inline std::pair<pv,double> getcircle(const pv &a,const pv &b,const pv &c)
     static pv ct;
     ct=line(2*(b.x-a.x),2*(b.y-a.y),a.len()-b.len()).cross(line(2*(c.x-b.x),2*(c.y-b.y),b.len()-c.len()));
     return std::make_pair(ct,sqrt((ct-a).len()));
+}
+
+//sort with polar angle
+inline bool cmp(const Point& a,const Point& b)
+{
+    if (a.y*b.y <= 0)
+    {
+        if (a.y > 0 || b.y > 0) 
+            return a.y < b.y;
+        if (a.y == 0 && b.y == 0)   
+            return a.x < b.x;
+    }
+    return a.cross(b) > 0;
+}
+
+//graham
+inline bool com(const pv &a,const pv &b)
+{
+    if(fabs(t=(a-pnt[0]).cross(b-pnt[0]))>eps)
+        return t>0;
+    return (a-pnt[0]).len()<(b-pnt[0]).len();
+}
+
+inline void graham(std::vector<pv> &ch,const int n)
+{
+    std::nth_element(pnt,pnt,pnt+n);
+    std::sort(pnt+1,pnt+n,com);
+    ch.resize(0);
+    ch.push_back(pnt[0]);
+    ch.push_back(pnt[1]);
+    static int i;
+    for(i=2;i<n;++i)
+        if(fabs((pnt[i]-ch[0]).cross(ch[1]-ch[0]))>eps)
+        {
+            ch.push_back(pnt[i++]);
+            break;
+        }
+        else
+            ch.back()=pnt[i];
+    for(;i<n;++i)
+    {
+        while((ch.back()-ch[ch.size()-2]).cross(pnt[i]-ch[ch.size()-2])<eps)
+            ch.pop_back();
+        ch.push_back(pnt[i]);
+    }
 }

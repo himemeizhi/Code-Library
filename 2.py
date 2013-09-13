@@ -74,6 +74,8 @@ citecolor=black]{hyperref}
 }
 \\author{Himemiya Nanao @ Perfect Freeze}
 
+\setmainfont{Helvetica Neue}
+
 \\begin{document}
 \maketitle \\tableofcontents
 \\newpage

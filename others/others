@@ -11,7 +11,7 @@ while true; do
 ./bf < input > output.bf
 
 diff output.sol output.bf
-if[ $? -ne 0];then break; fi
+if [ $? -ne 0 ]; then break; fi
 done
 
 

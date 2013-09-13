@@ -43,22 +43,21 @@ pv Trans(pv pa,pv V,double theta)
 
 //经纬度转换
 
-x=r*sin(θ)*cos(α);
-y=r*sin(θ)*sin(α);
-z=r*cos(θ);
+`$x=r\times\sin(\theta)\times\cos(\alpha)$`
+`$y=r\times\sin(\theta)\times\sin(\alpha)$`
+`$z=r\times\cos(\theta)$`
 
-r=sqrt(x*2+y*2+z*2);//??
-r=sqrt(x^2+y^2+z^2);//??
+`$r=\sqrt{x^2+y^2+z^2}$`
 
-α=atan(y/x);
-θ=acos(z/r);
+`$\alpha$`=atan(y/x);
+`$\theta$`=acos(z/r);
 
-r∈[0,∞]
-α∈[0,2π]
-θ∈[0,π]
+`$r\in [0,\infty]$`
+`$\alpha \in [0,2\pi]$`
+`$\theta \in [0,\pi]$`
 
-lat1∈[-π/2,π/2]
-lng1∈[-π,π]
+`$lat1\in [-\frac{\pi}{2},\frac{\pi}{2}]$`
+`$lng1\in [-\pi,\pi]$`
 
 pv getpv(double lat,double lng,double r)
 {
@@ -178,7 +177,7 @@ double Distance(pv p, Line3D L)
 } 
 
 //线段夹角
-//范围值为[0,π]之间的弧度
+//范围值为[0,`$\pi$`]之间的弧度
 double Inclination(Line3D L1, Line3D L2) 
 { 
     pv u = L1.e - L1.s; 

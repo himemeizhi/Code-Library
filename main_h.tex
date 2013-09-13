@@ -73,6 +73,8 @@ citecolor=black]{hyperref}
 }
 \author{Himemiya Nanao @ Perfect Freeze}
 
+\setmainfont{Helvetica Neue}
+
 \begin{document}
 \maketitle \tableofcontents
 \newpage
@@ -118,10 +120,6 @@ citecolor=black]{hyperref}
 \lstinputlisting[language=C++]{"./geometry/circle.cpp"}
 \subsection{closest point pair}
 \lstinputlisting[language=C++]{"./geometry/closest point pair.cpp"}
-\subsection{ellipse}
-\lstinputlisting[language=C++]{"./geometry/ellipse.cpp"}
-\subsection{Graham's scan}
-\lstinputlisting[language=C++]{"./geometry/graham's scan.cpp"}
 \subsection{half-plane intersection}
 \lstinputlisting[language=C++]{"./geometry/half-plane intersection.cpp"}
 \subsection{intersection of circle and poly}
@@ -130,20 +128,11 @@ citecolor=black]{hyperref}
 \lstinputlisting[language=C++]{"./geometry/k-d tree.cpp"}
 \subsection{Manhattan MST}
 \lstinputlisting[language=C++]{"./geometry/manhattan mst.cpp"}
-\subsection{others}
-\lstinputlisting{"./geometry/others"}
-\subsection{Pick's theorem}
-\lstinputlisting{"./geometry/pick's theorem"}
-\subsection{PointInPoly}
-\lstinputlisting[language=C++]{"./geometry/pointinpoly.cpp"}
 \subsection{rotating caliper}
 \lstinputlisting[language=C++]{"./geometry/rotating caliper.cpp"}
 \subsection{shit}
 \lstinputlisting[language=C++]{"./geometry/shit.cpp"}
-\subsection{sort - polar angle}
-\lstinputlisting[language=C++]{"./geometry/sort - polar angle.cpp"}
-\subsection{triangle}
-\lstinputlisting{"./geometry/triangle"}
+\input{"./geometry/others.tex"}
 
 \section{Geometry/tmp}
 \subsection{test}
@@ -240,9 +229,9 @@ citecolor=black]{hyperref}
 \lstinputlisting[language=Java]{"./math/pell's equation.java"}
 \subsection{Pollard's rho algorithm}
 \lstinputlisting[language=C++]{"./math/pollard's rho algorithm.cpp"}
+\input{"./math/Summary.tex"}
 \subsection{System of linear congruences}
 \lstinputlisting[language=C++]{"./math/system of linear congruences.cpp"}
-\input{"./math/Summary.tex"}
 
 \section{String}
 \subsection{Aho-Corasick Algorithm}

@@ -1,0 +1,246 @@
+\subsection{other}
+\subsubsection{Pick's theorem}
+给定顶点座标均是整点（或正方形格点）的简单多边形\\
+A:面积\\
+i:内部格点数目\\
+b:边上格点数目\\
+$A=i+\frac{b}{2}-1$\\
+
+取格点的组成图形的面积为一单位。在平行四边形格点，皮克定理依然成立。套用于任意三角形格点，皮克定理则是\\
+$A=2\times i+b-2$\\
+
+\subsubsection{Triangle}
+Area:\\
+$p=\frac{a+b+c}{2}$\\
+$area=\sqrt{p\times (p-a)\times (p-b)\times (p-c)}$\\
+$area=\frac{a\times b\times \sin(\angle C)}{2}$\\
+$area=\frac{a^2\times \sin(\angle B)\times \sin(\angle C)}{2\times \sin(\angle B+\angle C)}$\\
+$area=\frac{a^2}{2\times (\cot(\angle B)+\cot(\angle C))}$\\
+\\
+centroid:\\
+    center of mass\\
+    intersection of triangle's three triangle medians\\
+\\
+Trigonometric conditions:\\
+$\tan{\frac{\alpha}{2}}\tan{\frac{\beta}{2}}+\tan{\frac{\beta}{2}}\tan{\frac{\gamma}{2}}+\tan{\frac{\gamma}{2}}\tan{\frac{\alpha}{2}}=1$\\
+$\sin^2{\frac{\alpha}{2}}+\sin^2{\frac{\beta}{2}}+\sin^2{\frac{\gamma}{2}}+2\sin{\frac{\alpha}{2}}\sin{\frac{\beta}{2}}\sin{\frac{\gamma}{2}}=1$\\
+\\
+Circumscribed circle:\\
+$diameter = \frac{abc}{2\cdot\text{area}} = \frac{|AB| |BC| |CA|}{2|\Delta ABC|} \\\\
+         = \frac{abc}{2\sqrt{s(s-a)(s-b)(s-c)}}\\\\
+         = \frac{2abc}{\sqrt{(a+b+c)(-a+b+c)(a-b+c)(a+b-c)}}$\\
+$diameter=\sqrt{\frac{2 \cdot \text{area}}{\sin A \sin B \sin C}}$\\
+$diameter=\frac{a}{\sin A}=\frac{b}{\sin B}=\frac{c}{\sin C}$\\
+\\
+Incircle:\\
+$inradius=\frac{2\times area}{a+b+c}$\\
+coordinates(x,y)=$\bigg(\frac{a x_a+b x_b+c x_c}{a+b+c},\frac{a y_a+b y_b+c y_c}{a+b+c}\bigg) = \frac{a}{a+b+c}(x_a,y_a)+\frac{b}{a+b+c}(x_b,y_b)+\frac{c}{a+b+c}(x_c,y_c)$\\
+\\
+Excircles:\\
+radius[a]=$\frac{2\times area}{b+c-a}$\\
+radius[b]=$\frac{2\times area}{a+c-b}$\\
+radius[c]=$\frac{2\times area}{a+b-c}$\\
+\\
+Steiner circumellipse (least area circumscribed ellipse)\\
+    area=$\Delta \times \frac{4\pi}{3\sqrt{3}}$\\
+    center is the triangle's centroid.\\
+\\
+Steiner inellipse ( maximum area inellipse )\\
+    area=$\Delta \times \frac{\pi}{3\sqrt{3}}$\\
+    center is the triangle's centroid.\\
+\\
+Fermat Point:
+\begin{enumerate}
+\item 当有一个内角不小于120°时，费马点为此角对应顶点。
+\item 当三角形的内角都小于120°
+\begin{enumerate}
+\item 以三角形的每一边为底边，向外做三个正三角形$\Delta$ABC'，$\Delta$BCA'，$\Delta$CAB'。
+\item 连接CC'、BB'、AA'，则三条线段的交点就是所求的点。
+\end{enumerate}
+\end{enumerate}
+
+\subsubsection{Ellipse}
+$\frac{(x-h)^2}{a^2} + \frac{(y-k)^2}{b^2} = 1$\\
+
+$x=h+a \times \cos(t)$\\
+$y=k+b \times \sin(t)$\\
+
+area=$\pi \times a \times b$\\
+distance from center to focus: $f=\sqrt{a^2-b^2}$\\
+eccentricity: $e=\sqrt{a-\frac{b}{a}^2}=\frac{f}{a}$\\
+focal parameter: $\frac{b^2}{\sqrt{a^2-b^2}}=\frac{b^2}{f}$\\
+
+\begin{lstlisting}[language=C++]
+inline double circumference(double a,double b) // accuracy: pow(0.5,53);
+{
+    static double digits=53;
+    static double tol=sqrt(pow(0.5,digits));
+    double x=a;
+    double y=b;
+    if(x<y)
+        std::swap(x,y);
+    if(digits*y<tol*x)
+        return 4*x;
+    double s=0,m=1;
+    while(x>(tol+1)*y)
+    {
+        double tx=x;
+        double ty=y;
+        x=0.5f*(tx+ty);
+        y=sqrt(tx*ty);
+        m*=2;
+        s+=m*pow(x-y,2);
+    }
+    return pi*(pow(a+b,2)-s)/(x+y);
+}
+\end{lstlisting}
+
+\subsubsection{about double}
+
+如果sqrt(a), asin(a), acos(a) 中的a是你自己算出来并传进来的，那就得小心了。如果a本来应该是0的，由于浮点误差，可能实际是一个绝对值很小的负数（比如$-1^{-12}$），这样sqrt(a)应得0的，直接因a不在定义域而出错。类似地，如果a本来应该是$\pm$1,则asin(a)、acos(a)也有可能出错。因此，对于此种函数，必需事先对a进行校正。\\
+
+现在考虑一种情况，题目要求输出保留两位小数。有个case的正确答案的精确值是0.005,按理应该输出0.01，但你的结果可能是0.005000000001(恭喜)，也有可能是0.004999999999(悲剧)，如果按照printf("\%.2lf", a)输出，那你的遭遇将和括号里的字相同。\\
+如果a为正，则输出a + eps, 否则输出a - eps。\\
+
+不要输出-0.000\\
+
+注意double的数据范围\\
+
+\begin{tabular}{|l|l|}
+\hline
+$a=b$ & fabs(a-b)<eps\\
+\hline
+$a\neq b$ & fabs(a-b)>eps\\
+\hline
+$a<b$ &  a+eps<b\\
+\hline
+$a\leq b$ & a<b+eps\\
+\hline
+$a>b$  & a>b+eps\\
+\hline
+$a\geq b$ & a+eps>b\\
+\hline
+\end{tabular}
+
+\subsubsection{trigonometric functions}
+
+\begin{tabular}{|l|l|l|}
+\hline
+& input & output\\
+\hline
+sin & radian & $[-1,+1]$\\
+\hline
+cos & radian & $[-1,+1]$\\
+\hline
+tan & radian & $(-\infty,+\infty)$\\
+\hline
+asin & $[-1,+1]$ & $[-\frac{\pi}{2},+\frac{\pi}{2}]$\\
+\hline
+acos & $[-1,+1]$ & [0,$\pi$]\\
+\hline
+atan & $(-\infty,\infty)$ & $[-\frac{\pi}{2},+\frac{\pi}{2}]$\\
+\hline
+atan2 & (y,x) & $\tan(\frac{y}{x}) \in [-\pi,+\pi]$ (watch out if x=y=0)\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|l|l|}
+\hline
+exp & $x^e$\\
+\hline
+log & ln\\
+\hline
+log10 & $log_{10}$\\
+\hline
+ceil & smallest interger $\geq$ x (watch out x<0\\
+\hline
+floor & greatest interger $\leq$ x (watch out x<0\\
+\hline
+trunc & nearest integral value close to 0\\
+\hline
+nearybyint & round to intergral, up to fegetround\\
+\hline
+round & round with halfway cases rounded away from zero\\
+\hline
+\end{tabular}
+
+\subsubsection{round}
+\begin{enumerate}
+\item cpp:  四舍六入五留双
+\begin{enumerate}
+\item 当尾数小于或等于4时，直接将尾数舍去
+\item 当尾数大于或等于6时，将尾数舍去并向前一位进位
+\item 当尾数为5，而尾数后面的数字均为0时，应看尾数“5”的前一位：若前一位数字此时为奇数，就应向前进一位；若前一位数字此时为偶数，则应将尾数舍去。数字“0”在此时应被视为偶数
+\item 当尾数为5，而尾数“5”的后面还有任何不是0的数字时，无论前一位在此时为奇数还是偶数，也无论“5”后面不为0的数字在哪一位上，都应向前进一位
+\end{enumerate}
+\item java: add 0.5,then floor
+\end{enumerate}
+
+\subsubsection{rotation matrix}
+original matrix:\\
+$\begin{bmatrix}
+x\\
+y
+\end{bmatrix}$
+
+$\begin{bmatrix}
+\cos(\theta) & -\sin(\theta) \\
+\sin(\theta) & \cos(\theta)
+\end{bmatrix}$
+
+3-dimension:\\
+$\begin{bmatrix}
+x\\
+y\\
+z
+\end{bmatrix}$
+
+$R_x(\theta) = \begin{bmatrix}
+1 & 0 & 0 \\
+      0 & \cos \theta & - \sin \theta \\
+      0 & \sin \theta  &  \cos \theta \\
+      \end{bmatrix} \\
+      R_y(\theta) = \begin{bmatrix}
+      \cos \theta & 0 & \sin \theta \\
+          0 & 1 & 0 \\
+          - \sin \theta & 0 & \cos \theta \\
+          \end{bmatrix} \\
+          R_z(\theta) = \begin{bmatrix}
+          \cos \theta & - \sin \theta & 0 \\
+              \sin \theta & \cos \theta & 0\\
+              0 & 0 & 1\\
+              \end{bmatrix}$\\
+              rotation by unit vector ${v} = (x,y,z)$:\\
+              $\begin{bmatrix}
+              \cos \theta + (1 - \cos \theta) x^2
+              & (1 - \cos \theta) x y - (\sin \theta) z 
+              & (1 - \cos \theta) x z + (\sin \theta) y  
+              \\
+                  (1 - \cos \theta) y x + (\sin \theta) z 
+                  & \cos \theta + (1 - \cos \theta) y^2
+                  & (1 - \cos \theta) y z - (\sin \theta) x
+                  \\
+                      (1 - \cos \theta) z x - (\sin \theta) y
+                      & (1 - \cos \theta) z y + (\sin \theta) x
+                      & \cos \theta + (1 - \cos \theta) z^2 
+                      \end{bmatrix}$ 
+                      we use transform matrix muliply our original matrix\\
+
+and we can presetation a transformation as a $4\times 4$ matrix:\\
+$\begin{bmatrix}
+a_{11} & a_{12} & a_{12} & a_{14}\\
+a_{21} & a_{22} & a_{22} & a_{24}\\
+a_{31} & a_{32} & a_{32} & a_{34}\\
+a_{41} & a_{42} & a_{42} & a_{44}
+\end{bmatrix}$\\
+Matrix $\begin{bmatrix}
+a_{11} & a_{12} & a_{12}\\
+a_{21} & a_{22} & a_{22}\\
+a_{31} & a_{32} & a_{32}
+\end{bmatrix}$ presetation the transformation as same as $3\times 3$ matrx.\\
+Matrix $\begin{bmatrix}a_{14} \\ a_{24} \\ a_{34} \end{bmatrix}$ as translation.\\
+Matrix $\begin{bmatrix}a_{41} & a_{42} & a_{43} \end{bmatrix}$ as projection.\\
+Matrix $\begin{bmatrix}a_{44}\end{bmatrix}$ as scale.\\
+
+original Matrix:\\
+$\begin{bmatrix}x\\y\\z\\Scale\end{bmatrix}$\\
