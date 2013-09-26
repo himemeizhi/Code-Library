@@ -30,11 +30,7 @@ inline int find(int &a)
     return a;
 }
 
-inline void reset(int i)
-{
-    l[i]=r[i]=d[i]=set[i]=0;
-}
-
+inline void reset(int i) { l[i]=r[i]=d[i]=set[i]=0; }
 int n,i,j,k;
 
 int main()

@@ -1,62 +1,48 @@
-#include<cstdio>
-#include<cstring>
-#include<algorithm>
-#include<vector>
+#define MAXN (N*22) // row
+#define MAXM (N*10) // col
+#define MAXX (MAXN*MAXM)
 
-#define N 256
-#define MAXN N*22
-#define MAXM N*5
-#define inf 0x3f3f3f3f
-const int MAXX(MAXN*MAXM);
+int cnt;
+int l[MAXX],r[MAXX],u[MAXX],d[MAXX],rh[MAXX],ch[MAXX];
+int sz[MAXM],hd[MAXN];
+bool done[MAXN]; //solution
 
-bool mat[MAXN][MAXM];
-
-int u[MAXX],d[MAXX],l[MAXX],r[MAXX],ch[MAXX],rh[MAXX];
-int sz[MAXM];
-std::vector<int>ans(MAXX);
-int hd,cnt;
-
-inline int node(int up,int down,int left,int right)
+inline void init(const int m)
 {
-    u[cnt]=up;
-    d[cnt]=down;
-    l[cnt]=left;
-    r[cnt]=right;
-    u[down]=d[up]=l[right]=r[left]=cnt;
-    return cnt++;
+    static int i;
+    for(i=0;i<=m;++i)
+    {
+        l[i+1]=i;
+        r[i]=i+1;
+        u[i]=d[i]=i;
+        sz[i]=0;
+    }
+    r[m]=0;
+    cnt=m+1;
 }
 
-inline void init(int n,int m)
+inline void link(int x,int y)
 {
-    cnt=0;
-    hd=node(0,0,0,0);
-    static int i,j,k,r;
-    for(j=1;j<=m;++j)
+    d[cnt]=d[y];
+    u[cnt]=y;
+    u[d[y]]=cnt;
+    d[y]=cnt;
+    if(hd[x]<0)  // set the val to -1 when you init a new line
     {
-        ch[j]=node(cnt,cnt,l[hd],hd);
-        sz[j]=0;
+        hd[x]=l[cnt]=r[cnt]=cnt;
+        done[x]=false;
     }
-    for(i=1;i<=n;++i)
+    else
     {
-        r=-1;
-        for(j=1;j<=m;++j)
-            if(mat[i][j])
-            {
-                if(r==-1)
-                {
-                    r=node(u[ch[j]],ch[j],cnt,cnt);
-                    rh[r]=i;
-                    ch[r]=ch[j];
-                }
-                else
-                {
-                    k=node(u[ch[j]],ch[j],l[r],r);
-                    rh[k]=i;
-                    ch[k]=ch[j];
-                }
-                ++sz[j];
-            }
+        l[cnt]=hd[x];
+        r[cnt]=r[hd[x]];
+        l[r[hd[x]]]=cnt;
+        r[hd[x]]=cnt;
     }
+    ++sz[y];
+    rh[cnt]=x;
+    ch[cnt]=y;
+    ++cnt;
 }
 
 inline void rm(int c)
@@ -75,174 +61,38 @@ inline void rm(int c)
 
 inline void add(int c)
 {
+    l[r[c]]=c;
+    r[l[c]]=c;
     static int i,j;
-    for(i=u[c];i!=c;i=u[i])
-        for(j=l[i];j!=i;j=l[j])
+    for(i=d[c];i!=c;i=d[i])
+        for(j=r[i];j!=i;j=r[j])
         {
+            u[d[j]]=j;
+            d[u[j]]=j;
             ++sz[ch[j]];
-            u[d[j]]=d[u[j]]=j;
         }
-    l[r[c]]=r[l[c]]=c;
 }
 
-bool dlx(int k)
+bool dlx()
 {
-    if(hd==r[hd])
-    {
-        ans.resize(k);
+    if(!r[0])
         return true;
-    }
-    int s=inf,c;
-    int i,j;
-    for(i=r[hd];i!=hd;i=r[i])
-        if(sz[i]<s)
-        {
-            s=sz[i];
+    int i,j,c;
+    for(i=c=r[0];i;i=r[i])
+        if(sz[i]<sz[c])
             c=i;
-        }
     rm(c);
     for(i=d[c];i!=c;i=d[i])
     {
-        ans[k]=rh[i];
+        done[rh[i]]=true;
         for(j=r[i];j!=i;j=r[j])
             rm(ch[j]);
-        if(dlx(k+1))
+        if(dlx())
             return true;
         for(j=l[i];j!=i;j=l[j])
             add(ch[j]);
+        done[rh[i]]=false;
     }
     add(c);
     return false;
-}
-
-#include <cstdio>
-#include <cstring>
-
-#define N 1024
-#define M 1024*110
-using namespace std;
-
-int l[M], r[M], d[M], u[M], col[M], row[M], h[M], res[N], cntcol[N];
-int dcnt = 0;
-//初始化一个节点
-inline void addnode(int &x)
-{
-    ++x;
-    r[x] = l[x] = u[x] = d[x] = x;
-}
-//将x加入到rowx后
-inline void insert_row(int rowx, int x)
-{
-    r[l[rowx]] = x;
-    l[x] = l[rowx];
-    r[x] = rowx;
-    l[rowx] = x;
-}
-//将x加入到colx后
-inline void insert_col(int colx, int x)
-{
-    d[u[colx]] = x;
-    u[x] = u[colx];
-    d[x] = colx;
-    u[colx] = x;
-}
-//全局初始化
-inline void dlx_init(int cols)
-{
-    memset(h, -1, sizeof(h));
-    memset(cntcol, 0, sizeof(cntcol));
-    dcnt = -1;
-    addnode(dcnt);
-    for (int i = 1; i <= cols; ++i)
-    {
-        addnode(dcnt);
-        insert_row(0, dcnt);
-    }
-}
-//删除一列以及相关的所有行
-inline void remove(int c)
-{
-    l[r[c]] = l[c];
-    r[l[c]] = r[c];
-    for (int i = d[c]; i != c; i = d[i])
-        for (int j = r[i]; j != i; j = r[j])
-        {
-            u[d[j]] = u[j];
-            d[u[j]] = d[j];
-            cntcol[col[j]]--;
-        }
-}
-//恢复一列以及相关的所有行
-inline void resume(int c)
-{
-    for (int i = u[c]; i != c; i = u[i])
-        for (int j = l[i]; j != i; j = l[j])
-        {
-            u[d[j]] = j;
-            d[u[j]] = j;
-            cntcol[col[j]]++;
-        }
-    l[r[c]] = c;
-    r[l[c]] = c;
-}
-//搜索部分
-bool DLX(int deep)
-{
-    if (r[0] == 0)
-    {
-//Do anything you want to do here
-        printf("%d", deep);
-        for (int i = 0; i < deep; ++i) printf(" %d", res[i]);
-        puts("");
-        return true;
-    }
-    int min = INT_MAX, tempc;
-    for (int i = r[0]; i != 0; i = r[i])
-        if (cntcol[i] < min)
-        {
-            min = cntcol[i];
-            tempc = i;
-        }
-    remove(tempc);
-    for (int i = d[tempc]; i != tempc; i = d[i])
-    {
-        res[deep] = row[i];
-        for (int j = r[i]; j != i; j = r[j]) remove(col[j]);
-        if (DLX(deep + 1)) return true;
-        for (int j = l[i]; j != i; j = l[j]) resume(col[j]);
-    }
-    resume(tempc);
-    return false;
-}
-//插入矩阵中的"1"节点
-inline void insert_node(int x, int y)
-{
-    cntcol[y]++;
-    addnode(dcnt);
-    row[dcnt] = x;
-    col[dcnt] = y;
-    insert_col(y, dcnt);
-    if (h[x] == -1) h[x] = dcnt;
-    else insert_row(h[x], dcnt);
-}
-int main()
-{
-    int n, m;
-    while (~scanf("%d%d", &n, &m))
-    {
-        dlx_init(m);
-        for (int i = 1; i <= n; ++i)
-        {
-            int k, x;
-            scanf("%d", &k);
-            while (k--)
-            {
-                scanf("%d", &x);
-                insert_node(i, x);
-            }
-        }
-        if (!DLX(0)) 
-            puts("NO");
-    }
-    return 0;
 }

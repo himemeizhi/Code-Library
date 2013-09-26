@@ -42,12 +42,12 @@
 \lstset{
 breaklines=true,
 tabsize=2,
-numbers=left,
-numbersep=4pt,
-numberstyle=\sf\scriptsize,
+%numbers=left,
+%numbersep=4pt,
+%numberstyle=\sf\scriptsize,
 commentstyle=\sf\scriptsize,
 basicstyle=\sf\scriptsize,
-frame=leftline,
+%frame=leftline,
 escapeinside=``,
 extendedchars=false
 }
@@ -97,26 +97,21 @@ citecolor=black]{hyperref}
 \lstinputlisting[language=C++]{"./data structure/hose.cpp"}
 \subsection{Leftist tree}
 \lstinputlisting[language=C++]{"./data structure/leftist tree.cpp"}
+\subsection{Link-Cut Tree}
+\lstinputlisting[language=C++]{"./data structure/link-cut tree.cpp"}
 \subsection{Network}
 \lstinputlisting[language=C++]{"./data structure/network.cpp"}
-\subsection{OTOCI}
-\lstinputlisting[language=C++]{"./data structure/otoci.cpp"}
 \subsection{picture}
 \lstinputlisting[language=C++]{"./data structure/picture.cpp"}
 \subsection{Size Blanced Tree}
 \lstinputlisting[language=C++]{"./data structure/size blanced tree.cpp"}
-\subsection{sparse table - rectangle}
-\lstinputlisting[language=C++]{"./data structure/sparse table - rectangle.cpp"}
-\subsection{sparse table - square}
-\lstinputlisting[language=C++]{"./data structure/sparse table - square.cpp"}
 \subsection{sparse table}
 \lstinputlisting[language=C++]{"./data structure/sparse table.cpp"}
 \subsection{treap}
 \lstinputlisting[language=C++]{"./data structure/treap.cpp"}
 
 \section{Geometry}
-\subsection{3D}
-\lstinputlisting[language=C++]{"./geometry/3d.cpp"}
+\input{"./geometry/3D.tex"}
 \subsection{3DCH}
 \lstinputlisting[language=C++]{"./geometry/3dch.cpp"}
 \subsection{circle's area}
@@ -143,7 +138,7 @@ citecolor=black]{hyperref}
 \subsection{test}
 \lstinputlisting[language=C++]{"./geometry/tmp/test.cpp"}
 \subsection{tmp}
-\lstinputlisting[language=C++]{"./geometry/tmp/tmp.cpp"}
+\lstinputlisting[language=C++]{"./geometry/tmp/tmp.cxx"}
 
 \section{Graph}
 \subsection{2SAT}
@@ -164,14 +159,11 @@ citecolor=black]{hyperref}
 \lstinputlisting[language=C++]{"./graph/chu–liu:edmonds' algorithm.cpp"}
 \subsection{Count MST}
 \lstinputlisting[language=C++]{"./graph/count mst.cpp"}
-\subsection{Covering problems}
-\lstinputlisting{"./graph/covering problems"}
-\subsection{difference constraints}
-\lstinputlisting{"./graph/difference constraints"}
+\input{"./graph/Covering problems.tex"}
+\input{"./graph/difference constraints.tex"}
 \subsection{Dinitz's algorithm}
 \lstinputlisting[language=C++]{"./graph/dinitz's algorithm.cpp"}
-\subsection{Flow network}
-\lstinputlisting{"./graph/flow network"}
+\input{"./graph/Flow network.tex"}
 \subsection{Hamiltonian circuit}
 \lstinputlisting[language=C++]{"./graph/hamiltonian circuit.cpp"}
 \subsection{Hopcroft-Karp algorithm}
@@ -196,8 +188,7 @@ citecolor=black]{hyperref}
 \lstinputlisting[language=C++]{"./graph/minimum-cost flow problem.cpp"}
 \subsection{Second-best MST}
 \lstinputlisting[language=C++]{"./graph/second-best mst.cpp"}
-\subsection{Spanning tree}
-\lstinputlisting{"./graph/spanning tree"}
+\input{"./graph/spanning tree.tex"}
 \subsection{Stable Marriage}
 \lstinputlisting[language=C++]{"./graph/stable marriage.cpp"}
 \subsection{Stoer-Wagner Algorithm}
@@ -257,18 +248,16 @@ citecolor=black]{hyperref}
 \lstinputlisting[language=C++]{"./string/suffix automaton.cpp"}
 
 \section{Dynamic Programming}
-\subsection{knapsack problem}
-\lstinputlisting{"./dynamic programming/knapsack problem"}
-\subsection{LCIS}
-\lstinputlisting[language=C++]{"./dynamic programming/lcis.cpp"}
 \subsection{LCS}
 \lstinputlisting[language=C++]{"./dynamic programming/lcs.cpp"}
+\subsection{LCIS}
+\lstinputlisting[language=C++]{"./dynamic programming/lcis.cpp"}
 \subsection{sequence partitioning}
 \lstinputlisting[language=C++]{"./dynamic programming/sequence partitioning.cpp"}
+\subsection{knapsack problem}
+\lstinputlisting{"./dynamic programming/knapsack problem"}
 
 \section{Search}
-\subsection{dlx}
-\lstinputlisting{"./search/dlx"}
 \subsection{dlx - exact cover}
 \lstinputlisting[language=C++]{"./search/dlx - exact cover.cpp"}
 \subsection{dlx - repeat cover}
@@ -285,7 +274,6 @@ citecolor=black]{hyperref}
 \lstinputlisting[language=C++]{"./others/binary search.cpp"}
 \subsection{java}
 \lstinputlisting[language=Java]{"./others/java.java"}
-\subsection{others}
-\lstinputlisting{"./others/others"}
+\input{"./others/others.tex"}
 
 \end{document}

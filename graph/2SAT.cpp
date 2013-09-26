@@ -27,9 +27,6 @@ y -> x
 ~x -> ~y
 ~y -> ~x
 */
-#include<cstdio>
-#include<cstring>
-
 #define MAXX 16111
 #define MAXE 200111
 #define v to[i]
@@ -59,11 +56,9 @@ bool dfs(const int now)
     return true;
 }
 
-int n,m;
-int i,j,k;
-
-inline bool go()
+inline bool go(const int n;)
 {
+    static int i;
     memset(done,0,sizeof done);
     for(i=0;i<n;i+=2)
         if(!done[i] && !done[i^1])

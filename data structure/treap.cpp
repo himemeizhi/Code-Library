@@ -1,7 +1,3 @@
-#include<cstdlib>
-#include<ctime>
-#include<cstring>
-
 struct node
 {
     node *ch[2];
@@ -88,32 +84,19 @@ class Treap
     node *rt;
 
     Treap():rt(null){}
-    inline void insert(int val)
-    {
-        insert(rt,val);
-    }
-    inline void reset()
-    {
-        rec(rt);
-        rt=null;
-    }
+    inline void insert(int val) { insert(rt,val); }
+    inline void reset() { rec(rt); rt=null; }
     inline int sel(int k)
     {
         if(k<1 || k>rt->sz)
             return 0;
         return sel(rt,rt->sz+1-k);
     }
-    inline void del(int val)
-    {
-        del(rt,val);
-    }
-    inline int size()
-    {
-        return rt->sz;
-    }
+    inline void del(int val) { del(rt,val); }
+    inline int size() { return rt->sz; }
 }treap[MAXX];
 
-init:
+inline void init()
 {
     srand(time(0));
     null=new node();

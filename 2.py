@@ -43,12 +43,12 @@ f.write("""\documentclass[a4paper,5pt,twocolumn,titlepage]{article}
 \lstset{
 breaklines=true,
 tabsize=2,
-numbers=left,
-numbersep=4pt,
-numberstyle=\sf\scriptsize,
+%numbers=left,
+%numbersep=4pt,
+%numberstyle=\sf\scriptsize,
 commentstyle=\sf\scriptsize,
 basicstyle=\sf\scriptsize,
-frame=leftline,
+%frame=leftline,
 escapeinside=``,
 extendedchars=false
 }

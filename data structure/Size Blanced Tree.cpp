@@ -1,58 +1,19 @@
 template<class Tp>class sbt
 {
     public:
-        inline void init()
-        {
-            rt=cnt=l[0]=r[0]=sz[0]=0;
-        }
-        inline void ins(const Tp &a)
-        {
-            ins(rt,a);
-        }
-        inline void del(const Tp &a)
-        {
-            del(rt,a);
-        }
-        inline bool find(const Tp &a)
-        {
-            return find(rt,a);
-        }
-        inline Tp pred(const Tp &a)
-        {
-            return pred(rt,a);
-        }
-        inline Tp succ(const Tp &a)
-        {
-            return succ(rt,a);
-        }
-        inline bool empty()
-        {
-            return !sz[rt];
-        }
-        inline Tp min()
-        {
-            return min(rt);
-        }
-        inline Tp max()
-        {
-            return max(rt);
-        }
-        inline void delsmall(const Tp &a)
-        {
-            dels(rt,a);
-        }
-        inline int rank(const Tp &a)
-        {
-            return rank(rt,a);
-        }
-        inline Tp sel(const int &a)
-        {
-            return sel(rt,a);
-        }
-        inline Tp delsel(int a)
-        {
-            return delsel(rt,a);
-        }
+        inline void init() { rt=cnt=l[0]=r[0]=sz[0]=0; }
+        inline void ins(const Tp &a) { ins(rt,a); }
+        inline void del(const Tp &a) { del(rt,a); }
+        inline bool find(const Tp &a) { return find(rt,a); }
+        inline Tp pred(const Tp &a) { return pred(rt,a); }
+        inline Tp succ(const Tp &a) { return succ(rt,a); }
+        inline bool empty() { return !sz[rt]; }
+        inline Tp min() { return min(rt); }
+        inline Tp max() { return max(rt); }
+        inline void delsmall(const Tp &a) { dels(rt,a); }
+        inline int rank(const Tp &a) { return rank(rt,a); }
+        inline Tp sel(const int &a) { return sel(rt,a); }
+        inline Tp delsel(int a) { return delsel(rt,a); }
     private:
         int cnt,rt,l[MAXX],r[MAXX],sz[MAXX];
         Tp val[MAXX];
@@ -181,15 +142,13 @@ template<class Tp>class sbt
         {
             if(l[pos])
                 return min(l[pos]);
-            else
-                return val[pos];
+            return val[pos];
         }
         Tp max(int &pos)
         {
             if(r[pos])
                 return max(r[pos]);
-            else
-                return val[pos];
+            return val[pos];
         }
         void dels(int &pos,const Tp &v)
         {

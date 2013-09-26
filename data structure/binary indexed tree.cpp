@@ -1,16 +1,11 @@
 int tree[MAXX];
 
-inline int lowbit(const int &a)
-{
-    return a&-a;
-}
-
 inline void update(int pos,const int &val)
 {
     while(pos<MAXX)
     {
         tree[pos]+=val;
-        pos+=lowbit(pos);
+        pos+=pos&-pos;
     }
 }
 
@@ -20,7 +15,7 @@ inline int read(int pos)
     while(pos>0)
     {
         re+=tree[pos];
-        pos-=lowbit(pos);
+        pos-=pos&-pos;
     }
     return re;
 }

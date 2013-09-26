@@ -30,28 +30,7 @@ struct pv
     {
         return hypot(x,y);
     }
-    inline pv rotate(pv p,double theta)
-    {
-        static pv v;
-        v=*this-p;
-        static double c,s;
-        c=cos(theta);
-        s=sin(theta);
-        return pv(p.x+v.x*c-v.y*s,p.y+v.x*s+v.y*c);
-    }
 };
-
-pv rotate(pv v,pv p,double theta,double sc=1) // rotate vector v, `$\theta\in  [0,2\pi]$`
-{
-    static pv re;
-    re=p;
-    v=v-p;
-    p.x=sc*cos(theta);
-    p.y=sc*sin(theta);
-    re.x+=v.x*p.x-v.y*p.y;
-    re.y+=v.x*p.y+v.y*p.x;
-    return re;
-}
 
 struct line
 {
@@ -102,6 +81,7 @@ inline bool cmp(const Point& a,const Point& b)
 //graham
 inline bool com(const pv &a,const pv &b)
 {
+    static double t;
     if(fabs(t=(a-pnt[0]).cross(b-pnt[0]))>eps)
         return t>0;
     return (a-pnt[0]).len()<(b-pnt[0]).len();

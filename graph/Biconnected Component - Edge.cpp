@@ -118,12 +118,6 @@ int main()
                 set[belong[i]].insert(belong[to[j]]);
         for(i=1;i<=bcnt;++i)
             set[i].erase(i);
-        /*
-        printf("%d\n",dist[go(go(1))]);
-        for(i=1;i<=bcnt;++i)
-            printf("%d\n",dist[i]);
-        puts("");
-        */
         printf("%d\n",bcnt-1-dist[go(go(1))]);
     }
     return 0;

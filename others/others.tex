@@ -1,8 +1,12 @@
-god damn it windows:
+\subsection{Others}
+god damn it windows:\\
+\begin{lstlisting}[language=C++]
 #pragma comment(linker, "/STACK:16777216")
 #pragma comment(linker,"/STACK:102400000,102400000")
+\end{lstlisting}
 
 
+\begin{lstlisting}[language=sh]
 chmod +x [filename]
 
 while true; do
@@ -13,35 +17,45 @@ while true; do
 diff output.sol output.bf
 if [ $? -ne 0 ]; then break; fi
 done
+\end{lstlisting}
 
+enumerate all $\binom{n}{k}$:\\
+\begin{lstlisting}[language=C++]
+inline void enum(int k,int n)
+{
+    static int s,cut,j;
+    cut=(1<<n);
+    for(s=(1<<k)-1;s<cut;)
+    {
+        /*do anything, status in s*/
 
-`\begin{enumerate}
+        j=s&-s;
+        s=(s+j)|(((s^(s+j))>>2)/j);
+    }
+}
+\end{lstlisting}
+
+\begin{itemize}
 \item nothing to be afraid of, 'cause you love it. isn't it?
 \item calm\_down();calm\_down();calm\_down();
-
 \item 读完题目读完题目读完题目
-\begin{enumerate}
+\begin{itemize}
 \item 认真读题、认真读题、认真读题、认真读题、
 \item 不盲目跟版
 \item 换题/换想法
-\end{enumerate}
-
+\end{itemize}
 \item 对数/离线/hash/观察问题本身/点$\leftrightarrow$区间互转
-\begin{enumerate}
+\begin{itemize}
 \item 对数调整精度 or 将乘法转换成加法
 \item 点化区间，区间化点
-\end{enumerate}
-
+\end{itemize}
 \item 数组大小……
-
 \item 写解释器/编译器的时候别忘了负数
-\begin{enumerate}
+\begin{itemize}
 \item 还有istringstream in <sstream>
 \item 指令/函数名也可能是变量名
-\end{enumerate}
-
+\end{itemize}
 \item vector比array慢很多
 \item modPow比手写快速幂慢很多
 \item 对于bool数组，memset快8倍
-\end{enumerate}
-`
+\end{itemize}

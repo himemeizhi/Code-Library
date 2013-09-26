@@ -49,7 +49,7 @@ inline bool go()
         if(p[k].empty())
             break;
     }
-    //结果在p[k]中
+    //`结果在p[k]中`
     return p[k].empty();
 }
 
@@ -88,47 +88,48 @@ int main()
     //结果在p[j]中
 }
 
-//mrzy
-
-bool HPIcmp(Line a, Line b)
+struct hp
 {
-    if (fabs(a.k - b.k) > eps)  
-        return a.k < b.k;
-    return ((a.s - b.s) * (b.e-b.s)) < 0;
-}
+    pv p,v; // from point p with vector v, left of it
+    double k;
+    hp(){}
+    hp(const pv &i,const pv &j):p(i),v(j),k(atan2(j.y,j.x)){}
+    bool operator<(const hp &i)const { return k<i.k; }
+    bool onleft(const pv &pnt)const { return v.cross(pnt-p)>=0;}//>eps; }
+    pv ins(const hp &b)const { return p+v*(b.v.cross(p-b.p)/v.cross(b.v)); } //line-line intersection
+};
+std::vector<hp>ln(MAXX);
 
-Line Q[100];
-
-void HPI(Line line[], int n, Point res[], int &resn)
+inline void hpi(std::vector<hp>&l,std::vector<pv>&ot)
 {
-    int tot = n;
-    std::sort(line, line + n, HPIcmp);
-    tot = 1;
-    for (int i = 1; i < n; i++)
-        if (fabs(line[i].k - line[i - 1].k) > eps)
-            line[tot++] = line[i];
-    int head = 0, tail = 1;
-    Q[0] = line[0];
-    Q[1] = line[1];
-    resn = 0;
-    for (int i = 2; i < tot; i++)
+    static hp q[MAXX];
+    static pv p[MAXX];
+    static int i,qh,qt;
+    ot.resize(0);
+    std::sort(l.begin(),l.end());
+    q[qh=qt=0]=l[0];
+    for(i=0;i<l.size();++i)
     {
-        if (fabs((Q[tail].e-Q[tail].s)*(Q[tail - 1].e-Q[tail - 1].s)) < eps || fabs((Q[head].e-Q[head].s)*(Q[head + 1].e-Q[head + 1].s)) < eps)
-            return;
-        while (head < tail && (((Q[tail]&Q[tail - 1]) - line[i].s) * (line[i].e-line[i].s)) > eps)
-            --tail;
-        while (head < tail && (((Q[head]&Q[head + 1]) - line[i].s) * (line[i].e-line[i].s)) > eps)
-            ++head;
-        Q[++tail] = line[i];
+        while(qh<qt && !l[i].onleft(p[qt-1]))
+            --qt;
+        while(qh<qt && !l[i].onleft(p[qh]))
+            ++qh;
+        q[++qt]=l[i];
+        if(fabs(q[qt].v.cross(q[qt-1].v))<eps)
+        {
+            --qt;
+            if(q[qt].onleft(l[i].p))
+                q[qt]=l[i];
+        }
+        if(qh<qt)
+            p[qt-1]=q[qt].ins(q[qt-1]);
     }
-    while (head < tail && (((Q[tail]&Q[tail - 1]) - Q[head].s) * (Q[head].e-Q[head].s)) > eps)
-        tail--;
-    while (head < tail && (((Q[head]&Q[head + 1]) - Q[tail].s) * (Q[tail].e-Q[tail].s)) > eps)
-        head++;
-    if (tail <= head + 1) 
+    while(qh<qt && !q[qh].onleft(p[qt-1]))
+        --qt;
+    if(qh>=qt)
         return;
-    for (int i = head; i < tail; i++)
-        res[resn++] = Q[i] & Q[i + 1];
-    if (head < tail + 1)
-        res[resn++] = Q[head] & Q[tail];
+    if(qh<qt)
+        p[qt]=q[qh].ins(q[qt]);
+    for(i=qh;i<=qt;++i)
+        ot.push_back(p[i]);
 }

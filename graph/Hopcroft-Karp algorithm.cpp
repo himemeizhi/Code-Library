@@ -1,15 +1,3 @@
-#include<cstdio>
-#include<cstring>
-
-#define MAXX 50111
-#define MAX 150111
-
-int nx,p;
-int i,j,k;
-int x,y;
-int ans;
-bool flag;
-
 int edge[MAXX],nxt[MAX],to[MAX],cnt;
 
 int cx[MAXX],cy[MAXX];
@@ -34,16 +22,13 @@ bool ag(int i)
     return false;
 }
 
-int main()
+inline int go(int nx)
 {
-    scanf("%d %*d %d",&nx,&p);
-    while(p--)
-    {
-        scanf("%d %d",&i,&j);
-        nxt[++cnt]=edge[i];
-        edge[i]=cnt;
-        to[cnt]=j;
-    }
+    static int i,j,k;
+    static int x,y;
+    static int ans;
+    static bool flag;
+
     memset(cx,-1,sizeof cx);
     memset(cy,-1,sizeof cy);
     while(true)
@@ -75,6 +60,5 @@ int main()
             if(cx[i]==-1 && ag(i))
                 ++ans;
     }
-    printf("%d\n",ans);
-    return 0;
+    return ans;
 }

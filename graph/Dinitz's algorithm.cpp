@@ -1,9 +1,3 @@
-#include<cstdio>
-#include<algorithm>
-#include<cstring>
-
-#define MAXX 111
-#define MAXM (MAXX*MAXX*4)
 #define inf 0x3f3f3f3f
 
 int n;
@@ -52,64 +46,18 @@ int dfs(int now,int maxcap)
     return maxcap-flow;
 }
 
-int nc,np,m,i,j,k;
-int ans;
-
-int main()
+inline int go()
 {
-    while(scanf("%d %d %d %d",&n,&np,&nc,&m)!=EOF)
+    static int ans;
+    ans=0;
+    while(bfs())
     {
-        cnt=0;
-        memset(edge,-1,sizeof edge);
-        while(m--)
-        {
-            while(getchar()!='(');
-            scanf("%d",&i);
-            while(getchar()!=',');
-            scanf("%d",&j);
-            while(getchar()!=')');
-            scanf("%d",&k);
-            if(i!=j)
-            {
-                ++i;
-                ++j;
-                add(i,j,k);
-                add(j,i,0);
-            }
-        }
-        source=++n;
-        while(np--)
-        {
-            while(getchar()!='(');
-            scanf("%d",&i);
-            while(getchar()!=')');
-            scanf("%d",&j);
-            ++i;
-            add(source,i,j);
-            add(i,source,0);
-        }
-        sink=++n;
-        while(nc--)
-        {
-            while(getchar()!='(');
-            scanf("%d",&i);
-            while(getchar()!=')');
-            scanf("%d",&j);
-            ++i;
-            add(i,sink,j);
-            add(sink,i,0);
-        }
-        ans=0;
-        while(bfs())
-        {
-            memcpy(w,edge,sizeof edge);
-            ans+=dfs(source,inf);
-            /*
-            while((k=dfs(source,inf)))
-                ans+=k;
-                */
-        }
-        printf("%d\n",ans);
+        memcpy(w,edge,sizeof edge);
+        ans+=dfs(source,inf);
+        /*
+           while((k=dfs(source,inf)))
+           ans+=k;
+           */
     }
-    return 0;
+    return ans;
 }

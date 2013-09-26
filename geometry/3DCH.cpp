@@ -10,94 +10,58 @@
 struct pv
 {
     double x,y,z;
-    pv(){}
-    pv(const double &xx,const double &yy,const double &zz):x(xx),y(yy),z(zz){}
-    inline pv operator-(const pv &i)const
-    {
-        return pv(x-i.x,y-i.y,z-i.z);
-    }
-    inline pv operator+(const pv &i)const
-    {
-        return pv(x+i.x,y+i.y,z+i.z);
-    }
-    inline pv operator+=(const pv &i)
-    {
-        x+=i.x;
-        y+=i.y;
-        z+=i.z;
-        return *this;
-    }
-    inline pv operator*(const pv &i)const //叉积
-    {
-        return pv(y*i.z-z*i.y,z*i.x-x*i.z,x*i.y-y*i.x);
-    }
-    inline pv operator*(const double a)const
-    {
-        return pv(x*a,y*a,z*a);
-    }
-    inline double operator^(const pv &i)const //点积
-    {
-        return x*i.x+y*i.y+z*i.z;
-    }
-    inline double len()
-    {
-        return sqrt(x*x+y*y+z*z);
-    }
+    pv(double a=0,double b=0,double c=0):x(a),y(b),z(c){}
+    pv operator-(const pv &i)const { return pv(x-i.x,y-i.y,z-i.z); }
+    pv operator+(const pv &i)const { return pv(x+i.x,y+i.y,z+i.z); }
+    pv operator*(double a)const{return pv(x*a,y*a,z*a);}
+    pv cross(const pv &i)const{return pv(y*i.z-z*i.y,z*i.x-x*i.z,x*i.y-y*i.x);}
+    double dot(const pv &i)const{return x*i.x+y*i.y+z*i.z;}
+    pv operator*(const pv &i)const{return cross(i);}
+    double operator^(const pv &i)const{return dot(i);}
+    double len()const{return sqrt(x*x+y*y+z*z);}
 };
 
 struct pla
 {
-    short a,b,c;
+    int a,b,c;
     bool ok;
-    pla(){}
-    pla(const short &aa,const short &bb,const short &cc):a(aa),b(bb),c(cc),ok(true){}
-    inline void set();
-    inline void print()
-    {
-        printf("%hd %hd %hd\n",a,b,c);
-    }
+    pla(int aa=0,int bb=0,int cc=0):a(aa),b(bb),c(cc),ok(true){}
+    void set();
 };
 
-pv pnt[MAXX];
-std::vector<pla>fac;
+std::vector<pla>fac(MAXX*MAXX);
 int to[MAXX][MAXX];
 
-inline void pla::set()
-{
-    to[a][b]=to[b][c]=to[c][a]=fac.size();
-}
+inline void pla::set(){to[a][b]=to[b][c]=to[c][a]=fac.size();}
 
-inline double ptof(const pv &p,const pla &f) //点面距离?
-{
-    return (pnt[f.b]-pnt[f.a])*(pnt[f.c]-pnt[f.a])^(p-pnt[f.a]);
-}
-
-inline double vol(const pv &a,const pv &b,const pv &c,const pv &d)//有向体积*6，即六面体体积
+inline double vol(const pv &a,const pv &b,const pv &c,const pv &d)
 {
     return (b-a)*(c-a)^(d-a);
 }
-
-inline double ptof(const pv &p,const short &f) //p点到f号面的距离
+inline double ptof(const pv &p,const pla &f)
 {
-    return fabs(vol(pnt[fac[f].a],pnt[fac[f].b],pnt[fac[f].c],p)/((pnt[fac[f].b]-pnt[fac[f].a])*(pnt[fac[f].c]-pnt[fac[f].a])).len());
+    return vol(pnt[f.a],pnt[f.b],pnt[f.c],p);
+}
+inline double ptof(const pv &p,int f)
+{
+    return fabs(ptof(p,fac[f])/((pnt[fac[f].b]-pnt[fac[f].a])*(pnt[fac[f].c]-pnt[fac[f].a])).len());
 }
 
-void dfs(const short&,const short&);
-
-void deal(const short &p,const short &a,const short &b)
+void dfs(int,int);
+void deal(int p,int a,int b)
 {
-    if(fac[to[a][b]].ok)
-        if(ptof(pnt[p],fac[to[a][b]])>eps)
-            dfs(p,to[a][b]);
-        else
-        {
-            pla add(b,a,p);
-            add.set();
-            fac.push_back(add);
-        }
+    if(!fac[to[a][b]].ok)
+        return;
+    if(ptof(pnt[p],fac[to[a][b]])>eps)
+        dfs(p,to[a][b]);
+    else
+    {
+        pla add(p,b,a);
+        add.set();
+        fac.push_back(add);
+    }
 }
-
-void dfs(const short &p,const short &now)
+void dfs(int p,int now)
 {
     fac[now].ok=false;
     deal(p,fac[now].b,fac[now].a);
@@ -105,9 +69,9 @@ void dfs(const short &p,const short &now)
     deal(p,fac[now].a,fac[now].c);
 }
 
-inline void make(int n)
+inline void make(const int n)
 {
-    static int i,j;
+    static int i,j,m;
     fac.resize(0);
     if(n<4)
         return;
@@ -120,7 +84,6 @@ inline void make(int n)
         }
     if(i==n)
         return;
-
     for(i=2;i<n;++i)
         if(((pnt[0]-pnt[1])*(pnt[1]-pnt[i])).len()>eps)
         {
@@ -129,7 +92,6 @@ inline void make(int n)
         }
     if(i==n)
         return;
-
     for(i=3;i<n;++i)
         if(fabs((pnt[0]-pnt[1])*(pnt[1]-pnt[2])^(pnt[2]-pnt[i]))>eps)
         {
@@ -154,10 +116,9 @@ inline void make(int n)
                 dfs(i,j);
                 break;
             }
-
-    short tmp(fac.size());
+    m=fac.size();
     fac.resize(0);
-    for(i=0;i<tmp;++i)
+    for(i=0;i<m;++i)
         if(fac[i].ok)
             fac.push_back(fac[i]);
 }

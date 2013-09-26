@@ -1,105 +1,102 @@
-#include<cstdio>
-#include<cstring>
-#include<algorithm>
+#define MAXN 55
+#define MAXM 55
+#define MAXX (MAXN*MAXM)
 
-#define MAXN 110
-#define MAXM 1000000
-#define INF 0x7FFFFFFF
+int cnt;
+int l[MAXX],r[MAXX],u[MAXX],d[MAXX],ch[MAXX];
+int hd[MAXN],sz[MAXM];
 
-using namespace std;
-
-int G[MAXN][MAXN];
-int L[MAXM], R[MAXM], U[MAXM], D[MAXM];
-int size, ans, S[MAXM], H[MAXM], C[MAXM];
-bool vis[MAXN * 100];
-void Link(int r, int c)
+inline void init(int m)
 {
-    U[size] = c;
-    D[size] = D[c];
-    U[D[c]] = size;
-    D[c] = size;
-    if (H[r] < 0)
-        H[r] = L[size] = R[size] = size;
+    static int i;
+    for(i=0;i<=m;++i)
+    {
+        r[i]=i+1;
+        l[i+1]=i;
+        u[i]=d[i]=i;
+        sz[i]=0;
+    }
+    r[m]=0;
+    cnt=m;
+}
+
+inline void link(int x,int y)
+{
+    ++cnt;
+    d[cnt]=d[y];
+    u[cnt]=y;
+    u[d[y]]=cnt;
+    d[y]=cnt;
+    if(hd[x]==-1)
+        hd[x]=l[cnt]=r[cnt]=cnt;
     else
     {
-        L[size] = H[r];
-        R[size] = R[H[r]];
-        L[R[H[r]]] = size;
-        R[H[r]] = size;
+        l[cnt]=hd[x];
+        r[cnt]=r[hd[x]];
+        l[r[hd[x]]]=cnt;
+        r[hd[x]]=cnt;
     }
-    S[c]++;
-    C[size++] = c;
+    ++sz[y];
+    ch[cnt]=y;
 }
-void Remove(int c)
+
+inline void rm(int c)
 {
-    int i;
-    for (i = D[c]; i != c; i = D[i])
+    static int i;
+    for(i=d[c];i!=c;i=d[i])
     {
-        L[R[i]] = L[i];
-        R[L[i]] = R[i];
+        r[l[i]]=r[i];
+        l[r[i]]=l[i];
     }
 }
-void Resume(int c)
+
+inline void add(int c)
 {
-    int i;
-    for (i = D[c]; i != c; i = D[i])
-        L[R[i]] = R[L[i]] = i;
+    static int i;
+    for(i=d[c];i!=c;i=d[i])
+        r[l[i]]=l[r[i]]=i;
 }
-int A()
+
+int K; // can't select more than K rows
+
+inline int A()
 {
-    int i, j, k, res;
-    memset(vis, false, sizeof(vis));
-    for (res = 0, i = R[0]; i; i = R[i])
-    {
-        if (!vis[i])
+    static int i,j,k,re;
+    static bool done[MAXM];
+    re=0;
+    memset(done,0,sizeof done);
+    for(i=r[0];i;i=r[i])
+        if(!done[i])
         {
-            res++;
-            for (j = D[i]; j != i; j = D[j])
-            {
-                for (k = R[j]; k != j; k = R[k])
-                    vis[C[k]] = true;
-            }
+            ++re;
+            for(j=d[i];j!=i;j=d[j])
+                for(k=r[j];k!=j;k=r[k])
+                    done[ch[k]]=true;
+        }
+    return re;
+}
+
+bool dlx(int now)
+{
+    if(!r[0])
+        return true;
+    if(now+A()<=K)
+    {
+        int i,j,c;
+        for(i=c=r[0];i;i=r[i])
+            if(sz[i]<sz[c])
+                c=i;
+        for(i=d[c];i!=c;i=d[i])
+        {
+            rm(i);
+            for(j=r[i];j!=i;j=r[j])
+                rm(j);
+            if(dlx(now+1))
+                return true;
+            for(j=l[i];j!=i;j=l[j])
+                add(j);
+            add(i);
         }
     }
-    return res;
-}
-void Dance(int now)
-{
-    if (R[0] == 0)
-        ans = min(ans, now);
-    else if (now + A() < ans)
-    {
-        int i, j, temp, c;
-        for (temp = INF,i = R[0]; i; i = R[i])
-        {
-            if (temp > S[i])
-            {
-                temp = S[i];
-                c = i;
-            }
-        }
-        for (i = D[c]; i != c; i = D[i])
-        {
-            Remove(i);
-            for (j = R[i]; j != i; j = R[j])
-                Remove(j);
-            Dance(now + 1);
-            for (j = L[i]; j != i; j = L[j])
-                Resume(j);
-            Resume(i);
-        }
-    }
-}
-void Init(int m)
-{
-    int i;
-    for (i = 0; i <= m; i++)
-    {
-        R[i] = i + 1;
-        L[i + 1] = i;
-        U[i] = D[i] = i;
-        S[i] = 0;
-    }
-    R[m] = 0;
-    size = m + 1;
+    return false;
 }
