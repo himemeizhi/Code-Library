@@ -9,10 +9,13 @@ f.write("""\documentclass[a4paper,5pt,twocolumn,titlepage]{article}
 \\titleformat*{\section}{\sf}
 \\titleformat*{\subsection}{\sf}
     
-%\setsansfont{Inconsolata}
 %\setsansfont{DejaVu Sans Mono}
 \setsansfont{Source Code Pro}
 %\setsansfont{Monaco}
+%\setsansfont{Liberation Mono}
+%\setsansfont{Luxi Mono}
+%\setsansfont{Ubuntu Mono}
+%\setsansfont{Droid Sans Mono}
 
 \usepackage{tocloft}
 \\renewcommand\cftsecfont{\sf}

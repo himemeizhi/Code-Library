@@ -26,7 +26,7 @@ $\tan{\frac{\alpha}{2}}\tan{\frac{\beta}{2}}+\tan{\frac{\beta}{2}}\tan{\frac{\ga
 $\sin^2{\frac{\alpha}{2}}+\sin^2{\frac{\beta}{2}}+\sin^2{\frac{\gamma}{2}}+2\sin{\frac{\alpha}{2}}\sin{\frac{\beta}{2}}\sin{\frac{\gamma}{2}}=1$\\
 \\
 Circumscribed circle:\\
-$diameter = \frac{abc}{2\cdot\text{area}} = \frac{|AB| |BC| |CA|}{2|\Delta ABC|} \\\\
+$diameter = \frac{abc}{2\cdot\text{area}} = \frac{|AB| |BC| |CA|}{2|\triangle ABC|} \\\\
          = \frac{abc}{2\sqrt{s(s-a)(s-b)(s-c)}}\\\\
          = \frac{2abc}{\sqrt{(a+b+c)(-a+b+c)(a-b+c)(a+b-c)}}$\\
 $diameter=\sqrt{\frac{2 \cdot \text{area}}{\sin A \sin B \sin C}}$\\
@@ -42,22 +42,22 @@ radius[b]=$\frac{2\times area}{a+c-b}$\\
 radius[c]=$\frac{2\times area}{a+b-c}$\\
 \\
 Steiner circumellipse (least area circumscribed ellipse)\\
-    area=$\Delta \times \frac{4\pi}{3\sqrt{3}}$\\
+    area=$\triangle \times \frac{4\pi}{3\sqrt{3}}$\\
     center is the triangle's centroid.\\
 \\
 Steiner inellipse ( maximum area inellipse )\\
-    area=$\Delta \times \frac{\pi}{3\sqrt{3}}$\\
+    area=$\triangle \times \frac{\pi}{3\sqrt{3}}$\\
     center is the triangle's centroid.\\
 \\
 Fermat Point:
-\begin{enumerate}
+\begin{itemize}
 \item 当有一个内角不小于120°时，费马点为此角对应顶点。
 \item 当三角形的内角都小于120°
 \begin{enumerate}
-\item 以三角形的每一边为底边，向外做三个正三角形$\Delta$ABC'，$\Delta$BCA'，$\Delta$CAB'。
+\item 以三角形的每一边为底边，向外做三个正三角形$\triangle ABC'$，$\triangle BCA'$，$\triangle CAB'$。
 \item 连接CC'、BB'、AA'，则三条线段的交点就是所求的点。
 \end{enumerate}
-\end{enumerate}
+\end{itemize}
 
 \subsubsection{Ellipse}
 $\frac{(x-h)^2}{a^2} + \frac{(y-k)^2}{b^2} = 1$\\
@@ -95,6 +95,107 @@ inline double circumference(double a,double b) // accuracy: pow(0.5,53);
 }
 \end{lstlisting}
 
+\subsubsection{Summaries}
+\begin{itemize}
+\item 三角形
+\begin{itemize}
+\item 半周长$P=\frac{a+b+c}{2}$
+\item 面积$S=\frac{aH}{2}=\frac{ab\sin(C)}{2}=\sqrt{P\times (P-a)\times (P-b)\times (P-c)}$
+\item 中线$Ma=\frac{\sqrt{2(b^2+c^2)-a^2}}{2}=\frac{\sqrt{b^2+c^2+2bc\cos(A)}}{2}$
+\item 角平分线$Ta=\frac{\sqrt{bc((b+c)^2-a^2)}}{b+c}=\frac{2bc\cos(\frac{A}{2})}{b+c}$
+\item 高线$Ha=b\sin(C)=c\sin(B)=\sqrt{b^2-{\frac{a^2+b^2-c^2}{2a}}^2}$
+\item 内切圆半径$r=\frac{S}{P}=\frac{\arcsin(\frac{B}{2})\sin(\frac{C}{2})}{\sin(\frac{B+C}{2})}=4R\sin(\frac{A}{2})\sin(\frac{B}{2})\sin(\frac{C}{2})=\sqrt{\frac{(P-a)(P-b)(P-c)}{P}}=P\tan(\frac{A}{2})\tan(\frac{B}{2})\tan(\frac{C}{2})$
+\item 外接圆半径$R=\frac{abc}{4S}=\frac{a}{2\sin(A)}=\frac{b}{2\sin(B)}=\frac{c}{2\sin(C)}$
+\end{itemize}
+\item 四边形\\
+D1,D2 为对角线,M 对角线中点连线,A 为对角线夹角
+\begin{itemize}
+\item $a^2+b^2+c^2+d^2={D_1}^2+{D_2}^2+4M^2$
+\item $S=\frac{D_1D_2\sin(A)}{2}$
+\end{itemize}
+(以下对圆的内接四边形)
+\begin{itemize}
+\item $ac+bd=D_1D_2$
+\item $S=\sqrt{(P-a)(P-b)(P-c)(P-d)}$,P 为半周长
+\end{itemize}
+\item 正n 边形\\
+R 为外接圆半径,r 为内切圆半径
+\begin{itemize}
+\item 中心角$A=\frac{2\pi}{n}$
+\item 内角$C=(n-2)\frac{\pi}{n}$
+\item 边长$a=2\sqrt{R^2-r^2}=2R\sin(\frac{A}{2})=2r\tan(\frac{A}{2})$
+\item 面积$S=\frac{nar}{2}=nr^2\tan(\frac{A}{2})=\frac{nR^2\sin(A)}{2}=\frac{na^2}{4\tan(\frac{A}{2})}$
+\end{itemize}
+\item 圆
+\begin{itemize}
+\item 弧长$l=rA$
+\item 弦长$a=2\sqrt{2hr-h^2}=2r\sin(\frac{A}{2})$
+\item 弓形高$h=r-\sqrt{r^2-\frac{a^2}{4}}=r(1-\cos(\frac{A}{2}))=\frac{\arctan(\frac{A}{4})}{2}$
+\item 扇形面积$S1=\frac{rl}{2}=\frac{r^2A}{2}$
+\item 弓形面积$S2=\frac{rl-a(r-h)}{2}=\frac{r^2(A-\sin(A))}{2}$
+\end{itemize}
+\item 棱柱
+\begin{itemize}
+\item 体积$V=Ah$,A 为底面积,h 为高
+\item 侧面积$S=lp$,l 为棱长,p 为直截面周长
+\item 全面积$T=S+2A$
+\end{itemize}
+\item 棱锥
+\begin{itemize}
+\item 体积$V=\frac{Ah}{3}$,A 为底面积,h 为高
+\end{itemize}
+(以下对正棱锥)
+\begin{itemize}
+\item 侧面积$S=\frac{lp}{2}$,l 为斜高,p 为底面周长
+\item 全面积$T=S+A$
+\end{itemize}
+\item 棱台
+\begin{itemize}
+\item 体积$V=(A_1+A_2+\sqrt{A_1A_2})\frac{h}{3}$,A1.A2 为上下底面积,h 为高
+\end{itemize}
+(以下为正棱台)
+\begin{itemize}
+\item 侧面积$S=\frac{(p_{1}+p_{2})l}{2}$,p1,p2 为上下底面周长,l 为斜高
+\item 全面积$T=S+A_1+A_2$
+\end{itemize}
+\item 圆柱
+\begin{itemize}
+\item 侧面积$S=2\pi rh$
+\item 全面积$T=2\pi r(h+r)$
+\item 体积$V=\pi r^2h$
+\end{itemize}
+\item 圆锥
+\begin{itemize}
+\item 斜高$l=\sqrt{h^2+r^2}$
+\item 侧面积$S=\pi rl$
+\item 全面积$T=\pi r(l+r)$
+\item 体积$V=\pi r^2\frac{h}{3}$
+\end{itemize}
+\item 圆台
+\begin{itemize}
+\item 母线$l=\sqrt{h^2+(r_1-r_2)^2}$
+\item 侧面积$S=\pi(r_1+r_2)l$
+\item 全面积$T=\pi r_1(l+r_1)+\pi r_2(l+r_2)$
+\item 体积$V=\pi({r_1}^2+{r_2}^2+{r_1}{r_2})\frac{h}{3}$
+\end{itemize}
+\item 球
+\begin{itemize}
+\item 全面积$T=4\pi r^2$
+\item 体积$V=\pi r^3\frac{4}{3}$
+\end{itemize}
+\item 球台
+\begin{itemize}
+\item 侧面积$S=2\pi rh$
+\item 全面积$T=\pi(2rh+{r_1}^2+{r_2}^2)$
+\item 体积V=$\frac{1}{6}\pi h(3({r_1}^2+{r_2}^2)+h^2)$
+\end{itemize}
+\item 球扇形
+\begin{itemize}
+\item 全面积$T=\pi r(2h+r_0)$,h 为球冠高,r0 为球冠底面半径
+\item 体积$V=\frac{2}{3}\pi r^2h$
+\end{itemize}
+\end{itemize}
+
 \subsubsection{about double}
 
 如果sqrt(a), asin(a), acos(a) 中的a是你自己算出来并传进来的，那就得小心了。如果a本来应该是0的，由于浮点误差，可能实际是一个绝对值很小的负数（比如$-1^{-12}$），这样sqrt(a)应得0的，直接因a不在定义域而出错。类似地，如果a本来应该是$\pm$1,则asin(a)、acos(a)也有可能出错。因此，对于此种函数，必需事先对a进行校正。\\
@@ -122,6 +223,26 @@ $a\geq b$ & a+eps>b\\
 \hline
 \end{tabular}
 
+\begin{tabular}{|l|l|}
+\hline
+exp & $x^e$\\
+\hline
+log & ln\\
+\hline
+log10 & $log_{10}$\\
+\hline
+ceil & smallest interger $\geq$ x (watch out x<0\\
+\hline
+floor & greatest interger $\leq$ x (watch out x<0\\
+\hline
+trunc & nearest integral value close to 0\\
+\hline
+nearybyint & round to intergral, up to fegetround\\
+\hline
+round & round with halfway cases rounded away from zero\\
+\hline
+\end{tabular}
+
 \subsubsection{trigonometric functions}
 
 \begin{tabular}{|l|l|l|}
@@ -144,28 +265,8 @@ atan2 & (y,x) & $\tan(\frac{y}{x}) \in [-\pi,+\pi]$ (watch out if x=y=0)\\
 \hline
 \end{tabular}
 
-\begin{tabular}{|l|l|}
-\hline
-exp & $x^e$\\
-\hline
-log & ln\\
-\hline
-log10 & $log_{10}$\\
-\hline
-ceil & smallest interger $\geq$ x (watch out x<0\\
-\hline
-floor & greatest interger $\leq$ x (watch out x<0\\
-\hline
-trunc & nearest integral value close to 0\\
-\hline
-nearybyint & round to intergral, up to fegetround\\
-\hline
-round & round with halfway cases rounded away from zero\\
-\hline
-\end{tabular}
-
 \subsubsection{round}
-\begin{enumerate}
+\begin{itemize}
 \item cpp:  四舍六入五留双
 \begin{enumerate}
 \item 当尾数小于或等于4时，直接将尾数舍去
@@ -174,7 +275,7 @@ round & round with halfway cases rounded away from zero\\
 \item 当尾数为5，而尾数“5”的后面还有任何不是0的数字时，无论前一位在此时为奇数还是偶数，也无论“5”后面不为0的数字在哪一位上，都应向前进一位
 \end{enumerate}
 \item java: add 0.5,then floor
-\end{enumerate}
+\end{itemize}
 
 \subsubsection{rotation matrix}
 original matrix:\\
