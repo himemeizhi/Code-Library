@@ -8,14 +8,11 @@
 \titleformat*{\section}{\sf}
 \titleformat*{\subsection}{\sf}
     
-%\setsansfont{Inconsolata}
 %\setsansfont{DejaVu Sans Mono}
 \setsansfont{Source Code Pro}
 %\setsansfont{Monaco}
 %\setsansfont{Liberation Mono}
-%\setsansfont{Linux Libertine Mono O}
 %\setsansfont{Luxi Mono}
-%\setsansfont{Monospace}
 %\setsansfont{Ubuntu Mono}
 %\setsansfont{Droid Sans Mono}
 
@@ -134,11 +131,12 @@ citecolor=black]{hyperref}
 \lstinputlisting[language=C++]{"./geometry/k-d tree.cpp"}
 \subsection{Manhattan MST}
 \lstinputlisting[language=C++]{"./geometry/manhattan mst.cpp"}
-\subsection{rotating caliper}
-\lstinputlisting[language=C++]{"./geometry/rotating caliper.cpp"}
+\input{"./geometry/others.tex"}
+\input{"./geometry/rotating caliper.tex"}
+%\subsection{rotating caliper}
+%\lstinputlisting[language=C++]{"./geometry/rotating caliper.cpp"}
 \subsection{shit}
 \lstinputlisting[language=C++]{"./geometry/shit.cpp"}
-\input{"./geometry/others.tex"}
 
 \section{Geometry/tmp}
 \subsection{test}
@@ -155,6 +153,8 @@ citecolor=black]{hyperref}
 \lstinputlisting[language=C++]{"./graph/augmenting path algorithm for maximum cardinality bipartite matching.cpp"}
 \subsection{Biconnected Component - Edge}
 \lstinputlisting[language=C++]{"./graph/biconnected component - edge.cpp"}
+\subsection{Biconnected Component - Vertex}
+\lstinputlisting[language=C++]{"./graph/biconnected component - vertex.cpp"}
 \subsection{Biconnected Component}
 \lstinputlisting[language=C++]{"./graph/biconnected component.cpp"}
 \subsection{Blossom algorithm}
@@ -169,6 +169,8 @@ citecolor=black]{hyperref}
 \input{"./graph/difference constraints.tex"}
 \subsection{Dinitz's algorithm}
 \lstinputlisting[language=C++]{"./graph/dinitz's algorithm.cpp"}
+\subsection{Eulerian path}
+\lstinputlisting[language=C++]{"./graph/eulerian path.cpp"}
 \input{"./graph/Flow network.tex"}
 \subsection{Hamiltonian circuit}
 \lstinputlisting[language=C++]{"./graph/hamiltonian circuit.cpp"}
@@ -194,7 +196,7 @@ citecolor=black]{hyperref}
 \lstinputlisting[language=C++]{"./graph/minimum-cost flow problem.cpp"}
 \subsection{Second-best MST}
 \lstinputlisting[language=C++]{"./graph/second-best mst.cpp"}
-\input{"./graph/spanning tree.tex"}
+\input{"./graph/Spanning tree.tex"}
 \subsection{Stable Marriage}
 \lstinputlisting[language=C++]{"./graph/stable marriage.cpp"}
 \subsection{Stoer-Wagner Algorithm}
@@ -225,7 +227,7 @@ citecolor=black]{hyperref}
 \lstinputlisting[language=C++]{"./math/lucas' theorem(2).cpp"}
 \subsection{Lucas' theorem}
 \lstinputlisting[language=C++]{"./math/lucas' theorem.cpp"}
-\subsection{matrix}
+\subsection{Matrix}
 \lstinputlisting[language=C++]{"./math/matrix.cpp"}
 \subsection{Pell's equation}
 \lstinputlisting[language=Java]{"./math/pell's equation.java"}
@@ -254,14 +256,14 @@ citecolor=black]{hyperref}
 \lstinputlisting[language=C++]{"./string/suffix automaton.cpp"}
 
 \section{Dynamic Programming}
-\subsection{LCS}
-\lstinputlisting[language=C++]{"./dynamic programming/lcs.cpp"}
-\subsection{LCIS}
-\lstinputlisting[language=C++]{"./dynamic programming/lcis.cpp"}
-\subsection{sequence partitioning}
-\lstinputlisting[language=C++]{"./dynamic programming/sequence partitioning.cpp"}
 \subsection{knapsack problem}
 \lstinputlisting{"./dynamic programming/knapsack problem"}
+\subsection{LCIS}
+\lstinputlisting[language=C++]{"./dynamic programming/lcis.cpp"}
+\subsection{LCS}
+\lstinputlisting[language=C++]{"./dynamic programming/lcs.cpp"}
+\subsection{sequence partitioning}
+\lstinputlisting[language=C++]{"./dynamic programming/sequence partitioning.cpp"}
 
 \section{Search}
 \subsection{dlx - exact cover}

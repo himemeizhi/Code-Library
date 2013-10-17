@@ -126,3 +126,18 @@ class frac
         System.out.println(a+"/"+b); //`printf会PE啊尼玛死……`
     }
 }
+
+//regex
+import java.util.*;
+import java.util.regex.*;
+
+class Main
+{
+    public static void main(String[] args)
+    {
+        Scanner in=new Scanner(System.in);
+        int T=in.nextInt();
+        while(T--!=0)
+            System.out.println(Pattern.compile("\\s*[+|-]?\\d+(\\.\\d+)?([E|e][+|-]?\\d+)?").matcher(in.next()).matches()?"LEGAL":"ILLEGAL");
+    }
+}

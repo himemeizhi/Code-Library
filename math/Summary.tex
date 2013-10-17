@@ -80,7 +80,7 @@ same & same & full & g[m][n]=dp[m-n][n];\\
 Wythoff's game:
         \begin{itemize}
 \item There are two piles of counters.
-\item Players take turns removing counters (at least 1 counter) from one or both piles; in the latter case, the numbers of counters removed from each pile must be equal.\\
+\item Players take turns removing counters (at least 1 counter) from one or both piles; in the latter case, the numbers of counters removed from each pile must be equal.
 \item The player who removes the last counter wins. 
     \end{itemize}
 consider the counters of status as pair (a,b) ($a\leq b$)\\
@@ -407,9 +407,84 @@ int main()
     return 0;
 }
 \end{lstlisting}
+\subsubsection{M\"{o}bius Fuction}
+\begin{itemize}
+\item $\mu$(n) = 1 if n is a square-free positive integer with an even number of prime factors.
+\item $\mu$(n) = −1 if n is a square-free positive integer with an odd number of prime factors.
+\item $\mu$(n) = 0 if n has a squared prime factor.
+\end{itemize}
+$\sum_{d | n} \mu(d) = \begin{cases}1&\mbox{ if } n=1\\
+        0&\mbox{ if } n>1.\end{cases}$
+\begin{lstlisting}[language=C++]
+int fac[MAXX],mob[MAXX];
+bool flag[MAXX];
+std::vector<int>prm(MAXX);
+void go()
+{
+    static int i,j,k;
+    prm.resize(0);
+    mob[1]=1;
+    for(i=2;i<MAXX;++i)
+    {
+        if(!flag[i])
+        {
+            prm.push_back(i);
+            mob[i]=-1;
+            fac[i]=1;
+        }
+        for(j=0;j<prm.size() && (k=i*prm[j])<MAXX;++j)
+        {
+            flag[k]=true;
+            fac[k]=fac[i]+1;
+            if(i%prm[j]==0)
+            {
+                mob[k]=0;
+                break;
+            }
+            mob[k]=-mob[i];
+        }
+    }
+}
+inline ll cal(int n,int m)// [1,n] [1,m]`之间互质的数的对数`
+{
+    static int i,j,k;
+    static ll re;
+    re=0;
+    for(i=1;i<=n;i=j+1)
+    {
+        j=std::min(n/(n/i),m/(m/i));
+        re+=(mob[j]-mob[i-1])*(n/i)*(ll)(m/i); //`mob表示前缀和`
+    }
+    return re;
+}
+\end{lstlisting}
 
 \subsubsection{Euler–Mascheroni constant}
 $\gamma = \lim\limits_{n \rightarrow \infty } \left( \sum\limits_{k=1}^n \frac{1}{k} - \ln(n) \right)=\int\limits_1^\infty\left({1\over\lfloor x\rfloor}-{1\over x}\right)\,dx$\\
 0.57721566490153286060651209008240243104215933593992...\\
 \subsubsection{Fibonacci}
 gcd(fib[i],fib[j])=fib[gcd(i,j)]\\
+$a_{n}=\frac{\sqrt{5}}{5} \cdot \left[\left(\frac{1 + \sqrt{5}}{2}\right)^{n} - \left(\frac{1 - \sqrt{5}}{2}\right)^{n}\right]$
+\subsubsection{Hensel's lemma}
+设f(x)为有整系数多项式，k为不少于2的整数，p为质数。若整数r满足:\\
+$f(r) \equiv 0 \pmod{p^{k-1}}$\\
+对于$f(r+tp^{k-1}) \equiv 0 \pmod{p^k}$\\
+则有
+\begin{itemize}
+\item 若$f'(r)\not\equiv 0\pmod{p}$，则存在唯一的整数$0\le t\le{p-1}$使上式成立
+\item 若$f'(r)\equiv 0\pmod{p}$，且$f(r)\equiv 0\pmod{p^k}$，则任意正整数t都成立
+\item 若$f'(r)\equiv 0\pmod{p}$，但$f(r)\not\equiv 0\pmod{p^k}$，则t不存在整数解
+\end{itemize}
+\subsection{Probability theory}
+\subsubsection{Dice}
+\begin{itemize}
+\item m面体骰子连续n次掷出同一数字的投掷次数期望: $\frac{m^n-1}{m-1}$
+\item m面体骰子连续n次掷出不同数字的投掷次数期望:\\
+$ans=\sum d_i$\\
+$d_{i+1}=d_i\times \frac{m}{m-i}, d_1=1$
+\end{itemize}
+
+%\subsubsection{Probability distribution}
+%\paragraph{Binomial distribution}
+%binomial distribution is the discrete probability distribution of the number of successes in a sequence of n independent yes/no experiments, each of which yields success with probability p.
+

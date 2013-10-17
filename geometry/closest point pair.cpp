@@ -8,23 +8,23 @@ double DnC(int L, int R)
 {
     if (L >= R) return 1e9; // 沒有點、只有一個點。
     
-    /* Divide：把所有點分成左右兩側，點數盡量一樣多。 */
+    /* `Divide：把所有點分成左右兩側，點數盡量一樣多。` */
     
     int M = (L + R) / 2;
     
-    /* Conquer：左側、右側分別遞迴求解。 */
+    /* `Conquer：左側、右側分別遞迴求解。` */
     
     double d = min(DnC(L,M), DnC(M+1,R));
     //  if (d == 0.0) return d; // 提早結束
     
-    /* Merge：尋找靠近中線的點，並依Y座標排序。O(NlogN)。 */
+    /* `Merge：尋找靠近中線的點，並依Y座標排序。O(NlogN)。` */
     
     int N = 0;  // 靠近中線的點數目
     for (int i=M;   i>=L && p[M].x - p[i].x < d; --i) t[N++] = p[i];
     for (int i=M+1; i<=R && p[i].x - p[M].x < d; ++i) t[N++] = p[i];
     sort(t, t+N, cmpy); // Quicksort O(NlogN)
     
-    /* Merge：尋找橫跨兩側的最近點對。O(N)。 */
+    /* `Merge：尋找橫跨兩側的最近點對。O(N)。` */
     
     for (int i=0; i<N-1; ++i)
         for (int j=1; j<=2 && i+j<N; ++j)
@@ -50,45 +50,45 @@ double DnC(int L, int R)
 {
     if (L >= R) return 1e9; // 沒有點、只有一個點。
     
-    /* Divide：把所有點分成左右兩側，點數盡量一樣多。 */
+    /* `Divide：把所有點分成左右兩側，點數盡量一樣多。` */
     
     int M = (L + R) / 2;
     
-    // 先把中線的X座標記起來，因為待會重新排序之後會跑掉。
+    // `先把中線的X座標記起來，因為待會重新排序之後會跑掉。`
     double x = p[M].x;
     
-    /* Conquer：左側、右側分別遞迴求解。 */
+    /* `Conquer：左側、右側分別遞迴求解。` */
     
-    // 遞迴求解，並且依照Y座標重新排序。
+    // `遞迴求解，並且依照Y座標重新排序。`
     double d = min(DnC(L,M), DnC(M+1,R));
     //  if (d == 0.0) return d; // 提早結束
     
-    /* Merge：尋找靠近中線的點，並依Y座標排序。O(N)。 */
+    /* `Merge：尋找靠近中線的點，並依Y座標排序。O(N)。` */
     
-    // 尋找靠近中線的點，先找左側。各點已照Y座標排序了。
+    // `尋找靠近中線的點，先找左側。各點已照Y座標排序了。`
     int N = 0;  // 靠近中線的點數目
     for (int i=0; i<=M; ++i)
         if (x - p[i].x < d)
             t[N++] = p[i];
     
-    // 尋找靠近中線的點，再找右側。各點已照Y座標排序了。
-    int P = N;  // P為分隔位置
+    // `尋找靠近中線的點，再找右側。各點已照Y座標排序了。`
+    int P = N;  // `P為分隔位置`
     for (int i=M+1; i<=R; ++i)
         if (p[i].x - x < d)
             t[N++] = p[i];
     
-    // 以Y座標排序。使用Merge Sort方式，合併已排序的兩陣列。
+    // `以Y座標排序。使用Merge Sort方式，合併已排序的兩陣列。`
     inplace_merge(t, t+P, t+N, cmpy);
     
-    /* Merge：尋找橫跨兩側的最近點對。O(N)。 */
+    /* `Merge：尋找橫跨兩側的最近點對。O(N)。` */
     
     for (int i=0; i<N; ++i)
         for (int j=1; j<=2 && i+j<N; ++j)
             d = min(d, distance(t[i], t[i+j]));
     
-    /* Merge：重新以Y座標排序所有點。O(N)。 */
+    /* `Merge：重新以Y座標排序所有點。O(N)。` */
     
-    // 如此一來，更大的子問題就可以直接使用Merge Sort。
+    // `如此一來，更大的子問題就可以直接使用Merge Sort。`
     inplace_merge(p+L, p+M+1, p+R+1, cmpy);
     
     return d;

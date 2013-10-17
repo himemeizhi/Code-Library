@@ -56,7 +56,7 @@ bool dfs(const int now)
     return true;
 }
 
-inline bool go(const int n;)
+inline bool go(const int n)
 {
     static int i;
     memset(done,0,sizeof done);

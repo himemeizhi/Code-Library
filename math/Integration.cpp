@@ -1,3 +1,5 @@
+//`平滑曲线f(x)在[a,b]区间的长度$\int_a^b {\sqrt {\left[ f'\left( x \right) \right] ^ 2 + 1} \;{\rm{d}}x}$`
+
 // `simpson公式用到的函数`
 double F(double x) {
   return sqrt(1 + 4*a*a*x*x);

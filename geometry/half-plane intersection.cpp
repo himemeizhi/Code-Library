@@ -85,7 +85,7 @@ int main()
             }
         j=!j;
     }
-    //结果在p[j]中
+    //`结果在p[j]中`
 }
 
 struct hp
